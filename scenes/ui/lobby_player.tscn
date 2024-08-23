@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3 uid="uid://chbh4lxk8rmmd"]
+
+[ext_resource type="Script" path="res://scenes/ui/lobby_player.gd" id="1_thc4c"]
+[ext_resource type="Texture2D" uid="uid://tw8t38ns0seh" path="res://icon.svg" id="2_acr8q"]
+
+[node name="LobbyPlayer" type="MarginContainer"]
+offset_right = 144.0
+offset_bottom = 46.0
+theme_type_variation = &"MarginContainerSmall"
+script = ExtResource("1_thc4c")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Name"
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = ":"
+
+[node name="Role" type="Label" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Role"
+
+[node name="Ready" type="TextureRect" parent="HBoxContainer"]
+unique_name_in_owner = true
+modulate = Color(0, 1, 0, 1)
+layout_mode = 2
+size_flags_horizontal = 10
+texture = ExtResource("2_acr8q")
+expand_mode = 3
