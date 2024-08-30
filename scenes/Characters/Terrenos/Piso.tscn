@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://dfs2y52r7ws3y"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hdk3v"]
+
+[node name="Piso" type="StaticBody3D"]
+transform = Transform3D(100, 0, 0, 0, 10, 0, 0, 0, 100, 0, 0, 0)
+
+[node name="Ground" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+shape = SubResource("BoxShape3D_hdk3v")

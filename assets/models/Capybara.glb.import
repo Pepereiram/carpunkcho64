@@ -3,7 +3,7 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://5phfxh4xewti"
+uid="uid://bmnwtk2mr2th6"
 path="res://.godot/imported/Capybara.glb-cc884ff6af64dc34ed83e6140bc8618a.scn"
 
 [deps]
@@ -13,8 +13,8 @@ dest_files=["res://.godot/imported/Capybara.glb-cc884ff6af64dc34ed83e6140bc8618a
 
 [params]
 
-nodes/root_type="CharacterBody3D"
-nodes/root_name="capibara"
+nodes/root_type=""
+nodes/root_name=""
 nodes/apply_root_scale=true
 nodes/root_scale=1.0
 nodes/import_as_skeleton_bones=false

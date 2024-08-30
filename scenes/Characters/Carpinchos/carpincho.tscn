@@ -1,17 +1,17 @@
 [gd_scene load_steps=4 format=3 uid="uid://ccoydca8h720v"]
 
-[ext_resource type="PackedScene" uid="uid://5phfxh4xewti" path="res://assets/models/Capybara.glb" id="1_y0hfs"]
+[ext_resource type="PackedScene" uid="uid://bmnwtk2mr2th6" path="res://assets/models/Capybara.glb" id="1_y0hfs"]
+[ext_resource type="Script" path="res://assets/models/capybara.gd" id="2_850ar"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_wtdii"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_mas8t"]
+size = Vector3(1.9873, 4.70874, 7.78638)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_2wdht"]
+[node name="Node3D" type="Node3D"]
 
-[node name="Carpincho" type="CharacterBody3D"]
+[node name="capibara" parent="." instance=ExtResource("1_y0hfs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.955043)
+script = ExtResource("2_850ar")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("CapsuleMesh_wtdii")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("BoxShape3D_2wdht")
-
-[node name="capibara" parent="CollisionShape3D" instance=ExtResource("1_y0hfs")]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="capibara"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0942383, 1.85437, -0.327515)
+shape = SubResource("BoxShape3D_mas8t")
