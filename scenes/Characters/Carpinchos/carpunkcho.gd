@@ -4,6 +4,11 @@ extends CharacterBody3D
 const SPEED = 10.0
 const JUMP_VELOCITY = 4.5
 
+func setup(player_data: Statics.PlayerData) -> void:
+	name = str(player_data.id)
+	set_multiplayer_authority(player_data.id)
+	
+	
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.

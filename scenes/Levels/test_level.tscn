@@ -1,24 +1,33 @@
-[gd_scene load_steps=6 format=3 uid="uid://cixie1ekxva00"]
+[gd_scene load_steps=7 format=3 uid="uid://cixie1ekxva00"]
 
 [ext_resource type="PackedScene" uid="uid://dfs2y52r7ws3y" path="res://scenes/Characters/Terrenos/Piso.tscn" id="1_m3uho"]
 [ext_resource type="PackedScene" uid="uid://c28bswxatn45f" path="res://scenes/Characters/Carpinchos/carpunkcho.tscn" id="1_r2vmm"]
+[ext_resource type="Script" path="res://scenes/Levels/test_level.gd" id="1_u0fym"]
 [ext_resource type="PackedScene" uid="uid://b8urjqyowv4hk" path="res://assets/models/Scifi Crate2.glb" id="3_wfocq"]
 [ext_resource type="PackedScene" uid="uid://crgwiyr8sdxk6" path="res://assets/models/Soldier.glb" id="4_bdg7s"]
 [ext_resource type="PackedScene" uid="uid://bome30tyl7ctv" path="res://assets/models/Sci Fi Character.glb" id="5_cxcl1"]
 
 [node name="TestLevel" type="Node3D"]
+script = ExtResource("1_u0fym")
+player_scene = ExtResource("1_r2vmm")
+
+[node name="Players" type="Node3D" parent="."]
+
+[node name="Carpunkcho" parent="Players" instance=ExtResource("1_r2vmm")]
 
 [node name="Piso" parent="." instance=ExtResource("1_m3uho")]
-
-[node name="Carpunkcho" parent="." instance=ExtResource("1_r2vmm")]
-
-[node name="Camera3D" type="Camera3D" parent="Carpunkcho"]
-transform = Transform3D(-2, -4.76296e-14, 1.74846e-07, 1.56528e-07, 0.891177, 1.79048, -7.79092e-08, 1.79048, -0.891177, 0, 25, -15)
-fov = 80.0
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.733837, 0.679326, 0, -0.679326, 0.733837, -2.99659, 10.5154, 10.3638)
 shadow_enabled = true
+
+[node name="Markers" type="Node3D" parent="."]
+
+[node name="Marker3D" type="Marker3D" parent="Markers"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 0)
+
+[node name="Marker3D2" type="Marker3D" parent="Markers"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.005, 0, 0)
 
 [node name="Root Scene" parent="." instance=ExtResource("3_wfocq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, -5, 9)
@@ -28,3 +37,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, -5, -4)
 
 [node name="Root Scene3" parent="." instance=ExtResource("5_cxcl1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, -5, 6)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-2, -4.76296e-14, 1.74846e-07, 1.56528e-07, 0.891177, 1.79048, -7.79092e-08, 1.79048, -0.891177, 0, 25, -15)
+fov = 80.0

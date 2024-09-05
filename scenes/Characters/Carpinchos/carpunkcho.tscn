@@ -8,7 +8,6 @@ size = Vector3(1.9873, 4.70874, 7.78638)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1cqqt"]
 resource_name = "Capybara_mat"
-albedo_color = Color(1, 1, 1, 1)
 albedo_texture = ExtResource("1_fsq3p")
 emission_enabled = true
 texture_filter = 2
@@ -58,3 +57,7 @@ shape = SubResource("BoxShape3D_j68rl")
 [node name="Capybara_mesh" type="MeshInstance3D" parent="."]
 mesh = SubResource("ArrayMesh_u6we3")
 skeleton = NodePath("")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-2, -4.76296e-14, 1.74846e-07, 1.56528e-07, 0.891177, 1.79048, -7.79092e-08, 1.79048, -0.891177, 0, 25, -15)
+fov = 80.0
