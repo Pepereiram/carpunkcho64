@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=4 uid="uid://c28bswxatn45f"]
+[gd_scene load_steps=10 format=4 uid="uid://c28bswxatn45f"]
 
 [ext_resource type="Script" path="res://scenes/Characters/Carpinchos/carpunkcho.gd" id="1_a83ja"]
 [ext_resource type="Texture2D" uid="uid://bp7ddjwmpeese" path="res://assets/models/Capybara_Capybara_BaseColor.png" id="1_fsq3p"]
@@ -49,6 +49,8 @@ shadow_mesh = SubResource("ArrayMesh_doy2b")
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_2t3xj"]
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_f3dxg"]
+
 [node name="Carpunkcho" type="CharacterBody3D"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 script = ExtResource("1_a83ja")
@@ -68,3 +70,6 @@ fov = 80.0
 [node name="InputSync" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_2t3xj")
 script = ExtResource("3_mo1wm")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_f3dxg")

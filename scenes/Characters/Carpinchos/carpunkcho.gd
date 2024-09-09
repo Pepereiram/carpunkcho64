@@ -1,5 +1,6 @@
 extends CharacterBody3D
 
+@export var id := 1
 const SPEED = 10.0
 const JUMP_VELOCITY = 4.5
 
@@ -9,12 +10,14 @@ var ray_target = Vector3()
 
 @onready var camara = $Camera3D
 @onready var model = $Capybara_mesh
+@onready var input_synchronizer: InputSync = $InputSync
+@onready var multiplayer_synchronizer: MultiplayerSynchronizer = $MultiplayerSynchronizer
+	
 
-func setup(player_data: Statics.PlayerData) -> void:
-	name = str(player_data.id)
-	set_multiplayer_authority(player_data.id)
+func _ready() -> void:
+	setup(id)
 	
-	
+
 func _physics_process(delta: float) -> void:
 	#obtener posicion mouse
 	var mouse_position = get_viewport().get_mouse_position()
@@ -45,13 +48,14 @@ func _physics_process(delta: float) -> void:
 		velocity += get_gravity() * delta
 
 	# Handle jump.
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
+	if Input.is_action_just_pressed("ui_accept") and is_on_floor() and input_synchronizer.jumping:
+		input_synchronizer.jumping = false
 		velocity.y = JUMP_VELOCITY
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
-	var input_dir := Input.get_vector("ui_right", "ui_left", "ui_down", "ui_up")
-	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	var move_input = input_synchronizer.move_input
+	var direction := (transform.basis * Vector3(move_input.x, 0, move_input.y)).normalized()
 	if direction:
 		velocity.x = direction.x * SPEED
 		velocity.z = direction.z * SPEED
@@ -60,3 +64,10 @@ func _physics_process(delta: float) -> void:
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 
 	move_and_slide()
+
+
+func setup(id: int) -> void:
+	set_multiplayer_authority(id, false)
+	input_synchronizer.set_multiplayer_authority(id)
+	multiplayer_synchronizer.set_multiplayer_authority(id)
+	

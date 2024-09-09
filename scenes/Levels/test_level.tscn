@@ -9,11 +9,10 @@
 
 [node name="TestLevel" type="Node3D"]
 script = ExtResource("1_u0fym")
-player_scene = ExtResource("1_r2vmm")
+player_a_scene = ExtResource("1_r2vmm")
+player_b_scene = ExtResource("1_r2vmm")
 
 [node name="Players" type="Node3D" parent="."]
-
-[node name="Carpunkcho" parent="Players" instance=ExtResource("1_r2vmm")]
 
 [node name="Piso" parent="." instance=ExtResource("1_m3uho")]
 
@@ -37,7 +36,3 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, -5, -4)
 
 [node name="Root Scene3" parent="." instance=ExtResource("5_cxcl1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, -5, 6)
-
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-2, -4.76296e-14, 1.74846e-07, 1.56528e-07, 0.891177, 1.79048, -7.79092e-08, 1.79048, -0.891177, 0, 25, -15)
-fov = 80.0
