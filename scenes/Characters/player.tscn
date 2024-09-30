@@ -1,0 +1,63 @@
+[gd_scene load_steps=12 format=3 uid="uid://ctpq2cibcn7w5"]
+
+[ext_resource type="Script" path="res://scripts/soldier.gd" id="2_6ux2i"]
+[ext_resource type="Script" path="res://scenes/Characters/Carpinchos/inputSync.gd" id="3_77ub5"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_80kuh"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_syx0w"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_yo1pd"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j0quy"]
+albedo_color = Color(0, 0.754978, 0.0684579, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_pgnko"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fkv4g"]
+albedo_color = Color(1, 1, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_xv14f"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ndx6t"]
+albedo_color = Color(0.0189402, 0.0189402, 0.0189402, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ue3v2"]
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("2_6ux2i")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-1, -1.76487e-13, 8.74226e-08, 7.8264e-08, 0.445588, 0.895238, -3.89546e-08, 0.895238, -0.445588, 0, 5.0167, -2.50532)
+fov = 58.903
+
+[node name="InputSync" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_80kuh")
+script = ExtResource("3_77ub5")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_syx0w")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_yo1pd")
+surface_material_override/0 = SubResource("StandardMaterial3D_j0quy")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D"]
+transform = Transform3D(0.259716, 0, 0, 0, 0.152577, 0, 0, 0, 0.216165, 0, 0.29753, 0.667381)
+mesh = SubResource("BoxMesh_pgnko")
+surface_material_override/0 = SubResource("StandardMaterial3D_fkv4g")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="MeshInstance3D"]
+transform = Transform3D(0.0700176, 0, 0, 0, 0.222572, 0, 0, 0, -0.132652, -0.15097, 0.507345, 0.485067)
+mesh = SubResource("SphereMesh_xv14f")
+surface_material_override/0 = SubResource("StandardMaterial3D_ndx6t")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="MeshInstance3D"]
+transform = Transform3D(0.0700176, 0, 0, 0, 0.222572, 0, 0, 0, -0.132652, 0.126021, 0.531377, 0.468866)
+mesh = SubResource("SphereMesh_xv14f")
+surface_material_override/0 = SubResource("StandardMaterial3D_ndx6t")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_ue3v2")
+
+[node name="controlPistola" type="Node" parent="."]
