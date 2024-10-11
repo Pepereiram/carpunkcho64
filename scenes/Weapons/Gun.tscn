@@ -1,4 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://coaj48u3y01sw"]
+[gd_scene load_steps=5 format=3 uid="uid://coaj48u3y01sw"]
+
+[ext_resource type="Script" path="res://scripts/gun.gd" id="1_wpah0"]
+[ext_resource type="PackedScene" uid="uid://36htldopmg6i" path="res://scenes/Weapons/bala.tscn" id="2_y32fs"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_twyxq"]
 
@@ -6,6 +9,9 @@
 albedo_color = Color(0, 0, 0, 1)
 
 [node name="Gun" type="Node3D"]
+transform = Transform3D(0.00607391, 8.92628e-05, -0.999982, 1.26342e-05, 1, 8.93412e-05, 0.999982, -1.31769e-05, 0.00607391, 0, 0, 0.356867)
+script = ExtResource("1_wpah0")
+bala = ExtResource("2_y32fs")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.59666, 0, 0, 0, 0.178531, 0, 0, 0, 0.310486, 0, 0, 0)
@@ -16,3 +22,11 @@ surface_material_override/0 = SubResource("StandardMaterial3D_ijoee")
 transform = Transform3D(0.156629, -0.215305, 0, 0.210686, 0.160063, 0, 0, 0, 0.198788, -0.238978, -0.20242, -0.00569446)
 mesh = SubResource("BoxMesh_twyxq")
 surface_material_override/0 = SubResource("StandardMaterial3D_ijoee")
+
+[node name="spawn" type="Marker3D" parent="."]
+transform = Transform3D(1, -1.81899e-12, -9.31323e-10, -2.72848e-12, 1, -1.22924e-11, -4.65661e-10, 2.23181e-11, 1, 0.299087, -0.00152231, 0.0111488)
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

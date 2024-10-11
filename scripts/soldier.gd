@@ -8,8 +8,9 @@ const JUMP_VELOCITY = 4.5
 var ray_origin = Vector3()
 var ray_target = Vector3()
 
+@onready var gun_controller = $Pistola
 @onready var camara = $Camera3D
-@onready var model = $MeshInstance3D
+@onready var model = $Cuerpo
 @onready var input_synchronizer: InputSync = $InputSync
 @onready var multiplayer_synchronizer: MultiplayerSynchronizer = $MultiplayerSynchronizer
 	
@@ -58,6 +59,10 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor() and input_synchronizer.jumping:
 		input_synchronizer.jumping = false
 		velocity.y = JUMP_VELOCITY
+
+	#disparo
+	if Input.is_action_pressed("disparar"):
+		gun_controller.shoot()
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.

@@ -1,7 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://ctpq2cibcn7w5"]
+[gd_scene load_steps=14 format=3 uid="uid://ctpq2cibcn7w5"]
 
 [ext_resource type="Script" path="res://scripts/soldier.gd" id="2_6ux2i"]
 [ext_resource type="Script" path="res://scenes/Characters/Carpinchos/inputSync.gd" id="3_77ub5"]
+[ext_resource type="Script" path="res://scripts/control_pistola.gd" id="3_d43p6"]
+[ext_resource type="PackedScene" uid="uid://coaj48u3y01sw" path="res://scenes/Weapons/Gun.tscn" id="4_aqpke"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_80kuh"]
 
@@ -38,26 +40,31 @@ script = ExtResource("3_77ub5")
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_syx0w")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="Cuerpo" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_yo1pd")
 surface_material_override/0 = SubResource("StandardMaterial3D_j0quy")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Cuerpo"]
 transform = Transform3D(0.259716, 0, 0, 0, 0.152577, 0, 0, 0, 0.216165, 0, 0.29753, 0.667381)
 mesh = SubResource("BoxMesh_pgnko")
 surface_material_override/0 = SubResource("StandardMaterial3D_fkv4g")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="MeshInstance3D"]
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Cuerpo"]
 transform = Transform3D(0.0700176, 0, 0, 0, 0.222572, 0, 0, 0, -0.132652, -0.15097, 0.507345, 0.485067)
 mesh = SubResource("SphereMesh_xv14f")
 surface_material_override/0 = SubResource("StandardMaterial3D_ndx6t")
 
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="MeshInstance3D"]
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Cuerpo"]
 transform = Transform3D(0.0700176, 0, 0, 0, 0.222572, 0, 0, 0, -0.132652, 0.126021, 0.531377, 0.468866)
 mesh = SubResource("SphereMesh_xv14f")
 surface_material_override/0 = SubResource("StandardMaterial3D_ndx6t")
 
+[node name="mano" type="Marker3D" parent="Cuerpo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.561038, 0, 0)
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_ue3v2")
 
-[node name="controlPistola" type="Node" parent="."]
+[node name="Pistola" type="Node" parent="."]
+script = ExtResource("3_d43p6")
+arma = ExtResource("4_aqpke")
