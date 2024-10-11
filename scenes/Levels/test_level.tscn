@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cixie1ekxva00"]
+[gd_scene load_steps=12 format=3 uid="uid://cixie1ekxva00"]
 
 [ext_resource type="PackedScene" uid="uid://dfs2y52r7ws3y" path="res://scenes/Characters/Terrenos/Piso.tscn" id="1_m3uho"]
 [ext_resource type="PackedScene" uid="uid://c28bswxatn45f" path="res://scenes/Characters/Carpinchos/carpunkcho.tscn" id="1_r2vmm"]
@@ -6,6 +6,23 @@
 [ext_resource type="PackedScene" uid="uid://b8urjqyowv4hk" path="res://assets/models/Scifi Crate2.glb" id="3_wfocq"]
 [ext_resource type="PackedScene" uid="uid://crgwiyr8sdxk6" path="res://assets/models/Soldier.glb" id="4_bdg7s"]
 [ext_resource type="PackedScene" uid="uid://bome30tyl7ctv" path="res://assets/models/Sci Fi Character.glb" id="5_cxcl1"]
+[ext_resource type="PackedScene" uid="uid://c4ouk408njfmk" path="res://scenes/Characters/Carpinchos/enemy_capy_1.tscn" id="7_e0hsy"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_o25u8"]
+vertices = PackedVector3Array(-3, -4.5, -1.5, -3, -4.5, -4.75, -4.5, -4.5, -4.75, -5, -4.5, -5.25, -10.25, -4.5, -1.5, -49.5, -4.5, 0.25, -5, -4.5, -8, -3, -4.5, -49.5, -49.5, -4.5, -49.5, -10.5, -4.5, 0.25, -4.5, -4.5, -8.5, -3, -4.5, -8.5, -1.75, -4.5, -4.75, -1.25, -4.5, -5.25, 10.5, -4.5, -1.5, -1.75, -4.5, -8.5, -1.25, -4.5, -8, 49.5, -4.5, 0, 49.5, -4.5, -49.5, 10.75, -4.5, 0, -3.75, -2, -7.25, -4, -2, -6.25, -4, -2, -5.75, -2.25, -2, -5.75, -2.5, -2, -7.25, -3.5, -4.25, -7, -3.5, -4.25, -6.25, -2.75, -4.25, -6.25, -2.75, -4.25, -7, -9.5, 0, -0.5, -9.5, 0, 0.5, 9.5, 0, 0.5, 9.5, 0, -0.5, -9.25, -4.5, -0.25, -9.25, -4.5, 0.5, 9.5, -4.5, 0.5, 9.5, -4.5, -0.25, 10.75, -4.5, 1.25, 10.25, -4.5, 1.75, 9, -4.5, 49.5, 49.5, -4.5, 49.5, 8.75, -4.5, 1.75, -10.25, -4.5, 1.75, -49.5, -4.5, 49.5, -9, -4.5, 49.5, -8.75, -4.5, 1.75)
+polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(2, 0, 3), PackedInt32Array(3, 0, 4), PackedInt32Array(4, 5, 6), PackedInt32Array(6, 5, 7), PackedInt32Array(7, 5, 8), PackedInt32Array(6, 3, 4), PackedInt32Array(4, 9, 5), PackedInt32Array(7, 11, 10), PackedInt32Array(7, 10, 6), PackedInt32Array(0, 1, 12), PackedInt32Array(12, 13, 0), PackedInt32Array(0, 13, 14), PackedInt32Array(15, 11, 7), PackedInt32Array(14, 13, 16), PackedInt32Array(16, 15, 14), PackedInt32Array(14, 15, 7), PackedInt32Array(14, 7, 17), PackedInt32Array(17, 7, 18), PackedInt32Array(17, 19, 14), PackedInt32Array(21, 20, 22), PackedInt32Array(22, 20, 24), PackedInt32Array(22, 24, 23), PackedInt32Array(28, 27, 25), PackedInt32Array(25, 27, 26), PackedInt32Array(32, 31, 29), PackedInt32Array(29, 31, 30), PackedInt32Array(36, 35, 33), PackedInt32Array(33, 35, 34), PackedInt32Array(37, 19, 17), PackedInt32Array(37, 17, 38), PackedInt32Array(38, 17, 40), PackedInt32Array(38, 40, 39), PackedInt32Array(39, 41, 38), PackedInt32Array(9, 42, 5), PackedInt32Array(5, 42, 43), PackedInt32Array(43, 42, 44), PackedInt32Array(42, 45, 44), PackedInt32Array(45, 41, 44), PackedInt32Array(44, 41, 39)]
+
+[sub_resource type="Gradient" id="Gradient_sv1lk"]
+offsets = PackedFloat32Array(0, 0.196262, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_cc3gx"]
+gradient = SubResource("Gradient_sv1lk")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n48a6"]
+metallic = 0.65
+metallic_specular = 0.2
+metallic_texture = SubResource("GradientTexture1D_cc3gx")
 
 [node name="TestLevel" type="Node3D"]
 script = ExtResource("1_u0fym")
@@ -13,8 +30,6 @@ player_a_scene = ExtResource("1_r2vmm")
 player_b_scene = ExtResource("1_r2vmm")
 
 [node name="Players" type="Node3D" parent="."]
-
-[node name="Piso" parent="." instance=ExtResource("1_m3uho")]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.733837, 0.679326, 0, -0.679326, 0.733837, -2.99659, 10.5154, 10.3638)
@@ -28,11 +43,34 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 0)
 [node name="Marker3D2" type="Marker3D" parent="Markers"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.005, 0, 0)
 
-[node name="Root Scene" parent="." instance=ExtResource("3_wfocq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, -5, 9)
-
 [node name="Root Scene2" parent="." instance=ExtResource("4_bdg7s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, -5, -4)
 
 [node name="Root Scene3" parent="." instance=ExtResource("5_cxcl1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, -5, 6)
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_o25u8")
+
+[node name="Piso" parent="NavigationRegion3D" instance=ExtResource("1_m3uho")]
+
+[node name="Pared" type="CSGBox3D" parent="NavigationRegion3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.5, 0)
+layers = 3
+size = Vector3(20, 6, 2)
+material = SubResource("StandardMaterial3D_n48a6")
+
+[node name="Caja" parent="NavigationRegion3D" instance=ExtResource("3_wfocq")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -3.13382, -4.87485, -6.64767)
+
+[node name="EnemyCapy1" parent="." instance=ExtResource("7_e0hsy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.50255, -5, -13.3347)
+
+[node name="EnemyCapy2" parent="." instance=ExtResource("7_e0hsy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.96777, -5, -12.0663)
+
+[node name="EnemyCapy3" parent="." instance=ExtResource("7_e0hsy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.68218, -5, 18.6266)
+
+[node name="EnemyCapy4" parent="." instance=ExtResource("7_e0hsy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.30519, -5, 20.9889)
