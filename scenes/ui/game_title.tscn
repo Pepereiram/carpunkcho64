@@ -1,3 +1,37 @@
-[gd_scene format=3 uid="uid://ck2pvy4p10d0e"]
+[gd_scene load_steps=6 format=3 uid="uid://ck2pvy4p10d0e"]
+
+[ext_resource type="FontFile" uid="uid://b31cp2ivxlcwv" path="res://fonts/A-Space Black Demo.otf" id="1_awwaf"]
+[ext_resource type="FontFile" uid="uid://bssepqbeibmnc" path="res://fonts/Brown Fox.ttf" id="2_y14rj"]
+
+[sub_resource type="Theme" id="Theme_7upnb"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_odyum"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_huutf"]
 
 [node name="GameTitle" type="Node2D"]
+
+[node name="TextEdit" type="TextEdit" parent="."]
+offset_right = 656.0
+offset_bottom = 385.0
+theme = SubResource("Theme_7upnb")
+theme_override_colors/font_outline_color = Color(0.819608, 0.819608, 0.819608, 1)
+theme_override_colors/font_color = Color(0.14902, 0.14902, 0.14902, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("1_awwaf")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxEmpty_odyum")
+text = "CARPUNKCHO"
+
+[node name="TextEdit2" type="TextEdit" parent="."]
+offset_left = 119.0
+offset_top = 68.0
+offset_right = 233.0
+offset_bottom = 163.0
+theme_override_colors/font_outline_color = Color(0.819608, 0.819608, 0.819608, 1)
+theme_override_colors/font_color = Color(0.14902, 0.14902, 0.14902, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("2_y14rj")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxEmpty_huutf")
+text = "64"
