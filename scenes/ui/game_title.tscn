@@ -36,6 +36,7 @@ theme_override_fonts/font = ExtResource("2_y14rj")
 theme_override_font_sizes/font_size = 45
 text = "64"
 horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="INVASION" type="Label" parent="."]
 offset_left = -103.0
@@ -49,3 +50,4 @@ theme_override_fonts/font = ExtResource("3_trkbw")
 theme_override_font_sizes/font_size = 40
 text = "INVASION"
 horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
