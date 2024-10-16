@@ -1,16 +1,16 @@
 [gd_scene load_steps=7 format=3 uid="uid://cixie1ekxva00"]
 
 [ext_resource type="PackedScene" uid="uid://dfs2y52r7ws3y" path="res://scenes/Characters/Terrenos/Piso.tscn" id="1_m3uho"]
-[ext_resource type="PackedScene" uid="uid://c28bswxatn45f" path="res://scenes/Characters/Carpinchos/carpunkcho.tscn" id="1_r2vmm"]
 [ext_resource type="Script" path="res://scenes/Levels/test_level.gd" id="1_u0fym"]
+[ext_resource type="PackedScene" uid="uid://ctpq2cibcn7w5" path="res://scenes/Characters/player.tscn" id="2_dls78"]
 [ext_resource type="PackedScene" uid="uid://b8urjqyowv4hk" path="res://assets/models/Scifi Crate2.glb" id="3_wfocq"]
 [ext_resource type="PackedScene" uid="uid://crgwiyr8sdxk6" path="res://assets/models/Soldier.glb" id="4_bdg7s"]
 [ext_resource type="PackedScene" uid="uid://bome30tyl7ctv" path="res://assets/models/Sci Fi Character.glb" id="5_cxcl1"]
 
 [node name="TestLevel" type="Node3D"]
 script = ExtResource("1_u0fym")
-player_a_scene = ExtResource("1_r2vmm")
-player_b_scene = ExtResource("1_r2vmm")
+player_a_scene = ExtResource("2_dls78")
+player_b_scene = ExtResource("2_dls78")
 
 [node name="Players" type="Node3D" parent="."]
 

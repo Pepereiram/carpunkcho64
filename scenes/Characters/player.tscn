@@ -8,6 +8,9 @@
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_80kuh"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_syx0w"]
+properties/0/path = NodePath("Cuerpo:rotation")
+properties/0/spawn = true
+properties/0/replication_mode = 1
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_yo1pd"]
 
@@ -30,14 +33,14 @@ albedo_color = Color(0.0189402, 0.0189402, 0.0189402, 1)
 script = ExtResource("2_6ux2i")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-1, -1.76487e-13, 8.74226e-08, 7.8264e-08, 0.445588, 0.895238, -3.89546e-08, 0.895238, -0.445588, 0, 5.0167, -2.50532)
+transform = Transform3D(-1, -1.37407e-13, 8.74226e-08, 7.8264e-08, 0.445588, 0.895238, -3.89546e-08, 0.895238, -0.445588, 0, 6.00085, -3.88077)
 fov = 58.903
 
 [node name="InputSync" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_80kuh")
 script = ExtResource("3_77ub5")
 
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+[node name="RotationSync" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_syx0w")
 
 [node name="Cuerpo" type="MeshInstance3D" parent="."]

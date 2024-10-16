@@ -1,18 +1,21 @@
 extends CharacterBody3D
 
+# Variables de instancia lol
 @export var id := 1
-const SPEED = 10.0
+@export var SPEED = 10.0
 const JUMP_VELOCITY = 4.5
+var health = 100
 
-# vectores qliaos pal mouse
+# Vectores qliaos pal mouse
 var ray_origin = Vector3()
 var ray_target = Vector3()
 
+# Referencias a nodos del personaje
 @onready var gun_controller = $Pistola
 @onready var camara = $Camera3D
 @onready var model = $Cuerpo
 @onready var input_synchronizer: InputSync = $InputSync
-@onready var multiplayer_synchronizer: MultiplayerSynchronizer = $MultiplayerSynchronizer
+@onready var multiplayer_synchronizer: MultiplayerSynchronizer = $RotationSync
 	
 
 func _ready() -> void:
@@ -48,7 +51,7 @@ func _physics_process(delta: float) -> void:
 			var angle = (- atan2(direction.z,direction.x)) - 30
 			model.rotation_degrees.y = rad_to_deg(angle)# Convert to degrees
 		#sincroniza la rotacion
-		input_synchronizer.rotation = model.rotation_degrees
+		#input_synchronizer.rotation = model.rotation_degrees
 		
 	
 	# Add the gravity.
@@ -60,9 +63,6 @@ func _physics_process(delta: float) -> void:
 		input_synchronizer.jumping = false
 		velocity.y = JUMP_VELOCITY
 
-	#disparo
-	if Input.is_action_pressed("disparar"):
-		gun_controller.shoot()
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
