@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://ck2pvy4p10d0e"]
+[gd_scene load_steps=5 format=3 uid="uid://br4jj1ht6rgii"]
 
 [ext_resource type="FontFile" uid="uid://b31cp2ivxlcwv" path="res://fonts/A-Space Black Demo.otf" id="1_awwaf"]
 [ext_resource type="FontFile" uid="uid://bssepqbeibmnc" path="res://fonts/Brown Fox.ttf" id="2_y14rj"]
@@ -10,10 +10,11 @@
 metadata/_edit_horizontal_guides_ = [111.0, 112.0]
 
 [node name="CARPUNKCHO" type="Label" parent="."]
-offset_left = -236.0
-offset_top = -47.0
-offset_right = 122.0
-size_flags_horizontal = 0
+offset_left = -231.0
+offset_top = -46.0
+offset_right = 127.0
+offset_bottom = 1.0
+size_flags_horizontal = 4
 theme_override_colors/font_color = Color(0.14902, 0.14902, 0.14902, 1)
 theme_override_colors/font_outline_color = Color(0.819608, 0.819608, 0.819608, 1)
 theme_override_constants/outline_size = 10
@@ -22,27 +23,32 @@ theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = SubResource("StyleBoxEmpty_nbtd2")
 text = "CARPUNKCHO"
 horizontal_alignment = 1
-metadata/_edit_use_anchors_ = true
 
 [node name="64" type="Label" parent="."]
-offset_left = 128.0
-offset_top = -67.0
-offset_right = 220.0
-offset_bottom = 20.0
-size_flags_horizontal = 0
+offset_left = 133.0
+offset_top = -66.0
+offset_right = 225.0
+offset_bottom = 21.0
+size_flags_horizontal = 4
 theme_override_colors/font_outline_color = Color(0.703117, 0.173806, 0.293907, 1)
 theme_override_constants/outline_size = 20
 theme_override_fonts/font = ExtResource("2_y14rj")
 theme_override_font_sizes/font_size = 45
 text = "64"
 horizontal_alignment = 1
-metadata/_edit_use_anchors_ = true
 
 [node name="INVASION" type="Label" parent="."]
-offset_left = -103.0
-offset_top = 1.0
-offset_right = 84.0
-offset_bottom = 47.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -93.5
+offset_top = -3.0
+offset_right = 93.5
+offset_bottom = 43.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 0
 theme_override_colors/font_outline_color = Color(0.701961, 0.172549, 0.294118, 1)
 theme_override_constants/outline_size = 15
@@ -50,4 +56,3 @@ theme_override_fonts/font = ExtResource("3_trkbw")
 theme_override_font_sizes/font_size = 40
 text = "INVASION"
 horizontal_alignment = 1
-metadata/_edit_use_anchors_ = true
