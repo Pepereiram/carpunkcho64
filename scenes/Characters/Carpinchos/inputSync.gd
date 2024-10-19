@@ -3,8 +3,6 @@ extends MultiplayerSynchronizer
 
 @export var move_input = Vector2()
 @export var jumping = false
-@export var rotation = Vector3() # Agrega la rotación a sincronizar
-
 
 func _physics_process(delta: float) -> void:
 	if not is_multiplayer_authority():
@@ -40,7 +38,6 @@ func jump() -> void:
 func update_move_input(new_input: Vector2) -> void:
 	#print("Manda movimiento webonazo")
 	move_input = new_input
-
 
 # Función RPC para actualizar la rotación en el servidor
 @rpc("reliable")

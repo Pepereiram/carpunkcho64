@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://beh8hx1kednci"]
+
+[ext_resource type="Script" path="res://scenes/Weapons/bullet.gd" id="1_txepv"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_saxdj"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7ckws"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jp5ay"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_5aih8"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[node name="bala" type="Area3D"]
+script = ExtResource("1_txepv")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+mesh = SubResource("BoxMesh_saxdj")
+surface_material_override/0 = SubResource("StandardMaterial3D_7ckws")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+shape = SubResource("BoxShape3D_jp5ay")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_5aih8")

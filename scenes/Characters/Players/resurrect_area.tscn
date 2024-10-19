@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://ciriwn64b4c0l"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_12ld4"]
+
+[node name="ResurrectArea" type="Area3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0)
+shape = SubResource("SphereShape3D_12ld4")

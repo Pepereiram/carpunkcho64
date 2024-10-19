@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://bmgptvpwpptjo"]
+
+[ext_resource type="PackedScene" uid="uid://dfs2y52r7ws3y" path="res://scenes/Characters/Terrenos/Piso.tscn" id="2_wyjsv"]
+[ext_resource type="PackedScene" uid="uid://b8urjqyowv4hk" path="res://assets/models/Scifi Crate2.glb" id="3_lfbdh"]
+[ext_resource type="PackedScene" uid="uid://crgwiyr8sdxk6" path="res://assets/models/Soldier.glb" id="4_dfebx"]
+[ext_resource type="PackedScene" uid="uid://ctpq2cibcn7w5" path="res://scenes/Characters/Players/player.tscn" id="4_gsjcu"]
+
+[node name="TestLevel2Xd" type="Node3D"]
+
+[node name="Piso" parent="." instance=ExtResource("2_wyjsv")]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.733837, 0.679326, 0, -0.679326, 0.733837, -2.99659, 10.5154, 10.3638)
+shadow_enabled = true
+
+[node name="Root Scene" parent="." instance=ExtResource("3_lfbdh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, -5, 9)
+
+[node name="Root Scene2" parent="." instance=ExtResource("4_dfebx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, -5, -4)
+
+[node name="Root Scene3" parent="." instance=ExtResource("4_dfebx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, -5, -4)
+
+[node name="Player" parent="." instance=ExtResource("4_gsjcu")]
