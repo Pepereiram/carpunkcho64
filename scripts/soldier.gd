@@ -1,3 +1,4 @@
+class_name Player
 extends CharacterBody3D
 
 # Variables de instancia lol
@@ -5,6 +6,7 @@ extends CharacterBody3D
 @export var SPEED = 10.0
 const JUMP_VELOCITY = 4.5
 var vivo = true
+var _players_inside: Array[Player] = []
 
 # Vectores qliaos pal mouse
 var ray_origin = Vector3()
@@ -18,6 +20,7 @@ var ray_target = Vector3()
 @onready var rot_synchronizer: MultiplayerSynchronizer = $RotationSync
 @onready var server_synchronizer: MultiplayerSynchronizer = $ServerSynchronizer
 @onready var multiplayer_synchronizer: MultiplayerSynchronizer = $MultiplayerSynchronizer
+#@onready var resurrect_area = $ResurrectArea
 @onready var stats = $Stats
 @onready var hud = $HUD
 @onready var health_bar: ProgressBar = $HealthBar
@@ -33,9 +36,11 @@ func _ready() -> void:
 	
 	stats.health_changed.connect(_on_health_changed)
 	hud.health = stats.health
-	#health_bar.value = stats.health
 	hud.visible = is_multiplayer_authority()
-	#health_bar.visible = not is_multiplayer_authority()
+#	if is_multiplayer_authority():
+#		resurrect_area.body_entered.connect(_on_dead_player_entered)
+#		resurrect_area.body_exited.connect(_on_dead_player_exited)
+	
 	
 
 func _enter_tree() -> void:
@@ -100,6 +105,12 @@ func setup(id: int) -> void:
 	input_synchronizer.set_multiplayer_authority(id)
 	rot_synchronizer.set_multiplayer_authority(id)
 	multiplayer_synchronizer.set_multiplayer_authority(id)
+	
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("revivir"):
+		for player in _players_inside:
+			if is_instance_valid(player):
+				player.resurrect.rpc_id(1)
 
 #saca la id de la conexion
 func is_local_player():
@@ -125,3 +136,26 @@ func die() -> void:
 	muelto.visible = true
 	model.visible = false
 	gun_controller.muelto = true
+	vivo = false
+
+@rpc("call_local", "reliable", "any_peer")
+func resurrect():
+	stats.health = stats.max_health
+	muelto.visible = false
+	model.visible = true
+	gun_controller.muelto = false
+	vivo = true
+	
+
+func _on_dead_player_entered(body: Node) -> void:
+	if body == self:
+		return
+	var player = body as Player
+	if player:
+		if  player not in _players_inside:
+			_players_inside.push_back(player)
+
+
+func _on_dead_player_exited(body: Node) -> void:
+	if body in _players_inside:
+		_players_inside.erase(body)

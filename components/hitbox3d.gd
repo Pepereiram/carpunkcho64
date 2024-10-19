@@ -1,4 +1,4 @@
-class_name Hitbox
+class_name Hitbox3D
 extends Area3D
 
 signal damage_dealt()
