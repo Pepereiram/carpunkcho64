@@ -10,6 +10,7 @@ extends Node3D
 
 var _time_of_last_shot: float
 var _fire_pressed := false
+var muelto = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -22,6 +23,8 @@ func setup(id) -> void:
 
 func _process(delta: float) -> void:
 	if is_multiplayer_authority():
+		if muelto:
+			return
 		if _fire_pressed and (Time.get_ticks_msec() / 1000.0 - _time_of_last_shot) > fire_rate:
 			_time_of_last_shot = Time.get_ticks_msec() / 1000.0
 			shoot.rpc_id(1)

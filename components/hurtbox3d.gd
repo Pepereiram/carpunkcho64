@@ -1,4 +1,3 @@
-class_name Hurtbox
 extends Area3D
 
 @export var self_damage = false

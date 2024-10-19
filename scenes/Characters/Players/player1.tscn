@@ -1,10 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://ns14ka6ue5dy"]
+[gd_scene load_steps=20 format=3 uid="uid://ns14ka6ue5dy"]
 
 [ext_resource type="Script" path="res://scripts/soldier.gd" id="1_kk7r7"]
 [ext_resource type="Script" path="res://scenes/Characters/Carpinchos/inputSync.gd" id="2_t1mkr"]
 [ext_resource type="PackedScene" uid="uid://dqm3qur65rpe5" path="res://scenes/Weapons/FastGun.tscn" id="3_2nyv7"]
 [ext_resource type="Script" path="res://components/hurtbox3d.gd" id="4_4l0le"]
-[ext_resource type="Script" path="res://scripts/stats.gd" id="5_syuqm"]
+[ext_resource type="PackedScene" uid="uid://mlcg22thcs0u" path="res://scenes/Characters/Players/stats.tscn" id="5_0hx0c"]
+[ext_resource type="PackedScene" uid="uid://dtk8qb2aaqwp4" path="res://ui/hud.tscn" id="6_fxrst"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_80kuh"]
 properties/0/path = NodePath("InputSync:move_input")
@@ -40,6 +41,16 @@ albedo_color = Color(0.652528, 0, 0.15741, 1)
 albedo_color = Color(0.99807, 0.941932, 0.956255, 1)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ue3v2"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_a0ryl"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cpcn3"]
+albedo_color = Color(0.65098, 0, 0.156863, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_wjybc"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f1mbd"]
+albedo_color = Color(0.99807, 0.941932, 0.956255, 1)
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_kk7r7")
@@ -84,5 +95,17 @@ script = ExtResource("4_4l0le")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox"]
 shape = SubResource("CapsuleShape3D_ue3v2")
 
-[node name="Stats" type="Node3D" parent="."]
-script = ExtResource("5_syuqm")
+[node name="Stats" parent="." instance=ExtResource("5_0hx0c")]
+
+[node name="HUD" parent="." instance=ExtResource("6_fxrst")]
+
+[node name="Muelto" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.0199303, 0.999801, 0, -0.999801, 0.0199303, -0.0929605, -0.42271, -0.0081141)
+visible = false
+mesh = SubResource("CapsuleMesh_a0ryl")
+surface_material_override/0 = SubResource("StandardMaterial3D_cpcn3")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Muelto"]
+transform = Transform3D(0.548982, 0, 0, 0, 0.177499, 4.65661e-10, 0, 2.32831e-10, 0.216165, 0, -0.358022, 0.502771)
+mesh = SubResource("CapsuleMesh_wjybc")
+surface_material_override/0 = SubResource("StandardMaterial3D_f1mbd")
