@@ -12,7 +12,7 @@ var ray_target = Vector3()
 @onready var model = $Capybara_mesh
 @onready var input_synchronizer: InputSync = $InputSync
 @onready var multiplayer_synchronizer: MultiplayerSynchronizer = $MultiplayerSynchronizer
-	
+@onready var collider: CollisionShape3D = $CollisionShape3D
 
 func _ready() -> void:
 	setup(id)
@@ -45,9 +45,13 @@ func _physics_process(delta: float) -> void:
 			
 			var direction = (look_at_pos - model.global_transform.origin).normalized()
 			var angle = (- atan2(direction.z,direction.x)) - 30
+			
 			model.rotation_degrees.y = rad_to_deg(angle)# Convert to degrees
+			collider.rotation_degrees.y = rad_to_deg(angle)
+		
 		#sincroniza la rotacion
 		input_synchronizer.rotation = model.rotation_degrees
+		
 		
 	
 	# Add the gravity.

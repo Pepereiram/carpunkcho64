@@ -9,12 +9,7 @@ func _ready():
 	
 	for i in Game.test_players.size():
 		var test_player = Game.test_players[i]
-		var player = Statics.PlayerData.new(
-			0,
-			test_player.name,
-			i,
-			test_player.role
-		)
+		var player = Statics.PlayerData.new(i, test_player.name, i, test_player.role)
 		Game.players.push_back(player)
 	
 	if Game.players.size() > 0:
