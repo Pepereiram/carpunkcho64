@@ -1,12 +1,15 @@
-[gd_scene load_steps=7 format=3 uid="uid://coaj48u3y01sw"]
+[gd_scene load_steps=8 format=3 uid="uid://c2wg4dtquam34"]
 
-[ext_resource type="Script" path="res://scripts/gun.gd" id="1_wpah0"]
-[ext_resource type="PackedScene" uid="uid://beh8hx1kednci" path="res://scenes/Weapons/bullet.tscn" id="2_k5m8e"]
+[ext_resource type="Script" path="res://scripts/Meleegun.gd" id="1_rsdbg"]
+[ext_resource type="PackedScene" uid="uid://beh8hx1kednci" path="res://scenes/Weapons/bullet.tscn" id="2_jl8bj"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_twyxq"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ijoee"]
 albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3gha3"]
+albedo_color = Color(0.527296, 0.241098, 0.0112527, 1)
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ukp70"]
 
@@ -17,13 +20,18 @@ properties/0/replication_mode = 0
 
 [node name="Gun" type="Node3D"]
 transform = Transform3D(0.00607391, 8.92628e-05, -0.999982, 1.26342e-05, 1, 8.93412e-05, 0.999982, -1.31769e-05, 0.00607391, 0, 0, 0.356867)
-script = ExtResource("1_wpah0")
-bala = ExtResource("2_k5m8e")
+script = ExtResource("1_rsdbg")
+bala = ExtResource("2_jl8bj")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.59666, 0, 0, 0, 0.178531, 0, 0, 0, 0.310486, 0, 0, 0)
+transform = Transform3D(0.181358, -2.27374e-13, -4.65661e-10, -9.09495e-13, 0.178533, -2.56328e-12, 5.82077e-10, 2.87059e-12, 0.308858, -0.143579, 3.4757e-06, -0.0185994)
 mesh = SubResource("BoxMesh_twyxq")
 surface_material_override/0 = SubResource("StandardMaterial3D_ijoee")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.569668, -2.27374e-13, -6.98492e-10, -3.63798e-12, 0.17853, -5.69322e-12, 2.32831e-09, 1.255e-12, 0.310874, 0.240218, -1.58154e-06, -0.0162682)
+mesh = SubResource("BoxMesh_twyxq")
+surface_material_override/0 = SubResource("StandardMaterial3D_3gha3")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.156629, -0.215305, 0, 0.210686, 0.160063, 0, 0, 0, 0.198788, -0.238978, -0.20242, -0.00569446)
@@ -31,7 +39,7 @@ mesh = SubResource("BoxMesh_twyxq")
 surface_material_override/0 = SubResource("StandardMaterial3D_ijoee")
 
 [node name="spawn" type="Marker3D" parent="."]
-transform = Transform3D(1, -1.81899e-12, -9.31323e-10, -2.72848e-12, 1, -1.22924e-11, -4.65661e-10, 2.23181e-11, 1, 0.299087, -0.00152231, 0.0111488)
+transform = Transform3D(1, -1.81899e-12, -1.86265e-09, -2.72848e-12, 1, -1.2534e-11, -4.65661e-10, 2.21405e-11, 1, 0.555835, -0.00152569, 0.0127083)
 
 [node name="BalasSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://scenes/Weapons/bullet.tscn")

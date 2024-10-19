@@ -1,31 +1,41 @@
-[gd_scene load_steps=14 format=3 uid="uid://ctpq2cibcn7w5"]
+[gd_scene load_steps=13 format=3 uid="uid://ctpq2cibcn7w5"]
 
 [ext_resource type="Script" path="res://scripts/soldier.gd" id="2_6ux2i"]
 [ext_resource type="Script" path="res://scenes/Characters/Carpinchos/inputSync.gd" id="3_77ub5"]
-[ext_resource type="Script" path="res://scripts/control_pistola.gd" id="3_d43p6"]
 [ext_resource type="PackedScene" uid="uid://coaj48u3y01sw" path="res://scenes/Weapons/Gun.tscn" id="4_aqpke"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_80kuh"]
+properties/0/path = NodePath("InputSync:move_input")
+properties/0/spawn = true
+properties/0/replication_mode = 1
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_syx0w"]
 properties/0/path = NodePath("Cuerpo:rotation")
 properties/0/spawn = true
 properties/0/replication_mode = 1
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_6hik0"]
+properties/0/path = NodePath(".:id")
+properties/0/spawn = true
+properties/0/replication_mode = 0
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_nmlgm"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = false
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:SPEED")
+properties/1/spawn = false
+properties/1/replication_mode = 1
+
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_yo1pd"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j0quy"]
 albedo_color = Color(0, 0.754978, 0.0684579, 1)
 
-[sub_resource type="BoxMesh" id="BoxMesh_pgnko"]
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_4cn6m"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fkv4g"]
-albedo_color = Color(1, 1, 0, 1)
-
-[sub_resource type="SphereMesh" id="SphereMesh_xv14f"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ndx6t"]
-albedo_color = Color(0.0189402, 0.0189402, 0.0189402, 1)
+albedo_color = Color(0.99807, 0.941932, 0.956255, 1)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ue3v2"]
 
@@ -43,31 +53,25 @@ script = ExtResource("3_77ub5")
 [node name="RotationSync" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_syx0w")
 
+[node name="ServerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_6hik0")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_nmlgm")
+
 [node name="Cuerpo" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_yo1pd")
 surface_material_override/0 = SubResource("StandardMaterial3D_j0quy")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Cuerpo"]
-transform = Transform3D(0.259716, 0, 0, 0, 0.152577, 0, 0, 0, 0.216165, 0, 0.29753, 0.667381)
-mesh = SubResource("BoxMesh_pgnko")
+transform = Transform3D(0.548982, 0, 0, 0, 0.177499, 0, 0, 0, 0.216165, 0, 0.436482, 0.486933)
+mesh = SubResource("CapsuleMesh_4cn6m")
 surface_material_override/0 = SubResource("StandardMaterial3D_fkv4g")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="Cuerpo"]
-transform = Transform3D(0.0700176, 0, 0, 0, 0.222572, 0, 0, 0, -0.132652, -0.15097, 0.507345, 0.485067)
-mesh = SubResource("SphereMesh_xv14f")
-surface_material_override/0 = SubResource("StandardMaterial3D_ndx6t")
-
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="Cuerpo"]
-transform = Transform3D(0.0700176, 0, 0, 0, 0.222572, 0, 0, 0, -0.132652, 0.126021, 0.531377, 0.468866)
-mesh = SubResource("SphereMesh_xv14f")
-surface_material_override/0 = SubResource("StandardMaterial3D_ndx6t")
 
 [node name="mano" type="Marker3D" parent="Cuerpo"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.561038, 0, 0)
 
+[node name="Gun" parent="Cuerpo/mano" instance=ExtResource("4_aqpke")]
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_ue3v2")
-
-[node name="Pistola" type="Node" parent="."]
-script = ExtResource("3_d43p6")
-arma = ExtResource("4_aqpke")

@@ -2,7 +2,7 @@ extends Node3D
 
 @export var bala: PackedScene
 @onready var bullet_spawner: MultiplayerSpawner = $BalasSpawner
-@export var fire_rate := 0.5
+@export var fire_rate := 0.1
 
 @export var recarga = 0.1
 @export var id := 1

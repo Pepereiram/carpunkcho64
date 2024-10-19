@@ -1,0 +1,88 @@
+[gd_scene load_steps=15 format=3 uid="uid://ns14ka6ue5dy"]
+
+[ext_resource type="Script" path="res://scripts/soldier.gd" id="1_kk7r7"]
+[ext_resource type="Script" path="res://scenes/Characters/Carpinchos/inputSync.gd" id="2_t1mkr"]
+[ext_resource type="PackedScene" uid="uid://dqm3qur65rpe5" path="res://scenes/Weapons/FastGun.tscn" id="3_2nyv7"]
+[ext_resource type="Script" path="res://components/hurtbox3d.gd" id="4_4l0le"]
+[ext_resource type="Script" path="res://scripts/stats.gd" id="5_syuqm"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_80kuh"]
+properties/0/path = NodePath("InputSync:move_input")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_syx0w"]
+properties/0/path = NodePath("Cuerpo:rotation")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_6hik0"]
+properties/0/path = NodePath(".:id")
+properties/0/spawn = true
+properties/0/replication_mode = 0
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_nmlgm"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = false
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:SPEED")
+properties/1/spawn = false
+properties/1/replication_mode = 1
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_yo1pd"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j0quy"]
+albedo_color = Color(0.652528, 0, 0.15741, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_4cn6m"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fkv4g"]
+albedo_color = Color(0.99807, 0.941932, 0.956255, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ue3v2"]
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_kk7r7")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-1, -1.37407e-13, 8.74226e-08, 7.8264e-08, 0.445588, 0.895238, -3.89546e-08, 0.895238, -0.445588, 0, 6.00085, -3.88077)
+fov = 58.903
+
+[node name="InputSync" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_80kuh")
+script = ExtResource("2_t1mkr")
+
+[node name="RotationSync" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_syx0w")
+
+[node name="ServerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_6hik0")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_nmlgm")
+
+[node name="Cuerpo" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_yo1pd")
+surface_material_override/0 = SubResource("StandardMaterial3D_j0quy")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Cuerpo"]
+transform = Transform3D(0.548982, 0, 0, 0, 0.177499, 0, 0, 0, 0.216165, 0, 0.436482, 0.486933)
+mesh = SubResource("CapsuleMesh_4cn6m")
+surface_material_override/0 = SubResource("StandardMaterial3D_fkv4g")
+
+[node name="mano" type="Marker3D" parent="Cuerpo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.561038, 0, 0)
+
+[node name="Gun" parent="Cuerpo/mano" instance=ExtResource("3_2nyv7")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_ue3v2")
+
+[node name="Hurtbox" type="Area3D" parent="."]
+script = ExtResource("4_4l0le")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox"]
+shape = SubResource("CapsuleShape3D_ue3v2")
+
+[node name="Stats" type="Node3D" parent="."]
+script = ExtResource("5_syuqm")

@@ -7,7 +7,6 @@ extends MultiplayerSynchronizer
 func _physics_process(delta: float) -> void:
 	if not is_multiplayer_authority():
 		return
-	
 	# Obtener los inputs locales de movimiento
 	var local_move_input = Input.get_vector("ui_right", "ui_left", "ui_down", "ui_up")
 	

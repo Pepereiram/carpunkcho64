@@ -1,6 +1,8 @@
 extends Node
 
 @export var arma: PackedScene
+
+
 var hand
 var equipped_weapon : Node
 
@@ -20,13 +22,9 @@ func equip_weapon(arma_e):
 		hand.add_child(equipped_weapon)
 		
 
-func shoot():
-	if equipped_weapon:
-		equipped_weapon.shoot()
 	
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	if not is_multiplayer_authority():
-		return
-	if Input.is_action_pressed("disparar"):
-		shoot()
+#func _input(event: InputEvent) -> void:
+#	if not is_multiplayer_authority():
+#		return
+#	if Input.is_action_pressed("disparar"):
+#		shoot()

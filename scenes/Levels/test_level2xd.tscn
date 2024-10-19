@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://dfs2y52r7ws3y" path="res://scenes/Characters/Terrenos/Piso.tscn" id="2_wyjsv"]
 [ext_resource type="PackedScene" uid="uid://b8urjqyowv4hk" path="res://assets/models/Scifi Crate2.glb" id="3_lfbdh"]
 [ext_resource type="PackedScene" uid="uid://crgwiyr8sdxk6" path="res://assets/models/Soldier.glb" id="4_dfebx"]
-[ext_resource type="PackedScene" uid="uid://ctpq2cibcn7w5" path="res://scenes/Characters/player.tscn" id="4_gsjcu"]
+[ext_resource type="PackedScene" uid="uid://ctpq2cibcn7w5" path="res://scenes/Characters/Players/player.tscn" id="4_gsjcu"]
 
 [node name="TestLevel2Xd" type="Node3D"]
 

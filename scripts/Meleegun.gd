@@ -3,13 +3,16 @@ extends Node3D
 @export var bala: PackedScene
 @onready var bullet_spawner: MultiplayerSpawner = $BalasSpawner
 @export var fire_rate := 0.5
+@export var rango := 50
+ 
 
-@export var recarga = 0.1
+@export var recarga = 0.3
 @export var id := 1
 @onready var multiplayer_synchronizer: MultiplayerSynchronizer = $MultiplayerSynchronizer
 
 var _time_of_last_shot: float
 var _fire_pressed := false
+var recorrido = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -36,9 +39,7 @@ func _input(event: InputEvent) -> void:
 
 @rpc("reliable", "any_peer", "call_local")
 func shoot():
-	#if not multiplayer.is_server():
-	#	return
-	Debug.log(get_multiplayer_authority())
+
 	var nueva_bala = bala.instantiate()
 	nueva_bala.global_transform = $spawn.global_transform
 	bullet_spawner.add_child(nueva_bala, true)
