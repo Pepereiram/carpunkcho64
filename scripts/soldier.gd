@@ -18,7 +18,7 @@ var ray_target = Vector3()
 @onready var rot_synchronizer: MultiplayerSynchronizer = $RotationSync
 @onready var server_synchronizer: MultiplayerSynchronizer = $ServerSynchronizer
 @onready var multiplayer_synchronizer: MultiplayerSynchronizer = $MultiplayerSynchronizer
-
+@onready var stats = $Stats
 
 func _ready() -> void:
 	setup(id)
@@ -94,7 +94,7 @@ func is_local_player():
 	
 func take_damage(damage: int) -> void:
 	print(damage)
-	health -= damage
+	stats.health -= damage
 	notify_take_damage(damage)
 	
 @rpc("any_peer", "call_local", "reliable")
