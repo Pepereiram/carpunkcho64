@@ -53,11 +53,12 @@ albedo_color = Color(0.65098, 0, 0.156863, 1)
 albedo_color = Color(0.99807, 0.941932, 0.956255, 1)
 
 [node name="Player" type="CharacterBody3D"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
 script = ExtResource("1_kk7r7")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-1, -1.37407e-13, 8.74226e-08, 7.8264e-08, 0.445588, 0.895238, -3.89546e-08, 0.895238, -0.445588, 0, 6.00085, -3.88077)
-fov = 58.903
+transform = Transform3D(-1, 8.24083e-08, -2.91823e-08, 0, 0.333807, 0.942641, 8.74228e-08, 0.942641, -0.333807, 0, 10.516, -3.881)
+fov = 60.0
 
 [node name="InputSync" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_80kuh")
@@ -75,6 +76,14 @@ replication_config = SubResource("SceneReplicationConfig_nmlgm")
 [node name="Cuerpo" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_yo1pd")
 surface_material_override/0 = SubResource("StandardMaterial3D_j0quy")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Cuerpo"]
+transform = Transform3D(0.1, 0, 0, 0, -0.0995929, 0.00901461, 0, -0.00901461, -0.0995929, 0, -0.364014, -0.0210142)
+light_energy = 10.0
+shadow_enabled = true
+spot_range = 56.8606
+spot_angle = 30.0
+spot_angle_attenuation = 1.27456
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Cuerpo"]
 transform = Transform3D(0.548982, 0, 0, 0, 0.177499, 0, 0, 0, 0.216165, 0, 0.436482, 0.486933)
@@ -106,6 +115,10 @@ mesh = SubResource("CapsuleMesh_a0ryl")
 surface_material_override/0 = SubResource("StandardMaterial3D_cpcn3")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Muelto"]
-transform = Transform3D(0.548982, 0, 0, 0, 0.177499, 4.65661e-10, 0, 2.32831e-10, 0.216165, 0, -0.358022, 0.502771)
+transform = Transform3D(0.548982, 0, 0, 0, 0.177499, 0, 0, 6.98492e-10, 0.216165, 0, -0.358022, 0.502771)
 mesh = SubResource("CapsuleMesh_wjybc")
 surface_material_override/0 = SubResource("StandardMaterial3D_f1mbd")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Muelto"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, -6.98492e-10, 0, 4.65661e-10, 0.1, 0, 0.0170156, 1.43923)
+omni_range = 10.0

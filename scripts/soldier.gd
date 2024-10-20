@@ -3,7 +3,7 @@ extends CharacterBody3D
 
 # Variables de instancia lol
 @export var id := 1
-@export var SPEED = 10.0
+@export var SPEED = 100.0
 const JUMP_VELOCITY = 4.5
 var vivo = true
 var _players_inside: Array[Player] = []
@@ -28,6 +28,8 @@ var ray_target = Vector3()
 
 
 func _ready() -> void:
+	scale *= 2
+	
 	setup(id)
 	if is_local_player() == id:
 		camara.current = true
@@ -40,6 +42,8 @@ func _ready() -> void:
 #	if is_multiplayer_authority():
 #		resurrect_area.body_entered.connect(_on_dead_player_entered)
 #		resurrect_area.body_exited.connect(_on_dead_player_exited)
+
+
 	
 	
 
@@ -159,3 +163,6 @@ func _on_dead_player_entered(body: Node) -> void:
 func _on_dead_player_exited(body: Node) -> void:
 	if body in _players_inside:
 		_players_inside.erase(body)
+
+#func _process(delta: float) -> void:
+	#gun_controller.shoot()

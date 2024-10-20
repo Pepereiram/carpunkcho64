@@ -21,12 +21,12 @@ func _physics_process(delta: float) -> void:
 		#print("Llamando RCP salto")
 		rpc("jump")
 
-	# Sincronizar la rotación
-	var local_rotation = get_parent().rotation_degrees
-	if rotation != local_rotation:
-		rotation = local_rotation
-		#print("Llamando RCP rotación")
-		rpc("update_rotation", rotation)
+	## Sincronizar la rotación
+	#var local_rotation = get_parent().rotation_degrees
+	#if rotation != local_rotation:
+		#rotation = local_rotation
+		##print("Llamando RCP rotación")
+		#rpc("update_rotation", rotation)
 
 @rpc("reliable", "call_local")
 func jump() -> void:
@@ -40,10 +40,10 @@ func update_move_input(new_input: Vector2) -> void:
 	move_input = new_input
 
 # Función RPC para actualizar la rotación en el servidor
-@rpc("reliable")
-func update_rotation(new_rotation: Vector3) -> void:
-	#print("Manda rotación webonazo")
-	rotation = new_rotation
-	# Aquí puedes actualizar la rotación del personaje si no es el jugador local
-	if not is_multiplayer_authority():
-		get_parent().rotation_degrees = rotation
+#@rpc("reliable")
+#func update_rotation(new_rotation: Vector3) -> void:
+	##print("Manda rotación webonazo")
+	#rotation = new_rotation
+	## Aquí puedes actualizar la rotación del personaje si no es el jugador local
+	#if not is_multiplayer_authority():
+		#get_parent().rotation_degrees = rotation

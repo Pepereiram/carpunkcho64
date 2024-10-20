@@ -53,8 +53,8 @@ albedo_color = Color(0.12549, 0, 0.976471, 1)
 script = ExtResource("1_o68sf")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-1, -1.37407e-13, 8.74226e-08, 7.8264e-08, 0.445588, 0.895238, -3.89546e-08, 0.895238, -0.445588, 0, 6.00085, -3.88077)
-fov = 58.903
+transform = Transform3D(-1, 8.24083e-08, -2.91823e-08, 0, 0.333807, 0.942641, 8.74228e-08, 0.942641, -0.333807, 0, 10.516, -3.881)
+fov = 60.0
 
 [node name="InputSync" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_80kuh")
@@ -77,6 +77,14 @@ surface_material_override/0 = SubResource("StandardMaterial3D_j0quy")
 transform = Transform3D(0.548982, 0, 0, 0, 0.177499, 0, 0, 0, 0.216165, 0, 0.436482, 0.486933)
 mesh = SubResource("CapsuleMesh_4cn6m")
 surface_material_override/0 = SubResource("StandardMaterial3D_fkv4g")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Cuerpo"]
+transform = Transform3D(1, 0, 0, 0, -0.995929, 0.0901461, 0, -0.0901461, -0.995929, 0, -0.364014, -0.0210142)
+light_energy = 10.0
+shadow_enabled = true
+spot_range = 56.8606
+spot_angle = 30.0
+spot_angle_attenuation = 1.27456
 
 [node name="mano" type="Marker3D" parent="Cuerpo"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.561038, 0, 0)
@@ -106,3 +114,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_wva3b")
 transform = Transform3D(0.548982, 0, 0, 0, 0.177499, 4.65661e-10, 0, 2.32831e-10, 0.216165, 0, -0.420233, 0.504011)
 mesh = SubResource("CapsuleMesh_4cn6m")
 surface_material_override/0 = SubResource("StandardMaterial3D_fkv4g")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Muelto"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0451955, 1.44047)
+omni_range = 10.0
