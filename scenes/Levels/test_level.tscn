@@ -38,10 +38,10 @@ shadow_enabled = true
 [node name="Markers" type="Node3D" parent="."]
 
 [node name="Marker3D" type="Marker3D" parent="Markers"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.7295, 0, 0.479259)
 
 [node name="Marker3D2" type="Marker3D" parent="Markers"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.005, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.8033, 0, -0.600601)
 
 [node name="Root Scene2" parent="." instance=ExtResource("4_bdg7s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, -5, -4)

@@ -50,6 +50,9 @@ shadow_mesh = SubResource("ArrayMesh_doy2b")
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_2t3xj"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_f3dxg"]
+properties/0/path = NodePath("Capybara_mesh:rotation")
+properties/0/spawn = true
+properties/0/replication_mode = 1
 
 [node name="Carpunkcho" type="CharacterBody3D"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)

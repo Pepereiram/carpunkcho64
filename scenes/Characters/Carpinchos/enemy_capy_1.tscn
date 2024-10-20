@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=4 uid="uid://c4ouk408njfmk"]
+[gd_scene load_steps=8 format=4 uid="uid://c4ouk408njfmk"]
 
 [ext_resource type="Texture2D" uid="uid://bp7ddjwmpeese" path="res://assets/models/Capybara_Capybara_BaseColor.png" id="1_ne1ri"]
 [ext_resource type="Script" path="res://scenes/Characters/Carpinchos/enemy_capy_1.gd" id="1_t5svl"]
@@ -46,6 +46,11 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_doy2b")
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_yq3j3"]
+properties/0/path = NodePath("Capybara_mesh:rotation")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
 [node name="EnemyCapy1" type="CharacterBody3D"]
 collision_layer = 3
 script = ExtResource("1_t5svl")
@@ -65,3 +70,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0942383, 1.85437, -0.32751
 shape = SubResource("BoxShape3D_n606f")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_yq3j3")
