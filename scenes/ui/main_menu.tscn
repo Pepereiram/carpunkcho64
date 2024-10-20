@@ -1,97 +1,8 @@
-[gd_scene load_steps=17 format=3 uid="uid://b2csjodclnh14"]
+[gd_scene load_steps=11 format=3 uid="uid://b2csjodclnh14"]
 
 [ext_resource type="Script" path="res://scenes/ui/main_menu.gd" id="1_k7hrb"]
 [ext_resource type="PackedScene" uid="uid://br4jj1ht6rgii" path="res://scenes/ui/game_title.tscn" id="1_tvv8f"]
-[ext_resource type="Texture2D" uid="uid://cdniprllh6h12" path="res://assets/main_menu/background_0.jpg" id="2_kbybo"]
 [ext_resource type="FontFile" uid="uid://cabmeo2bktbcn" path="res://fonts/Unispace Bd.otf" id="3_4gmvn"]
-[ext_resource type="Texture2D" uid="uid://drswslwtps16r" path="res://assets/main_menu/background_1.jpg" id="3_q84eh"]
-[ext_resource type="Texture2D" uid="uid://ccayj1pwuae77" path="res://assets/main_menu/background_2.jpg" id="4_8wek5"]
-
-[sub_resource type="Animation" id="Animation_26xax"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Image0:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Image1:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Image2:modulate")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_cxaig"]
-resource_name = "fade_transition"
-length = 15.0
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Image0:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 4, 5, 14, 15),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Image1:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(4, 5, 9, 10),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Image2:modulate")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(9, 10, 14, 15),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_du5rj"]
-_data = {
-"RESET": SubResource("Animation_26xax"),
-"fade_transition": SubResource("Animation_cxaig")
-}
 
 [sub_resource type="Animation" id="Animation_clx7h"]
 length = 0.001
@@ -170,12 +81,7 @@ content_margin_left = 10.0
 content_margin_top = 10.0
 content_margin_right = 5.0
 content_margin_bottom = 5.0
-bg_color = Color(0.332881, 0.332881, 0.332881, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0.705882, 0.717647, 0.721569, 1)
+bg_color = Color(0.333333, 0.333333, 0.333333, 0.396078)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
@@ -190,50 +96,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_k7hrb")
-
-[node name="Background" type="Panel" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Image0" type="TextureRect" parent="Background"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("2_kbybo")
-
-[node name="Image1" type="TextureRect" parent="Background"]
-modulate = Color(1, 1, 1, 0)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("3_q84eh")
-
-[node name="Image2" type="TextureRect" parent="Background"]
-modulate = Color(1, 1, 1, 0)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 3.0
-offset_right = 3.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("4_8wek5")
-
-[node name="FadeTransition" type="AnimationPlayer" parent="Background"]
-libraries = {
-"": SubResource("AnimationLibrary_du5rj")
-}
 
 [node name="Container" type="Container" parent="."]
 layout_mode = 1
