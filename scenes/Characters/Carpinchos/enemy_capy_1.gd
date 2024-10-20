@@ -57,7 +57,6 @@ func set_target_position(target_position: Vector3) -> void:
 	
 	
 func take_damage(damage: int) -> void:
-	Debug.log("ouch")
 	stats.health -= damage
 
 # Ver si murió
