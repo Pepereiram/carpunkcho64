@@ -45,7 +45,10 @@ albedo_color = Color(0.652528, 0, 0.15741, 1)
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_4cn6m"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fkv4g"]
-albedo_color = Color(0.99807, 0.941932, 0.956255, 1)
+albedo_color = Color(1, 1, 0.956863, 1)
+emission_enabled = true
+emission = Color(0, 0.552941, 0.709804, 1)
+emission_energy_multiplier = 2.82
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ue3v2"]
 
@@ -101,6 +104,13 @@ surface_material_override/0 = SubResource("StandardMaterial3D_fkv4g")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.561038, 0, 0)
 
 [node name="Gun" parent="Cuerpo/mano" instance=ExtResource("3_2nyv7")]
+
+[node name="helmetLight" type="OmniLight3D" parent="Cuerpo"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -0.00364456, 0.441041, 0.547401)
+light_color = Color(0, 0.552941, 0.709804, 1)
+light_energy = 9.267
+shadow_enabled = true
+omni_range = 3.419
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_ue3v2")
