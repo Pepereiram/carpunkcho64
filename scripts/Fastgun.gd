@@ -41,7 +41,6 @@ func _input(event: InputEvent) -> void:
 func shoot():
 	#if not multiplayer.is_server():
 	#	return
-	Debug.log(get_multiplayer_authority())
 	var nueva_bala = bala.instantiate()
 	nueva_bala.global_transform = $spawn.global_transform
 	bullet_spawner.add_child(nueva_bala, true)

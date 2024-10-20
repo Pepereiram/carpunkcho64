@@ -122,30 +122,46 @@ func is_local_player():
 	return get_tree().get_multiplayer().get_unique_id()
 	
 func take_damage(damage: int) -> void:
-	print("recibi daño soy " + str(id))
-	stats.health -= damage
-	notify_take_damage(damage)
+	#print("recibi daño soy " + str(id))
+	stats.health = max(stats.health - damage, 0)
+	#notify_take_damage(damage)
 	
-@rpc("any_peer", "call_local", "reliable")
-func notify_take_damage(damage: int) -> void:
-	Debug.log("damage received: %d" % damage)
+#@rpc("any_peer", "call_local", "reliable")
+#func notify_take_damage(damage: int) -> void:
+#	Debug.log("damage received: %d" % damage)
 	
 func _on_health_changed(health) -> void:
 	hud.health = health
 	#health_bar.value = health
-	if health <= 0:
+	if health == 0 and vivo:
 		vivo = false
 		die()
 
+#@rpc("reliable", "authority")
+func notify_death():
+	var game_level = get_parent()
+	game_level.alive_players -=1
+	rpc("notify_clients_death", get_multiplayer().get_unique_id())
+	
+@rpc("reliable", "any_peer") # Notificar a todos los peers sobre la muerte de un jugador
+func notify_clients_death(player_id: int) -> void:
+	Debug.log("El jugador con ID " + str(player_id) + " ha muerto.")
+	
+
 func die() -> void:
+	Debug.log("Muerte player")
 	muelto.visible = true
 	model.visible = false
 	gun_controller.muelto = true
 	vivo = false
+	notify_death()
 
 @rpc("call_local", "reliable", "any_peer")
 func resurrect():
 	stats.health = stats.max_health
+	var game_level = get_parent().get_parent()
+	game_level.alive_players +=1
+	Debug.log("Vivos: " + str(game_level.alive_players))
 	update_model()
 
 @rpc("any_peer", "call_local", "reliable")

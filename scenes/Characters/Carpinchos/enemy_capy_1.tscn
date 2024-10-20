@@ -53,6 +53,9 @@ shadow_mesh = SubResource("ArrayMesh_doy2b")
 properties/0/path = NodePath("Capybara_mesh:rotation")
 properties/0/spawn = true
 properties/0/replication_mode = 1
+properties/1/path = NodePath(".:position")
+properties/1/spawn = true
+properties/1/replication_mode = 1
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3cdm1"]
 albedo_color = Color(1, 0, 0, 1)
@@ -92,6 +95,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0942383, 1.85437, -0.32751
 shape = SubResource("BoxShape3D_n606f")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+avoidance_enabled = true
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_yq3j3")

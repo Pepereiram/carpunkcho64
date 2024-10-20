@@ -62,4 +62,12 @@ func take_damage(damage: int) -> void:
 # Ver si murió
 func _on_health_changed(health) -> void:
 	if health <= 0:
-		queue_free()
+		die()
+
+@rpc("reliable","any_peer")
+func die():
+	Debug.log("Muerte capy")
+	var game_level = get_parent().get_parent()
+	game_level.kill_count_round +=1
+	Debug.log("KC: " + str(game_level.kill_count_round))
+	queue_free()

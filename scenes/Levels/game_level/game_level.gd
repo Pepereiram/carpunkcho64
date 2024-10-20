@@ -5,6 +5,9 @@ extends Node3D
 @export var enemy_capybara_basic: PackedScene
 @export var enemy_spawn_time: float = 5.0
 @export var max_enemy_spawns: int = 10
+@export var kill_count_round: int = 0
+@export var round: int = 1
+@export var alive_players: int = 2
 
 @onready var playerMarkers: Node3D = $PlayerMarkers
 @onready var enemyMarkers: Node3D = $EnemyMarkers
@@ -54,6 +57,8 @@ func _ready() -> void:
 ## Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	t = t + delta
+	if kill_count_round == max_enemy_spawns:
+		Debug.log("Ganaste xd")
 	if t > enemy_spawn_time:
 		if enemies_spawned < max_enemy_spawns:
 			var enemyMarker : Marker3D = enemyMarkers.get_children()[randi() % enemyMarkers.get_child_count()]
@@ -62,8 +67,4 @@ func _process(delta: float) -> void:
 			$MultiplayerSpawner.add_child(enemyInstance, true)
 
 			enemies_spawned += 1
-		else:
-			Debug.log('max capys spawned')
-			pass
-			
 		t = 0
