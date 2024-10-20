@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://ci4qo54k3qje1"]
+
+[ext_resource type="Script" path="res://scenes/Characters/Carpinchos/carpincho_21.gd" id="1_74vds"]
+[ext_resource type="PackedScene" uid="uid://bmnwtk2mr2th6" path="res://assets/models/capybara/Capybara.glb" id="2_oftvf"]
+[ext_resource type="Script" path="res://scenes/Characters/Carpinchos/inputSync.gd" id="3_724o5"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uoe3x"]
+size = Vector3(2.18097, 4.78125, 7.24045)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_d412o"]
+properties/0/path = NodePath("InputSync:move_input")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[node name="Carpincho21" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.249275, 0)
+script = ExtResource("1_74vds")
+
+[node name="model" parent="." instance=ExtResource("2_oftvf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00485284, -0.250195, 0.956036)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00970568, 2.14628, 0.957029)
+shape = SubResource("BoxShape3D_uoe3x")
+
+[node name="InputSync" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_d412o")
+script = ExtResource("3_724o5")
+move_input = Vector2(5, 5)

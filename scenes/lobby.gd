@@ -29,9 +29,9 @@ var _menu_stack: Array[Control] = []
 func _ready():
 	# esto solo sirve si multiplayer test 
 	if Game.multiplayer_test:
-		#get_tree().change_scene_to_file("res://scenes/Levels/game_level/game_level.tscn")
+		get_tree().change_scene_to_file("res://scenes/Levels/game_level/game_level.tscn")
 		#get_tree().change_scene_to_file.call_deferred("res://scenes/lobby_test.tscn")
-		get_tree().change_scene_to_file.call_deferred("res://scenes/Levels/test_level.tscn")
+		#get_tree().change_scene_to_file.call_deferred("res://scenes/Levels/test_level.tscn")
 		return
 	
 	multiplayer.connected_to_server.connect(_on_connected_to_server)
@@ -230,8 +230,8 @@ func starting_game(value: bool):
 @rpc("any_peer", "call_local", "reliable")
 func start_game() -> void:
 	Game.players.sort_custom(func(a, b): return a.index < b.index)
-	get_tree().change_scene_to_file("res://scenes/Levels/test_level.tscn")
-	#get_tree().change_scene_to_file("res://scenes/Levels/game_level/game_level.tscn")
+	#get_tree().change_scene_to_file("res://scenes/Levels/test_level.tscn")
+	get_tree().change_scene_to_file("res://scenes/Levels/game_level/game_level.tscn")
 	#get_tree().change_scene_to_file.call_deferred("res://scenes/Levels/test_level.tscn")
 
 
