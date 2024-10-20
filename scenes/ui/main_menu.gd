@@ -34,7 +34,6 @@ func _on_play_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/lobby.tscn")
 
 
-
 # Show the credits when the credits button is pressed.
 func _on_credits_pressed() -> void:
 	print("Credits pressed")
