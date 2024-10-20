@@ -21,11 +21,18 @@ lobby_player_scene = ExtResource("2_060bj")
 layout_mode = 1
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
-layout_mode = 2
-offset_left = 431.0
-offset_top = 257.0
-offset_right = 721.0
-offset_bottom = 390.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -96.5
+offset_right = 150.0
+offset_bottom = 96.5
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = ExtResource("4_5e0xn")
