@@ -3,7 +3,6 @@ extends CharacterBody3D
 # Stats
 @export var speed = 5.0
 @export var acceleration = 100
-@export var hp    = 100
 @export var attack_dmg = 1
 const JUMP_VELOCITY = 4.5
 @export var is_global = true
@@ -12,10 +11,11 @@ var target: Node3D
 var target_position: Vector3
 
 @onready var _nav_agent := $NavigationAgent3D as NavigationAgent3D
+@onready var stats = $Stats
 
 
 func _ready() -> void:
-	pass
+	stats.health_changed.connect(_on_health_changed)
 
 
 
@@ -54,3 +54,13 @@ func _physics_process(delta: float) -> void:
 
 func set_target_position(target_position: Vector3) -> void:
 	_nav_agent.set_target_position(target_position)
+	
+	
+func take_damage(damage: int) -> void:
+	Debug.log("ouch")
+	stats.health -= damage
+
+# Ver si murió
+func _on_health_changed(health) -> void:
+	if health <= 0:
+		queue_free()

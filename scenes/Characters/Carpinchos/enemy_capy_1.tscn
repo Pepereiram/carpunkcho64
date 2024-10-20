@@ -1,7 +1,10 @@
-[gd_scene load_steps=8 format=4 uid="uid://c4ouk408njfmk"]
+[gd_scene load_steps=11 format=4 uid="uid://c4ouk408njfmk"]
 
-[ext_resource type="Texture2D" uid="uid://bp7ddjwmpeese" path="res://assets/models/Capybara_Capybara_BaseColor.png" id="1_ne1ri"]
+[ext_resource type="Texture2D" uid="uid://bp7ddjwmpeese" path="res://assets/models/capybara/Capybara_Capybara_BaseColor.png" id="1_ne1ri"]
 [ext_resource type="Script" path="res://scenes/Characters/Carpinchos/enemy_capy_1.gd" id="1_t5svl"]
+[ext_resource type="PackedScene" uid="uid://mlcg22thcs0u" path="res://scenes/Characters/Players/stats.tscn" id="3_qh0lm"]
+[ext_resource type="Script" path="res://scenes/Characters/Carpinchos/hit_box_enemy.gd" id="4_1o7xl"]
+[ext_resource type="Script" path="res://scenes/Characters/Carpinchos/hurtbox_enemy.gd" id="4_gj2om"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_n606f"]
 size = Vector3(1.9873, 4.70874, 7.78638)
@@ -60,12 +63,23 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0942383, 1.85437, -0.32751
 shape = SubResource("BoxShape3D_n606f")
 
 [node name="Capybara_mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
 mesh = SubResource("ArrayMesh_iekq6")
 skeleton = NodePath("")
 
-[node name="Area3D" type="Area3D" parent="."]
+[node name="HurtboxEnemy" type="Area3D" parent="."]
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("4_gj2om")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HurtboxEnemy"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0942383, 1.85437, -0.327515)
+shape = SubResource("BoxShape3D_n606f")
+
+[node name="HitBoxEnemy" type="Area3D" parent="."]
+script = ExtResource("4_1o7xl")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitBoxEnemy"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0942383, 1.85437, -0.327515)
 shape = SubResource("BoxShape3D_n606f")
 
@@ -73,3 +87,11 @@ shape = SubResource("BoxShape3D_n606f")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_yq3j3")
+
+[node name="Stats" parent="." instance=ExtResource("3_qh0lm")]
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.79998, -1.85544)
+light_color = Color(0.388235, 0.8, 0.298039, 1)
+
+[connection signal="health_changed" from="Stats" to="." method="_on_stats_health_changed"]

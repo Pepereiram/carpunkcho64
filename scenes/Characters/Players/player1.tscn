@@ -107,7 +107,6 @@ shape = SubResource("CapsuleShape3D_ue3v2")
 
 [node name="Hurtbox" type="Area3D" parent="."]
 script = ExtResource("4_4l0le")
-self_damage = null
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox"]
 shape = SubResource("CapsuleShape3D_ue3v2")

@@ -52,6 +52,7 @@ func _enter_tree() -> void:
 
 func _physics_process(delta: float) -> void:
 	if stats.health <= 0:
+		velocity = Vector3(0,0,0)
 		move_and_slide()
 		return
 	

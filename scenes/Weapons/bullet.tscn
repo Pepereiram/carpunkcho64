@@ -17,6 +17,8 @@ properties/0/spawn = true
 properties/0/replication_mode = 1
 
 [node name="bala" type="Area3D"]
+collision_layer = 5
+collision_mask = 5
 script = ExtResource("1_txepv")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
