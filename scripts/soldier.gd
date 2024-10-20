@@ -3,7 +3,7 @@ extends CharacterBody3D
 
 # Variables de instancia lol
 @export var id := 1
-@export var SPEED = 100.0
+@export var SPEED = 30.0
 const JUMP_VELOCITY = 4.5
 var vivo = true
 var _players_inside: Array[Player] = []
@@ -20,7 +20,7 @@ var ray_target = Vector3()
 @onready var rot_synchronizer: MultiplayerSynchronizer = $RotationSync
 @onready var server_synchronizer: MultiplayerSynchronizer = $ServerSynchronizer
 @onready var multiplayer_synchronizer: MultiplayerSynchronizer = $MultiplayerSynchronizer
-#@onready var resurrect_area = $ResurrectArea
+@onready var resurrect_area = $ResurrectArea
 @onready var stats = $Stats
 @onready var hud = $HUD
 @onready var health_bar: ProgressBar = $HealthBar
@@ -39,9 +39,9 @@ func _ready() -> void:
 	stats.health_changed.connect(_on_health_changed)
 	hud.health = stats.health
 	hud.visible = is_multiplayer_authority()
-#	if is_multiplayer_authority():
-#		resurrect_area.body_entered.connect(_on_dead_player_entered)
-#		resurrect_area.body_exited.connect(_on_dead_player_exited)
+	if is_multiplayer_authority():
+		resurrect_area.body_entered.connect(_on_dead_player_entered)
+		resurrect_area.body_exited.connect(_on_dead_player_exited)
 
 
 	
@@ -145,11 +145,14 @@ func die() -> void:
 @rpc("call_local", "reliable", "any_peer")
 func resurrect():
 	stats.health = stats.max_health
+	update_model()
+
+@rpc("any_peer", "call_local", "reliable")
+func update_model():
 	muelto.visible = false
 	model.visible = true
 	gun_controller.muelto = false
 	vivo = true
-	
 
 func _on_dead_player_entered(body: Node) -> void:
 	if body == self:

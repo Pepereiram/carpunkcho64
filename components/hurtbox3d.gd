@@ -9,7 +9,7 @@ func _ready() -> void:
 
 func _on_area_entered(area: Area3D) -> void:
 	print("aaa")
-	var hitbox = area
+	var hitbox = area as Bullet
 	if hitbox:
 		if self_damage and hitbox.owner != owner:
 			return
