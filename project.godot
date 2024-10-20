@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="carpunkcho64"
-run/main_scene="res://scenes/ui/main_menu.tscn"
+run/main_scene="res://scenes/ui/global_menu.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
