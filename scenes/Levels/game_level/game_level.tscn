@@ -1,0 +1,700 @@
+[gd_scene load_steps=28 format=3 uid="uid://kuusfw6ema2j"]
+
+[ext_resource type="Script" path="res://scenes/Levels/game_level/game_level.gd" id="1_1ajdb"]
+[ext_resource type="PackedScene" uid="uid://ns14ka6ue5dy" path="res://scenes/Characters/Players/player1.tscn" id="2_ugcq1"]
+[ext_resource type="Texture2D" uid="uid://bco48mt28ujco" path="res://assets/textures/asphalt/asphalt_02_diff_1k.png" id="3_7um8s"]
+[ext_resource type="PackedScene" uid="uid://cgiyq2o3c41fx" path="res://scenes/Characters/Players/player2.tscn" id="3_noemn"]
+[ext_resource type="PackedScene" uid="uid://ccoydca8h720v" path="res://scenes/Characters/Carpinchos/carpincho.tscn" id="4_itjtm"]
+[ext_resource type="Texture2D" uid="uid://cnfkfw2xxbvp8" path="res://assets/textures/asphalt/asphalt_02_nor_gl_1k.png" id="5_y6x2t"]
+[ext_resource type="Texture2D" uid="uid://dpppypq7smeh8" path="res://assets/textures/asphalt/asphalt_02_rough_1k.png" id="6_sk42w"]
+[ext_resource type="PackedScene" uid="uid://c0ngm3wbfrclu" path="res://scenes/World/sidewalk.tscn" id="7_yuwap"]
+[ext_resource type="PackedScene" uid="uid://bi24vn37lhf0p" path="res://scenes/World/abandoned_house.tscn" id="9_nq7yt"]
+[ext_resource type="PackedScene" uid="uid://c1wmvdrqblf2t" path="res://scenes/World/grass.tscn" id="10_jg8up"]
+[ext_resource type="PackedScene" uid="uid://4kr0jt80rp2n" path="res://assets/models/post_apocalyptic/general/barrel.glb" id="10_qnv3p"]
+[ext_resource type="PackedScene" uid="uid://sqd71diemy7o" path="res://assets/models/cars/Broken Car.glb" id="11_tvdrk"]
+[ext_resource type="PackedScene" uid="uid://fq6fsf13d1y5" path="res://assets/models/cars/Truckk.glb" id="13_wgg1b"]
+[ext_resource type="PackedScene" uid="uid://dd6x84lhkr88w" path="res://assets/models/city/Pine.glb" id="14_7k7p5"]
+[ext_resource type="PackedScene" uid="uid://cbwa7kp45g8kk" path="res://assets/models/post_apocalyptic/gas_station/road_barrier.glb" id="16_a0bb2"]
+[ext_resource type="PackedScene" uid="uid://dwweweysfmwyu" path="res://scenes/World/policecar.tscn" id="17_g7kmh"]
+[ext_resource type="PackedScene" uid="uid://dkdqutftnoho8" path="res://scenes/World/streetlight.tscn" id="18_1klga"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_a8hqw"]
+size = Vector3(200, 0.1, 200)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_2s6hp"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ylixn"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6hmdp"]
+albedo_texture = ExtResource("3_7um8s")
+roughness = 0.72
+roughness_texture = ExtResource("6_sk42w")
+normal_enabled = true
+normal_scale = 2.0
+normal_texture = ExtResource("5_y6x2t")
+ao_light_affect = 1.0
+ao_texture = SubResource("CompressedTexture2D_2s6hp")
+heightmap_scale = -1.0
+heightmap_texture = SubResource("CompressedTexture2D_ylixn")
+uv1_scale = Vector3(2, 2, 2)
+uv1_offset = Vector3(0.12, 0, 0)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_23l8y"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4xofm"]
+size = Vector3(2.63551, 1.67773, 5.58805)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bl3ys"]
+size = Vector3(10.6848, 4.46118, 4.6264)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lxvfk"]
+radius = 0.255482
+height = 5.25877
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_sktv3"]
+height = 1.84322
+radius = 0.34952
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pgu6b"]
+size = Vector3(1, 1.01807, 0.694336)
+
+[node name="GameLevel" type="Node3D"]
+script = ExtResource("1_1ajdb")
+player_1_scene = ExtResource("2_ugcq1")
+player_2_scene = ExtResource("3_noemn")
+enemy_capybara_basic = ExtResource("4_itjtm")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.559745, -0.3524, 0.75, -0.130996, 0.856061, 0.5, -0.818246, -0.378119, 0.433013, 73.9016, 119.022, 76.2313)
+light_energy = 0.06
+light_negative = true
+shadow_transmittance_bias = -15.659
+directional_shadow_mode = 0
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+
+[node name="base_floor" type="Node3D" parent="NavigationRegion3D"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/base_floor"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/base_floor/StaticBody3D"]
+shape = SubResource("BoxShape3D_a8hqw")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/base_floor/StaticBody3D"]
+transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_6hmdp")
+mesh = SubResource("PlaneMesh_23l8y")
+
+[node name="AbandonedHouse" parent="NavigationRegion3D" instance=ExtResource("9_nq7yt")]
+transform = Transform3D(-2.50506, 0, 4.3272, 0, 5, 0, -4.3272, 0, -2.50506, -77.9822, 0.0499992, 80.8071)
+
+[node name="sidewalks" type="Node3D" parent="NavigationRegion3D"]
+
+[node name="corner1" type="Node3D" parent="NavigationRegion3D/sidewalks"]
+
+[node name="sidewalk09" parent="NavigationRegion3D/sidewalks/corner1" instance=ExtResource("7_yuwap")]
+transform = Transform3D(0.561694, 0, 0, 0, 1, 0, 0, 0, 1, -27.259, 0.05, -19)
+
+[node name="sidewalk10" parent="NavigationRegion3D/sidewalks/corner1" instance=ExtResource("7_yuwap")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35, 0.05, -19)
+
+[node name="sidewalk33" parent="NavigationRegion3D/sidewalks/corner1" instance=ExtResource("7_yuwap")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.5, 0.05, -19)
+
+[node name="sidewalk11" parent="NavigationRegion3D/sidewalks/corner1" instance=ExtResource("7_yuwap")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0.05, -19)
+
+[node name="sidewalk12" parent="NavigationRegion3D/sidewalks/corner1" instance=ExtResource("7_yuwap")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -55, 0.05, -19)
+
+[node name="sidewalk13" parent="NavigationRegion3D/sidewalks/corner1" instance=ExtResource("7_yuwap")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -65, 0.05, -19)
+
+[node name="sidewalk14" parent="NavigationRegion3D/sidewalks/corner1" instance=ExtResource("7_yuwap")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -75, 0.05, -19)
+
+[node name="sidewalk15" parent="NavigationRegion3D/sidewalks/corner1" instance=ExtResource("7_yuwap")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -85, 0.05, -19)
+
+[node name="sidewalk16" parent="NavigationRegion3D/sidewalks/corner1" instance=ExtResource("7_yuwap")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -95, 0.05, -19)
+
+[node name="sidewalk34" parent="NavigationRegion3D/sidewalks/corner1" instance=ExtResource("7_yuwap")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -19.5429, 0.05, -34.5429)
+
+[node name="sidewalk35" parent="NavigationRegion3D/sidewalks/corner1" instance=ExtResource("7_yuwap")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -19.5429, 0.05, -44.5429)
+
+[node name="sidewalk36" parent="NavigationRegion3D/sidewalks/corner1" instance=ExtResource("7_yuwap")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -19.5429, 0.05, -54.5429)
+
+[node name="sidewalk37" parent="NavigationRegion3D/sidewalks/corner1" instance=ExtResource("7_yuwap")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -19.5429, 0.05, -64.5429)
+
+[node name="sidewalk38" parent="NavigationRegion3D/sidewalks/corner1" instance=ExtResource("7_yuwap")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -19.5429, 0.05, -74.5429)
+
+[node name="sidewalk39" parent="NavigationRegion3D/sidewalks/corner1" instance=ExtResource("7_yuwap")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -19.5429, 0.05, -84.5429)
+
+[node name="sidewalk40" parent="NavigationRegion3D/sidewalks/corner1" instance=ExtResource("7_yuwap")]
+transform = Transform3D(-4.85159e-08, 0, -1, 0, 1, 0, 1.10991, 0, -4.37114e-08, -19.5429, 0.05, -94.5429)
+
+[node name="sidewalk65" parent="NavigationRegion3D/sidewalks/corner1" instance=ExtResource("7_yuwap")]
+transform = Transform3D(-2.45509e-08, 0, -1, 0, 1, 0, 0.56166, 0, -4.37114e-08, -19.543, 0.05, -26.7622)
+
+[node name="corner2" type="Node3D" parent="NavigationRegion3D/sidewalks"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.131554, 0, 0)
+
+[node name="sidewalk09" parent="NavigationRegion3D/sidewalks/corner2" instance=ExtResource("7_yuwap")]
+transform = Transform3D(0.561694, 0, 0, 0, 1, 0, 0, 0, 1, -27.259, 0.05, -19)
+
+[node name="sidewalk10" parent="NavigationRegion3D/sidewalks/corner2" instance=ExtResource("7_yuwap")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35, 0.05, -19)
+
+[node name="sidewalk33" parent="NavigationRegion3D/sidewalks/corner2" instance=ExtResource("7_yuwap")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.5, 0.05, -19)
+
+[node name="sidewalk11" parent="NavigationRegion3D/sidewalks/corner2" instance=ExtResource("7_yuwap")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0.05, -19)
+
+[node name="sidewalk12" parent="NavigationRegion3D/sidewalks/corner2" instance=ExtResource("7_yuwap")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -55, 0.05, -19)
+
+[node name="sidewalk13" parent="NavigationRegion3D/sidewalks/corner2" instance=ExtResource("7_yuwap")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -65, 0.05, -19)
+
+[node name="sidewalk14" parent="NavigationRegion3D/sidewalks/corner2" instance=ExtResource("7_yuwap")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -75, 0.05, -19)
+
+[node name="sidewalk15" parent="NavigationRegion3D/sidewalks/corner2" instance=ExtResource("7_yuwap")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -85, 0.05, -19)
+
+[node name="sidewalk16" parent="NavigationRegion3D/sidewalks/corner2" instance=ExtResource("7_yuwap")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -95, 0.05, -19)
+
+[node name="sidewalk34" parent="NavigationRegion3D/sidewalks/corner2" instance=ExtResource("7_yuwap")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -19.5429, 0.05, -34.5429)
+
+[node name="sidewalk35" parent="NavigationRegion3D/sidewalks/corner2" instance=ExtResource("7_yuwap")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -19.5429, 0.05, -44.5429)
+
+[node name="sidewalk36" parent="NavigationRegion3D/sidewalks/corner2" instance=ExtResource("7_yuwap")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -19.5429, 0.05, -54.5429)
+
+[node name="sidewalk37" parent="NavigationRegion3D/sidewalks/corner2" instance=ExtResource("7_yuwap")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -19.5429, 0.05, -64.5429)
+
+[node name="sidewalk38" parent="NavigationRegion3D/sidewalks/corner2" instance=ExtResource("7_yuwap")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -19.5429, 0.05, -74.5429)
+
+[node name="sidewalk39" parent="NavigationRegion3D/sidewalks/corner2" instance=ExtResource("7_yuwap")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -19.5429, 0.05, -84.5429)
+
+[node name="sidewalk40" parent="NavigationRegion3D/sidewalks/corner2" instance=ExtResource("7_yuwap")]
+transform = Transform3D(-4.85159e-08, 0, -1, 0, 1, 0, 1.10991, 0, -4.37114e-08, -19.5429, 0.05, -94.5429)
+
+[node name="sidewalk65" parent="NavigationRegion3D/sidewalks/corner2" instance=ExtResource("7_yuwap")]
+transform = Transform3D(-2.45509e-08, 0, -1, 0, 1, 0, 0.56166, 0, -4.37114e-08, -19.543, 0.05, -26.7622)
+
+[node name="corner3" type="Node3D" parent="NavigationRegion3D/sidewalks"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -0.131554, 0, 0)
+
+[node name="sidewalk09" parent="NavigationRegion3D/sidewalks/corner3" instance=ExtResource("7_yuwap")]
+transform = Transform3D(0.561694, 0, 0, 0, 1, 0, 0, 0, 1, -27.259, 0.05, -19)
+
+[node name="sidewalk10" parent="NavigationRegion3D/sidewalks/corner3" instance=ExtResource("7_yuwap")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35, 0.05, -19)
+
+[node name="sidewalk33" parent="NavigationRegion3D/sidewalks/corner3" instance=ExtResource("7_yuwap")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.5, 0.05, -19)
+
+[node name="sidewalk11" parent="NavigationRegion3D/sidewalks/corner3" instance=ExtResource("7_yuwap")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0.05, -19)
+
+[node name="sidewalk12" parent="NavigationRegion3D/sidewalks/corner3" instance=ExtResource("7_yuwap")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -55, 0.05, -19)
+
+[node name="sidewalk13" parent="NavigationRegion3D/sidewalks/corner3" instance=ExtResource("7_yuwap")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -65, 0.05, -19)
+
+[node name="sidewalk14" parent="NavigationRegion3D/sidewalks/corner3" instance=ExtResource("7_yuwap")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -75, 0.05, -19)
+
+[node name="sidewalk15" parent="NavigationRegion3D/sidewalks/corner3" instance=ExtResource("7_yuwap")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -85, 0.05, -19)
+
+[node name="sidewalk16" parent="NavigationRegion3D/sidewalks/corner3" instance=ExtResource("7_yuwap")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -95, 0.05, -19)
+
+[node name="sidewalk34" parent="NavigationRegion3D/sidewalks/corner3" instance=ExtResource("7_yuwap")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -19.5429, 0.05, -34.5429)
+
+[node name="sidewalk35" parent="NavigationRegion3D/sidewalks/corner3" instance=ExtResource("7_yuwap")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -19.5429, 0.05, -44.5429)
+
+[node name="sidewalk36" parent="NavigationRegion3D/sidewalks/corner3" instance=ExtResource("7_yuwap")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -19.5429, 0.05, -54.5429)
+
+[node name="sidewalk37" parent="NavigationRegion3D/sidewalks/corner3" instance=ExtResource("7_yuwap")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -19.5429, 0.05, -64.5429)
+
+[node name="sidewalk38" parent="NavigationRegion3D/sidewalks/corner3" instance=ExtResource("7_yuwap")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -19.5429, 0.05, -74.5429)
+
+[node name="sidewalk39" parent="NavigationRegion3D/sidewalks/corner3" instance=ExtResource("7_yuwap")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -19.5429, 0.05, -84.5429)
+
+[node name="sidewalk40" parent="NavigationRegion3D/sidewalks/corner3" instance=ExtResource("7_yuwap")]
+transform = Transform3D(-4.85159e-08, 0, -1, 0, 1, 0, 1.10991, 0, -4.37114e-08, -19.5429, 0.05, -94.5429)
+
+[node name="sidewalk65" parent="NavigationRegion3D/sidewalks/corner3" instance=ExtResource("7_yuwap")]
+transform = Transform3D(-2.45509e-08, 0, -1, 0, 1, 0, 0.56166, 0, -4.37114e-08, -19.543, 0.05, -26.7622)
+
+[node name="corner4" type="Node3D" parent="NavigationRegion3D/sidewalks"]
+transform = Transform3D(1.31134e-07, 0, 1, 0, 1, 0, -1, 0, 1.31134e-07, -0.131554, 0, 0)
+
+[node name="sidewalk09" parent="NavigationRegion3D/sidewalks/corner4" instance=ExtResource("7_yuwap")]
+transform = Transform3D(0.561694, 0, 0, 0, 1, 0, 0, 0, 1, -27.259, 0.05, -19)
+
+[node name="sidewalk10" parent="NavigationRegion3D/sidewalks/corner4" instance=ExtResource("7_yuwap")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35, 0.05, -19)
+
+[node name="sidewalk33" parent="NavigationRegion3D/sidewalks/corner4" instance=ExtResource("7_yuwap")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.5, 0.05, -19)
+
+[node name="sidewalk11" parent="NavigationRegion3D/sidewalks/corner4" instance=ExtResource("7_yuwap")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0.05, -19)
+
+[node name="sidewalk12" parent="NavigationRegion3D/sidewalks/corner4" instance=ExtResource("7_yuwap")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -55, 0.05, -19)
+
+[node name="sidewalk13" parent="NavigationRegion3D/sidewalks/corner4" instance=ExtResource("7_yuwap")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -65, 0.05, -19)
+
+[node name="sidewalk14" parent="NavigationRegion3D/sidewalks/corner4" instance=ExtResource("7_yuwap")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -75, 0.05, -19)
+
+[node name="sidewalk15" parent="NavigationRegion3D/sidewalks/corner4" instance=ExtResource("7_yuwap")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -85, 0.05, -19)
+
+[node name="sidewalk16" parent="NavigationRegion3D/sidewalks/corner4" instance=ExtResource("7_yuwap")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -95, 0.05, -19)
+
+[node name="sidewalk34" parent="NavigationRegion3D/sidewalks/corner4" instance=ExtResource("7_yuwap")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -19.5429, 0.05, -34.5429)
+
+[node name="sidewalk35" parent="NavigationRegion3D/sidewalks/corner4" instance=ExtResource("7_yuwap")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -19.5429, 0.05, -44.5429)
+
+[node name="sidewalk36" parent="NavigationRegion3D/sidewalks/corner4" instance=ExtResource("7_yuwap")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -19.5429, 0.05, -54.5429)
+
+[node name="sidewalk37" parent="NavigationRegion3D/sidewalks/corner4" instance=ExtResource("7_yuwap")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -19.5429, 0.05, -64.5429)
+
+[node name="sidewalk38" parent="NavigationRegion3D/sidewalks/corner4" instance=ExtResource("7_yuwap")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -19.5429, 0.05, -74.5429)
+
+[node name="sidewalk39" parent="NavigationRegion3D/sidewalks/corner4" instance=ExtResource("7_yuwap")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -19.5429, 0.05, -84.5429)
+
+[node name="sidewalk40" parent="NavigationRegion3D/sidewalks/corner4" instance=ExtResource("7_yuwap")]
+transform = Transform3D(-4.85159e-08, 0, -1, 0, 1, 0, 1.10991, 0, -4.37114e-08, -19.5429, 0.05, -94.5429)
+
+[node name="sidewalk65" parent="NavigationRegion3D/sidewalks/corner4" instance=ExtResource("7_yuwap")]
+transform = Transform3D(-2.45509e-08, 0, -1, 0, 1, 0, 0.56166, 0, -4.37114e-08, -19.543, 0.05, -26.7622)
+
+[node name="grass" type="Node3D" parent="NavigationRegion3D"]
+
+[node name="Grass" parent="NavigationRegion3D/grass" instance=ExtResource("10_jg8up")]
+transform = Transform3D(76, 0, 0, 0, 0.5, 0, 0, 0, 76, 61.8688, 0.06, -62.5432)
+
+[node name="Grass2" parent="NavigationRegion3D/grass" instance=ExtResource("10_jg8up")]
+transform = Transform3D(-3.32207e-06, 0, -76, 0, 0.5, 0, 76, 0, -3.32207e-06, 62.4108, 0.06, 62.001)
+
+[node name="Grass3" parent="NavigationRegion3D/grass" instance=ExtResource("10_jg8up")]
+transform = Transform3D(-76, 0, 6.64413e-06, 0, 0.5, 0, -6.64413e-06, 0, -76, -62.132, 0.06, 62.5432)
+
+[node name="Grass4" parent="NavigationRegion3D/grass" instance=ExtResource("10_jg8up")]
+transform = Transform3D(9.9662e-06, -2.18557e-08, 76, -3.32207e-06, 0.5, 3.32207e-06, -76, -2.18557e-08, 9.9662e-06, -62.5434, 0.06, -62.0011)
+
+[node name="decorations" type="Node3D" parent="NavigationRegion3D"]
+
+[node name="brokencar" parent="NavigationRegion3D/decorations" instance=ExtResource("11_tvdrk")]
+transform = Transform3D(-2.36613, 0, 1.8443, 0, 3, 0, -1.8443, 0, -2.36613, 88.8177, 0, 7.56565)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/decorations/brokencar"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/decorations/brokencar/StaticBody3D"]
+transform = Transform3D(0.999998, 0, 1.57952e-06, 0, 1, 0, -1.57952e-06, 0, 0.999998, -0.0502014, 0.837891, 0.187086)
+shape = SubResource("BoxShape3D_4xofm")
+
+[node name="brokencar2" parent="NavigationRegion3D/decorations" instance=ExtResource("11_tvdrk")]
+transform = Transform3D(-0.899067, 0, -2.86211, 0, 3, 0, 2.86211, 0, -0.899067, 9.68723, 0, -92.6386)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/decorations/brokencar2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/decorations/brokencar2/StaticBody3D"]
+transform = Transform3D(0.999998, 0, 1.57952e-06, 0, 1, 0, -1.57952e-06, 0, 0.999998, -0.0502014, 0.837891, 0.187086)
+shape = SubResource("BoxShape3D_4xofm")
+
+[node name="brokencar3" parent="NavigationRegion3D/decorations" instance=ExtResource("11_tvdrk")]
+transform = Transform3D(1.1497, 0, -2.77096, 0, 3, 0, 2.77096, 0, 1.1497, -52.4856, 0, -51.4151)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/decorations/brokencar3"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/decorations/brokencar3/StaticBody3D"]
+transform = Transform3D(0.999998, 0, 1.57952e-06, 0, 1, 0, -1.57952e-06, 0, 0.999998, -0.0502014, 0.837891, 0.187086)
+shape = SubResource("BoxShape3D_4xofm")
+
+[node name="militarytruck" parent="NavigationRegion3D/decorations" instance=ExtResource("13_wgg1b")]
+transform = Transform3D(1.91383, 1.27564, 5.576e-08, 8.10827e-15, -1.00536e-07, 2.3, 1.27564, -1.91383, -8.36561e-08, -1.06847, -7.92416, 96.82)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/decorations/militarytruck"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/decorations/militarytruck/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0321045, 2.04724, 5.67007)
+shape = SubResource("BoxShape3D_bl3ys")
+
+[node name="trees" type="Node3D" parent="NavigationRegion3D/decorations"]
+
+[node name="pine" parent="NavigationRegion3D/decorations/trees" instance=ExtResource("14_7k7p5")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, -30.923, 0, 96.2944)
+
+[node name="RigidBody3D" type="RigidBody3D" parent="NavigationRegion3D/decorations/trees/pine"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/decorations/trees/pine/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0121274, 0, -0.0281582)
+shape = SubResource("CapsuleShape3D_lxvfk")
+
+[node name="pine2" parent="NavigationRegion3D/decorations/trees" instance=ExtResource("14_7k7p5")]
+transform = Transform3D(3.14568, 0, 1.64536, 0, 3.55, 0, -1.64536, 0, 3.14568, -42.8762, 0, 90.2342)
+
+[node name="RigidBody3D" type="RigidBody3D" parent="NavigationRegion3D/decorations/trees/pine2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/decorations/trees/pine2/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0121274, 0, -0.0281582)
+shape = SubResource("CapsuleShape3D_lxvfk")
+
+[node name="pine3" parent="NavigationRegion3D/decorations/trees" instance=ExtResource("14_7k7p5")]
+transform = Transform3D(2.26416, 0, 3.83674, 0, 4.455, 0, -3.83674, 0, 2.26416, -85.2061, 0, 55.3047)
+
+[node name="RigidBody3D" type="RigidBody3D" parent="NavigationRegion3D/decorations/trees/pine3"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/decorations/trees/pine3/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0121274, 0, -0.0281582)
+shape = SubResource("CapsuleShape3D_lxvfk")
+
+[node name="pine4" parent="NavigationRegion3D/decorations/trees" instance=ExtResource("14_7k7p5")]
+transform = Transform3D(3.21233, 0, 0.967964, 0, 3.355, 0, -0.967964, 0, 3.21233, -85.761, 0, 39.8926)
+
+[node name="RigidBody3D" type="RigidBody3D" parent="NavigationRegion3D/decorations/trees/pine4"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/decorations/trees/pine4/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0121274, 0, -0.0281582)
+shape = SubResource("CapsuleShape3D_lxvfk")
+
+[node name="pine5" parent="NavigationRegion3D/decorations/trees" instance=ExtResource("14_7k7p5")]
+transform = Transform3D(4.60775, 0, 2.4101, 0, 5.2, 0, -2.4101, 0, 4.60775, 94.178, 0, 90.5303)
+
+[node name="RigidBody3D" type="RigidBody3D" parent="NavigationRegion3D/decorations/trees/pine5"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/decorations/trees/pine5/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0121274, 0, -0.0281582)
+shape = SubResource("CapsuleShape3D_lxvfk")
+
+[node name="pine6" parent="NavigationRegion3D/decorations/trees" instance=ExtResource("14_7k7p5")]
+transform = Transform3D(2.3861, 0, 3.32184, 0, 4.09, 0, -3.32184, 0, 2.3861, 72.569, 0, 94.9705)
+
+[node name="RigidBody3D" type="RigidBody3D" parent="NavigationRegion3D/decorations/trees/pine6"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/decorations/trees/pine6/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0121274, 0, -0.0281582)
+shape = SubResource("CapsuleShape3D_lxvfk")
+
+[node name="pine7" parent="NavigationRegion3D/decorations/trees" instance=ExtResource("14_7k7p5")]
+transform = Transform3D(3.79342, 0, 0.988112, 0, 3.92, 0, -0.988112, 0, 3.79342, 96.8421, 0, 70.9934)
+
+[node name="RigidBody3D" type="RigidBody3D" parent="NavigationRegion3D/decorations/trees/pine7"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/decorations/trees/pine7/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0121274, 0, -0.0281582)
+shape = SubResource("CapsuleShape3D_lxvfk")
+
+[node name="placeholders" type="Node3D" parent="NavigationRegion3D/decorations"]
+
+[node name="barrel2" parent="NavigationRegion3D/decorations/placeholders" instance=ExtResource("10_qnv3p")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 60.9002, 0.366621, -51.7878)
+
+[node name="RigidBody3D" type="RigidBody3D" parent="NavigationRegion3D/decorations/placeholders/barrel2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/decorations/placeholders/barrel2/RigidBody3D"]
+shape = SubResource("CylinderShape3D_sktv3")
+
+[node name="barrel3" parent="NavigationRegion3D/decorations/placeholders" instance=ExtResource("10_qnv3p")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 67.5852, 0.366621, -50.787)
+metadata/_edit_group_ = true
+
+[node name="RigidBody3D" type="RigidBody3D" parent="NavigationRegion3D/decorations/placeholders/barrel3"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/decorations/placeholders/barrel3/RigidBody3D"]
+shape = SubResource("CylinderShape3D_sktv3")
+
+[node name="barrel4" parent="NavigationRegion3D/decorations/placeholders" instance=ExtResource("10_qnv3p")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 54.2755, 0.366621, -58.9035)
+metadata/_edit_group_ = true
+
+[node name="RigidBody3D" type="RigidBody3D" parent="NavigationRegion3D/decorations/placeholders/barrel4"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/decorations/placeholders/barrel4/RigidBody3D"]
+shape = SubResource("CylinderShape3D_sktv3")
+
+[node name="barrel6" parent="NavigationRegion3D/decorations/placeholders" instance=ExtResource("10_qnv3p")]
+transform = Transform3D(-1.06291e-07, -2.43166, 1.757, 3, -1.31134e-07, 0, 7.68007e-08, 1.757, 2.43166, 65.7423, 1.30501, -61.9881)
+metadata/_edit_group_ = true
+
+[node name="RigidBody3D" type="RigidBody3D" parent="NavigationRegion3D/decorations/placeholders/barrel6"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/decorations/placeholders/barrel6/RigidBody3D"]
+shape = SubResource("CylinderShape3D_sktv3")
+
+[node name="barrel7" parent="NavigationRegion3D/decorations/placeholders" instance=ExtResource("10_qnv3p")]
+transform = Transform3D(-1.06291e-07, -2.43166, 1.757, 3, -1.31134e-07, 0, 7.68007e-08, 1.757, 2.43166, 67.012, 1.30501, -60.2308)
+metadata/_edit_group_ = true
+
+[node name="RigidBody3D" type="RigidBody3D" parent="NavigationRegion3D/decorations/placeholders/barrel7"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/decorations/placeholders/barrel7/RigidBody3D"]
+shape = SubResource("CylinderShape3D_sktv3")
+
+[node name="barrel8" parent="NavigationRegion3D/decorations/placeholders" instance=ExtResource("10_qnv3p")]
+transform = Transform3D(-1.06291e-07, -2.43166, 1.757, 3, -1.31134e-07, 0, 7.68007e-08, 1.757, 2.43166, 66.4109, 3.06053, -61.0626)
+metadata/_edit_group_ = true
+
+[node name="RigidBody3D" type="RigidBody3D" parent="NavigationRegion3D/decorations/placeholders/barrel8"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/decorations/placeholders/barrel8/RigidBody3D"]
+shape = SubResource("CylinderShape3D_sktv3")
+
+[node name="barrel5" parent="NavigationRegion3D/decorations/placeholders" instance=ExtResource("10_qnv3p")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 56.3753, 0.366621, -67.7286)
+metadata/_edit_group_ = true
+
+[node name="RigidBody3D" type="RigidBody3D" parent="NavigationRegion3D/decorations/placeholders/barrel5"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/decorations/placeholders/barrel5/RigidBody3D"]
+shape = SubResource("CylinderShape3D_sktv3")
+
+[node name="barrel9" parent="NavigationRegion3D/decorations/placeholders" instance=ExtResource("10_qnv3p")]
+transform = Transform3D(-1.27294e-07, -2.91215, -0.720684, 3, -1.31134e-07, 0, -3.15021e-08, -0.720684, 2.91215, 64.2461, 1.92004, -69.0601)
+metadata/_edit_group_ = true
+
+[node name="RigidBody3D" type="RigidBody3D" parent="NavigationRegion3D/decorations/placeholders/barrel9"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/decorations/placeholders/barrel9/RigidBody3D"]
+shape = SubResource("CylinderShape3D_sktv3")
+
+[node name="road_barrier2" parent="NavigationRegion3D/decorations/placeholders" instance=ExtResource("16_a0bb2")]
+transform = Transform3D(2.21466, 0, 2.02368, 0, 3, 0, -2.02368, 0, 2.21466, -50.6238, 0, -43.8978)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/decorations/placeholders/road_barrier2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/decorations/placeholders/road_barrier2/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.561768, 0.00537109)
+shape = SubResource("BoxShape3D_pgu6b")
+
+[node name="road_barrier3" parent="NavigationRegion3D/decorations/placeholders" instance=ExtResource("16_a0bb2")]
+transform = Transform3D(2.82177, 0, 1.01863, 0, 3, 0, -1.01863, 0, 2.82177, -44.2295, 0, -46.9462)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/decorations/placeholders/road_barrier3"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/decorations/placeholders/road_barrier3/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.561768, 0.00537109)
+shape = SubResource("BoxShape3D_pgu6b")
+
+[node name="road_barrier4" parent="NavigationRegion3D/decorations/placeholders" instance=ExtResource("16_a0bb2")]
+transform = Transform3D(1.60668, 0, 2.53349, 0, 3, 0, -2.53349, 0, 1.60668, -56.2002, 0, -39.9571)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/decorations/placeholders/road_barrier4"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/decorations/placeholders/road_barrier4/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.561768, 0.00537109)
+shape = SubResource("BoxShape3D_pgu6b")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="NavigationRegion3D/decorations/placeholders/road_barrier4/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.561768, 0.00537109)
+shape = SubResource("BoxShape3D_pgu6b")
+
+[node name="road_barrier7" parent="NavigationRegion3D/decorations/placeholders" instance=ExtResource("16_a0bb2")]
+transform = Transform3D(0.826454, 0, 2.88391, 0, 3, 0, -2.88391, 0, 0.826454, -96.9476, 0, -3.21742)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/decorations/placeholders/road_barrier7"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/decorations/placeholders/road_barrier7/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.561768, 0.00537109)
+shape = SubResource("BoxShape3D_pgu6b")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="NavigationRegion3D/decorations/placeholders/road_barrier7/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.561768, 0.00537109)
+shape = SubResource("BoxShape3D_pgu6b")
+
+[node name="road_barrier8" parent="NavigationRegion3D/decorations/placeholders" instance=ExtResource("16_a0bb2")]
+transform = Transform3D(-0.10486, 0, 2.99817, 0, 3, 0, -2.99817, 0, -0.10486, -97.5571, 0, 1.31989)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/decorations/placeholders/road_barrier8"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/decorations/placeholders/road_barrier8/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.561768, 0.00537109)
+shape = SubResource("BoxShape3D_pgu6b")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="NavigationRegion3D/decorations/placeholders/road_barrier8/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.561768, 0.00537109)
+shape = SubResource("BoxShape3D_pgu6b")
+
+[node name="road_barrier9" parent="NavigationRegion3D/decorations/placeholders" instance=ExtResource("16_a0bb2")]
+transform = Transform3D(-1.46934, 0, 2.61554, 0, 3, 0, -2.61554, 0, -1.46934, -93.9679, 0, 5.51859)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/decorations/placeholders/road_barrier9"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/decorations/placeholders/road_barrier9/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.561768, 0.00537109)
+shape = SubResource("BoxShape3D_pgu6b")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="NavigationRegion3D/decorations/placeholders/road_barrier9/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.561768, 0.00537109)
+shape = SubResource("BoxShape3D_pgu6b")
+
+[node name="road_barrier5" parent="NavigationRegion3D/decorations/placeholders" instance=ExtResource("16_a0bb2")]
+transform = Transform3D(1.39587, 0, 2.65547, 0, 3, 0, -2.65547, 0, 1.39587, -39.0992, 0, -51.8535)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/decorations/placeholders/road_barrier5"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/decorations/placeholders/road_barrier5/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.561768, 0.00537109)
+shape = SubResource("BoxShape3D_pgu6b")
+
+[node name="road_barrier6" parent="NavigationRegion3D/decorations/placeholders" instance=ExtResource("16_a0bb2")]
+transform = Transform3D(0.53584, 0, 2.95176, 0, 3, 0, -2.95176, 0, 0.53584, -33.1371, 0, -55.6968)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/decorations/placeholders/road_barrier6"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/decorations/placeholders/road_barrier6/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.561768, 0.00537109)
+shape = SubResource("BoxShape3D_pgu6b")
+
+[node name="Policecar" parent="NavigationRegion3D/decorations" instance=ExtResource("17_g7kmh")]
+transform = Transform3D(2.7056, 0, 3.5958, 0, 4.5, 0, -3.5958, 0, 2.7056, -9.79415, 0.0499992, -91.2757)
+lights_on = true
+
+[node name="PlayerMarkers" type="Node3D" parent="."]
+
+[node name="Marker3D" type="Marker3D" parent="PlayerMarkers"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0.227727, 0)
+
+[node name="Marker3D2" type="Marker3D" parent="PlayerMarkers"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0.227727, 0)
+
+[node name="EnemyMarkers" type="Node3D" parent="."]
+
+[node name="EnemyMarker3D_01" type="Marker3D" parent="EnemyMarkers"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -89.7452, 0.361845, -92.4853)
+
+[node name="EnemyMarker3D_03" type="Marker3D" parent="EnemyMarkers"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -71.7723, 0.361845, -95.0337)
+
+[node name="EnemyMarker3D_13" type="Marker3D" parent="EnemyMarkers"]
+transform = Transform3D(-0.190175, 0, -0.98175, 0, 1, 0, 0.98175, 0, -0.190175, -77.5986, 0.361845, -10.2797)
+
+[node name="EnemyMarker3D_14" type="Marker3D" parent="EnemyMarkers"]
+transform = Transform3D(-0.190175, 0, -0.98175, 0, 1, 0, 0.98175, 0, -0.190175, -78.5148, 0.361845, 7.84992)
+
+[node name="EnemyMarker3D_15" type="Marker3D" parent="EnemyMarkers"]
+transform = Transform3D(0.971088, 0, -0.23872, 0, 1, 0, 0.23872, 0, 0.971088, -6.7021, 0.361845, -77.7797)
+
+[node name="EnemyMarker3D_16" type="Marker3D" parent="EnemyMarkers"]
+transform = Transform3D(0.971088, 0, -0.23872, 0, 1, 0, 0.23872, 0, 0.971088, 11.3596, 0.361845, -75.9639)
+
+[node name="EnemyMarker3D_17" type="Marker3D" parent="EnemyMarkers"]
+transform = Transform3D(0.971088, 0, -0.23872, 0, 1, 0, 0.23872, 0, 0.971088, 91.745, 0.361845, -8.4131)
+
+[node name="EnemyMarker3D_18" type="Marker3D" parent="EnemyMarkers"]
+transform = Transform3D(0.971088, 0, -0.23872, 0, 1, 0, 0.23872, 0, 0.971088, 9.33306, 0.361845, 82.105)
+
+[node name="EnemyMarker3D_19" type="Marker3D" parent="EnemyMarkers"]
+transform = Transform3D(0.971088, 0, -0.23872, 0, 1, 0, 0.23872, 0, 0.971088, -7.21688, 0.361845, 78.0519)
+
+[node name="EnemyMarker3D_02" type="Marker3D" parent="EnemyMarkers"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -93.1704, 0.361845, -76.91)
+
+[node name="EnemyMarker3D_04" type="Marker3D" parent="EnemyMarkers"]
+transform = Transform3D(-0.645351, 0, -0.763886, 0, 1, 0, 0.763886, 0, -0.645351, 88.0932, 0.361845, -91.9449)
+
+[node name="EnemyMarker3D_05" type="Marker3D" parent="EnemyMarkers"]
+transform = Transform3D(-0.645351, 0, -0.763886, 0, 1, 0, 0.763886, 0, -0.645351, 92.4377, 0.361845, -74.3197)
+
+[node name="EnemyMarker3D_06" type="Marker3D" parent="EnemyMarkers"]
+transform = Transform3D(-0.645351, 0, -0.763886, 0, 1, 0, 0.763886, 0, -0.645351, 72.2523, 0.361845, -93.7849)
+
+[node name="EnemyMarker3D_07" type="Marker3D" parent="EnemyMarkers"]
+transform = Transform3D(-0.681091, 0, 0.732198, 0, 1, 0, -0.732198, 0, -0.681091, 74.5025, 0.361845, 76.8337)
+
+[node name="EnemyMarker3D_08" type="Marker3D" parent="EnemyMarkers"]
+transform = Transform3D(-0.681091, 0, 0.732198, 0, 1, 0, -0.732198, 0, -0.681091, 56.4838, 0.361845, 79.036)
+
+[node name="EnemyMarker3D_09" type="Marker3D" parent="EnemyMarkers"]
+transform = Transform3D(-0.681091, 0, 0.732198, 0, 1, 0, -0.732198, 0, -0.681091, 78.2265, 0.361845, 61.3272)
+
+[node name="EnemyMarker3D_10" type="Marker3D" parent="EnemyMarkers"]
+transform = Transform3D(0.754263, 0, 0.656573, 0, 1, 0, -0.656573, 0, 0.754263, -54.4168, 0.361845, 69.5844)
+
+[node name="EnemyMarker3D_11" type="Marker3D" parent="EnemyMarkers"]
+transform = Transform3D(0.754263, 0, 0.656573, 0, 1, 0, -0.656573, 0, 0.754263, -56.0236, 0.361845, 51.5029)
+
+[node name="EnemyMarker3D_12" type="Marker3D" parent="EnemyMarkers"]
+transform = Transform3D(0.754263, 0, 0.656573, 0, 1, 0, -0.656573, 0, 0.754263, -39.0416, 0.361845, 73.8179)
+
+[node name="Policecar" parent="." instance=ExtResource("17_g7kmh")]
+transform = Transform3D(-2.8309, 0, 3.498, 0, 4.5, 0, -3.498, 0, -2.8309, -15.5709, 0, 9.01988)
+lights_on = true
+
+[node name="Policecar2" parent="." instance=ExtResource("17_g7kmh")]
+transform = Transform3D(-1.70552, 0, -4.16428, 0, 4.5, 0, 4.16428, 0, -1.70552, 11.0644, 5.72205e-06, 10.8164)
+lights_on = true
+light_energy = 15.0
+
+[node name="Streetlight" parent="." instance=ExtResource("18_1klga")]
+transform = Transform3D(17.5, 0, 0, 0, 17.5, 0, 0, 0, 17.5, 23.4614, 0.0499992, 48.0308)
+
+[node name="Streetlight2" parent="." instance=ExtResource("18_1klga")]
+transform = Transform3D(-17.5, 0, -1.5299e-06, 0, 17.5, 0, 1.5299e-06, 0, -17.5, -23.1024, 0.0499992, 48.0308)
+
+[node name="Streetlight3" parent="." instance=ExtResource("18_1klga")]
+transform = Transform3D(17.5, 0, 0, 0, 17.5, 0, 0, 0, 17.5, 23.4614, 0.0499992, -64.4219)
+
+[node name="Streetlight4" parent="." instance=ExtResource("18_1klga")]
+transform = Transform3D(-17.5, 0, -1.5299e-06, 0, 17.5, 0, 1.5299e-06, 0, -17.5, -23.1024, 0.0499992, -64.4219)
+
+[node name="Streetlight5" parent="." instance=ExtResource("18_1klga")]
+transform = Transform3D(-7.64949e-07, 0, -17.5, 0, 17.5, 0, 17.5, 0, -7.64949e-07, -56.0468, 0.0499992, 23.1307)
+
+[node name="Streetlight6" parent="." instance=ExtResource("18_1klga")]
+transform = Transform3D(-7.64949e-07, 0, 17.5, 0, 17.5, 0, -17.5, 0, -7.64949e-07, -56.0468, 0.0499992, -23.4331)
+
+[node name="Streetlight7" parent="." instance=ExtResource("18_1klga")]
+transform = Transform3D(-7.64949e-07, 0, -17.5, 0, 17.5, 0, 17.5, 0, -7.64949e-07, 56.4058, 0.0499992, 23.1307)
+
+[node name="Streetlight8" parent="." instance=ExtResource("18_1klga")]
+transform = Transform3D(-7.64949e-07, 0, 17.5, 0, 17.5, 0, -17.5, 0, -7.64949e-07, 56.4058, 0.0499992, -23.433)
+
+[node name="Policecar3" parent="." instance=ExtResource("17_g7kmh")]
+transform = Transform3D(-3.61605, 0, 2.67847, 0, 4.5, 0, -2.67847, 0, -3.61605, -91.2875, 0.0499268, 14.6912)
+lights_on = true
+
+[node name="Policecar4" parent="." instance=ExtResource("17_g7kmh")]
+transform = Transform3D(4.34528, 0, 1.16984, 0, 4.5, 0, -1.16984, 0, 4.34528, -92.165, 0.0499268, -13.6372)
+lights_on = true
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://scenes/Characters/Carpinchos/carpincho.tscn")
+spawn_path = NodePath(".")
