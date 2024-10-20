@@ -42,7 +42,6 @@ func _input(event: InputEvent) -> void:
 
 @rpc("reliable", "any_peer", "call_local")
 func shoot():
-
 	var nueva_bala = bala.instantiate()
 	nueva_bala.global_transform = $spawn.global_transform
 	bullet_spawner.add_child(nueva_bala, true)

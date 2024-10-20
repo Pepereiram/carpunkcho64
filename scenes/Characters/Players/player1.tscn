@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://ns14ka6ue5dy"]
+[gd_scene load_steps=21 format=3 uid="uid://ns14ka6ue5dy"]
 
 [ext_resource type="Script" path="res://scripts/soldier.gd" id="1_kk7r7"]
 [ext_resource type="Script" path="res://scenes/Characters/Carpinchos/inputSync.gd" id="2_t1mkr"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://components/hurtbox3d.gd" id="4_4l0le"]
 [ext_resource type="PackedScene" uid="uid://mlcg22thcs0u" path="res://scenes/Characters/Players/stats.tscn" id="5_0hx0c"]
 [ext_resource type="PackedScene" uid="uid://dtk8qb2aaqwp4" path="res://ui/hud.tscn" id="6_fxrst"]
+[ext_resource type="PackedScene" uid="uid://ciriwn64b4c0l" path="res://scenes/Characters/Players/resurrect_area.tscn" id="7_qmpat"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_80kuh"]
 properties/0/path = NodePath("InputSync:move_input")
@@ -16,6 +17,12 @@ properties/0/replication_mode = 1
 properties/0/path = NodePath("Cuerpo:rotation")
 properties/0/spawn = true
 properties/0/replication_mode = 1
+properties/1/path = NodePath("Muelto:visible")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+properties/2/path = NodePath("Cuerpo:visible")
+properties/2/spawn = true
+properties/2/replication_mode = 2
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_6hik0"]
 properties/0/path = NodePath(".:id")
@@ -100,6 +107,7 @@ shape = SubResource("CapsuleShape3D_ue3v2")
 
 [node name="Hurtbox" type="Area3D" parent="."]
 script = ExtResource("4_4l0le")
+self_damage = null
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox"]
 shape = SubResource("CapsuleShape3D_ue3v2")
@@ -122,3 +130,5 @@ surface_material_override/0 = SubResource("StandardMaterial3D_f1mbd")
 [node name="OmniLight3D" type="OmniLight3D" parent="Muelto"]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, -6.98492e-10, 0, 4.65661e-10, 0.1, 0, 0.0170156, 1.43923)
 omni_range = 10.0
+
+[node name="ResurrectArea" parent="." instance=ExtResource("7_qmpat")]
