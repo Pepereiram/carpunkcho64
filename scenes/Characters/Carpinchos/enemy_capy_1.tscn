@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=4 uid="uid://c4ouk408njfmk"]
+[gd_scene load_steps=13 format=4 uid="uid://c4ouk408njfmk"]
 
 [ext_resource type="Texture2D" uid="uid://bp7ddjwmpeese" path="res://assets/models/capybara/Capybara_Capybara_BaseColor.png" id="1_ne1ri"]
 [ext_resource type="Script" path="res://scenes/Characters/Carpinchos/enemy_capy_1.gd" id="1_t5svl"]
@@ -54,6 +54,14 @@ properties/0/path = NodePath("Capybara_mesh:rotation")
 properties/0/spawn = true
 properties/0/replication_mode = 1
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3cdm1"]
+albedo_color = Color(1, 0, 0, 1)
+emission_enabled = true
+emission = Color(1, 0, 0, 1)
+emission_energy_multiplier = 10.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_ybov2"]
+
 [node name="EnemyCapy1" type="CharacterBody3D"]
 collision_layer = 3
 script = ExtResource("1_t5svl")
@@ -90,8 +98,37 @@ replication_config = SubResource("SceneReplicationConfig_yq3j3")
 
 [node name="Stats" parent="." instance=ExtResource("3_qh0lm")]
 
-[node name="OmniLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.79998, -1.85544)
-light_color = Color(0.388235, 0.8, 0.298039, 1)
+[node name="eyes" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.015, 0)
+
+[node name="eyeL" type="MeshInstance3D" parent="eyes"]
+transform = Transform3D(0.151, 0.0309704, 0.0162743, 2.18549e-09, 0.0721008, -0.13721, -0.034986, 0.133669, 0.0702401, 0.428059, 4.08773, -2.52966)
+material_override = SubResource("StandardMaterial3D_3cdm1")
+mesh = SubResource("CapsuleMesh_ybov2")
+
+[node name="lightL" type="OmniLight3D" parent="eyes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.527016, 4.12195, -2.51965)
+light_color = Color(1, 0, 0, 1)
+light_energy = 0.5
+shadow_enabled = true
+omni_range = 2.0
+
+[node name="eyeR" type="MeshInstance3D" parent="eyes"]
+transform = Transform3D(0.148445, -0.0394814, -0.0207467, 4.44071e-09, 0.0721008, -0.13721, 0.0446005, 0.131407, 0.0690515, -0.429639, 4.08773, -2.52966)
+material_override = SubResource("StandardMaterial3D_3cdm1")
+mesh = SubResource("CapsuleMesh_ybov2")
+
+[node name="lightR" type="OmniLight3D" parent="eyes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.533165, 4.12195, -2.51965)
+light_color = Color(1, 0, 0, 1)
+light_energy = 0.5
+shadow_enabled = true
+omni_range = 2.0
+
+[node name="baselight" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0237595, -0.0252433)
+light_color = Color(0.64, 0, 0.0106665, 1)
+light_energy = 1.608
+omni_range = 3.729
 
 [connection signal="health_changed" from="Stats" to="." method="_on_stats_health_changed"]
