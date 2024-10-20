@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://c0ngm3wbfrclu"]
+
+[ext_resource type="Texture2D" uid="uid://byu64csx61rlo" path="res://assets/textures/concrete/concrete_floor_03_diff_1k.png" id="1_x4fuc"]
+[ext_resource type="Texture2D" uid="uid://bpa4gfwirm4rj" path="res://assets/textures/concrete/concrete_floor_03_nor_gl_1k.png" id="2_nwyov"]
+[ext_resource type="Texture2D" uid="uid://d287borvh2opj" path="res://assets/textures/concrete/concrete_floor_03_rough_1k.png" id="3_sliyj"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pp6ia"]
+albedo_texture = ExtResource("1_x4fuc")
+roughness = 0.79
+roughness_texture = ExtResource("3_sliyj")
+normal_enabled = true
+normal_scale = 0.18
+normal_texture = ExtResource("2_nwyov")
+uv1_scale = Vector3(-0.807, -0.807, -0.807)
+
+[sub_resource type="BoxMesh" id="BoxMesh_2axq2"]
+
+[node name="Sidewalk" type="Node3D"]
+
+[node name="sidewalk" type="Node3D" parent="."]
+transform = Transform3D(10, 0, 0, 0, 0.5, 0, 0, 0, 10, 0, 0, 0)
+metadata/_edit_group_ = true
+
+[node name="StaticBody3D" type="StaticBody3D" parent="sidewalk"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="sidewalk/StaticBody3D"]
+material_override = SubResource("StandardMaterial3D_pp6ia")
+mesh = SubResource("BoxMesh_2axq2")

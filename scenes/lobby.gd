@@ -1,4 +1,4 @@
-extends MarginContainer
+extends Control
 
 @export var lobby_player_scene: PackedScene
 
@@ -27,8 +27,11 @@ var _menu_stack: Array[Control] = []
 
 
 func _ready():
+	# esto solo sirve si multiplayer test 
 	if Game.multiplayer_test:
-		get_tree().change_scene_to_file.call_deferred("res://scenes/lobby_test.tscn")
+		get_tree().change_scene_to_file("res://scenes/Levels/game_level/game_level.tscn")
+		#get_tree().change_scene_to_file.call_deferred("res://scenes/lobby_test.tscn")
+		#get_tree().change_scene_to_file.call_deferred("res://scenes/Levels/test_level.tscn")
 		return
 	
 	multiplayer.connected_to_server.connect(_on_connected_to_server)
@@ -60,8 +63,7 @@ func _ready():
 
 	_go_to_menu(start_menu)
 	
-	user.text = OS.get_environment("USERNAME") + (str(randi() % 1000) if Engine.is_editor_hint()
- else "")
+	user.text = OS.get_environment("USERNAME") + (str(randi() % 1000) if Engine.is_editor_hint() else "")
 	
 	Game.upnp_completed.connect(_on_upnp_completed, 1)
 
@@ -228,7 +230,9 @@ func starting_game(value: bool):
 @rpc("any_peer", "call_local", "reliable")
 func start_game() -> void:
 	Game.players.sort_custom(func(a, b): return a.index < b.index)
-	get_tree().change_scene_to_file("res://scenes/Levels/test_level.tscn")
+	#get_tree().change_scene_to_file("res://scenes/Levels/test_level.tscn")
+	get_tree().change_scene_to_file("res://scenes/Levels/game_level/game_level.tscn")
+	#get_tree().change_scene_to_file.call_deferred("res://scenes/Levels/test_level.tscn")
 
 
 
@@ -285,3 +289,7 @@ func _back_to_first_menu() -> void:
 		first.show()
 	if Game.is_online():
 		_disconnect()
+
+
+func _on_back_pressed() -> void:
+	get_tree().change_scene_to_file("res://scenes/ui/global_menu.tscn")

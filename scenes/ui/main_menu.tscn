@@ -1,0 +1,179 @@
+[gd_scene load_steps=11 format=3 uid="uid://b2csjodclnh14"]
+
+[ext_resource type="Script" path="res://scenes/ui/main_menu.gd" id="1_k7hrb"]
+[ext_resource type="PackedScene" uid="uid://br4jj1ht6rgii" path="res://scenes/ui/game_title.tscn" id="1_tvv8f"]
+[ext_resource type="FontFile" uid="uid://cabmeo2bktbcn" path="res://fonts/Unispace Bd.otf" id="3_4gmvn"]
+
+[sub_resource type="Animation" id="Animation_clx7h"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Container/GameTitle:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_3dtga"]
+resource_name = "title_animation"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Container/GameTitle:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_u4tci"]
+_data = {
+"RESET": SubResource("Animation_clx7h"),
+"title_animation": SubResource("Animation_3dtga")
+}
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1404x"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5n5ld"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.14902, 0.14902, 0.14902, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.705882, 0.717647, 0.721569, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_size = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ja7an"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.701961, 0.172549, 0.294118, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_size = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1ni0b"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.333333, 0.333333, 0.333333, 0.396078)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_size = 3
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_k7hrb")
+
+[node name="Container" type="Container" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+
+[node name="GameTitle" parent="Container" instance=ExtResource("1_tvv8f")]
+position = Vector2(0, 180)
+scale = Vector2(2, 2)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Container/GameTitle"]
+root_node = NodePath("../../..")
+libraries = {
+"": SubResource("AnimationLibrary_u4tci")
+}
+
+[node name="ButtonContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -163.5
+offset_top = -21.0
+offset_right = 163.5
+offset_bottom = 263.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Play" type="Button" parent="ButtonContainer"]
+layout_mode = 2
+theme_override_colors/font_pressed_color = Color(0.701961, 0.172549, 0.294118, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_4gmvn")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/focus = SubResource("StyleBoxEmpty_1404x")
+theme_override_styles/hover = SubResource("StyleBoxFlat_5n5ld")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ja7an")
+theme_override_styles/normal = SubResource("StyleBoxFlat_1ni0b")
+text = "Play"
+language = "en"
+
+[node name="Credits" type="Button" parent="ButtonContainer"]
+layout_mode = 2
+theme_override_colors/font_pressed_color = Color(0.701961, 0.172549, 0.294118, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_4gmvn")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/focus = SubResource("StyleBoxEmpty_1404x")
+theme_override_styles/hover = SubResource("StyleBoxFlat_5n5ld")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ja7an")
+theme_override_styles/normal = SubResource("StyleBoxFlat_1ni0b")
+text = "Credits"
+language = "en"
+
+[node name="Exit" type="Button" parent="ButtonContainer"]
+layout_mode = 2
+theme_override_colors/font_pressed_color = Color(0.701961, 0.172549, 0.294118, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_4gmvn")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/focus = SubResource("StyleBoxEmpty_1404x")
+theme_override_styles/hover = SubResource("StyleBoxFlat_5n5ld")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ja7an")
+theme_override_styles/normal = SubResource("StyleBoxFlat_1ni0b")
+text = "Exit"
+language = "en"
+
+[connection signal="pressed" from="ButtonContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="ButtonContainer/Credits" to="." method="_on_credits_pressed"]
+[connection signal="pressed" from="ButtonContainer/Exit" to="." method="_on_exit_pressed"]

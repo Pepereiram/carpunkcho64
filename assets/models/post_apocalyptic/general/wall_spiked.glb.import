@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://bmnwtk2mr2th6"
-path="res://.godot/imported/Capybara.glb-cc884ff6af64dc34ed83e6140bc8618a.scn"
+uid="uid://bbemmqqbm4dmn"
+path="res://.godot/imported/wall_spiked.glb-708c648907b1f07414512effdd1640ef.scn"
 
 [deps]
 
-source_file="res://assets/models/Capybara.glb"
-dest_files=["res://.godot/imported/Capybara.glb-cc884ff6af64dc34ed83e6140bc8618a.scn"]
+source_file="res://assets/models/post_apocalyptic/general/wall_spiked.glb"
+dest_files=["res://.godot/imported/wall_spiked.glb-708c648907b1f07414512effdd1640ef.scn"]
 
 [params]
 

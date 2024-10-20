@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=3 uid="uid://beh8hx1kednci"]
+
+[ext_resource type="Script" path="res://scenes/Weapons/bullet.gd" id="1_txepv"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_0i26b"]
+radial_segments = 12
+rings = 5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7ckws"]
+albedo_color = Color(0, 0, 0, 1)
+emission_enabled = true
+emission = Color(1, 0.45098, 0, 1)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_5idni"]
+radius = 0.50889
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_5aih8"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[node name="bala" type="Area3D"]
+collision_layer = 5
+collision_mask = 5
+script = ExtResource("1_txepv")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+mesh = SubResource("SphereMesh_0i26b")
+surface_material_override/0 = SubResource("StandardMaterial3D_7ckws")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+shape = SubResource("SphereShape3D_5idni")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_5aih8")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+light_color = Color(1, 0.803922, 0, 1)
+light_energy = 10.0
+omni_range = 2.5
+omni_attenuation = 5.0
