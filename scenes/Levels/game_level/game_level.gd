@@ -3,15 +3,17 @@ extends Node3D
 @export var player_1_scene: PackedScene
 @export var player_2_scene: PackedScene
 @export var enemy_capybara_basic: PackedScene
+@export var enemy_spawn_time: float = 5.0
+@export var max_enemy_spawns: int = 10
 
 @onready var playerMarkers: Node3D = $PlayerMarkers
 @onready var enemyMarkers: Node3D = $EnemyMarkers
 
 
+
+
 var t = 0
-var enemy_spawn_time = 5
-
-
+var enemies_spawned = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:	
@@ -53,9 +55,15 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	t = t + delta
 	if t > enemy_spawn_time:
-		var enemyMarker : Marker3D = enemyMarkers.get_children()[randi() % enemyMarkers.get_child_count()]
-		var enemyInstance = enemy_capybara_basic.instantiate()
-		enemyInstance.global_transform = enemyMarker.global_transform
-		$MultiplayerSpawner.add_child(enemyInstance, true)
+		if enemies_spawned < max_enemy_spawns:
+			var enemyMarker : Marker3D = enemyMarkers.get_children()[randi() % enemyMarkers.get_child_count()]
+			var enemyInstance = enemy_capybara_basic.instantiate()
+			enemyInstance.global_transform = enemyMarker.global_transform
+			$MultiplayerSpawner.add_child(enemyInstance, true)
 
+			enemies_spawned += 1
+		else:
+			Debug.log('max capys spawned')
+			pass
+			
 		t = 0
