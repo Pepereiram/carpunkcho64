@@ -1,22 +1,32 @@
-[gd_scene format=3 uid="uid://urvx5o7pwm57"]
+[gd_scene load_steps=2 format=3 uid="uid://urvx5o7pwm57"]
+
+[ext_resource type="FontFile" uid="uid://cabmeo2bktbcn" path="res://fonts/Unispace Bd.otf" id="1_s6637"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 1.0
-offset_right = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 2
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -102.0
+offset_top = -104.0
+offset_right = 102.0
+offset_bottom = 104.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="PanelContainer" type="MarginContainer" parent="VBoxContainer"]
-custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainer"]
@@ -24,10 +34,12 @@ layout_mode = 2
 
 [node name="BackButton" type="Button" parent="VBoxContainer/PanelContainer/HBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("1_s6637")
 text = "Back"
 
 [node name="PlayerSettingsLabel" type="Label" parent="VBoxContainer/PanelContainer/HBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("1_s6637")
 text = "Player Settings"
 
 [node name="PanelContainer2" type="MarginContainer" parent="VBoxContainer"]
@@ -41,28 +53,35 @@ layout_mode = 2
 
 [node name="NameLabel" type="Label" parent="VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("1_s6637")
 text = "Name:"
 
 [node name="NameInput" type="LineEdit" parent="VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("1_s6637")
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/PanelContainer2/VBoxContainer"]
 layout_mode = 2
 
 [node name="Button" type="Button" parent="VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("1_s6637")
 
 [node name="Label" type="Label" parent="VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("1_s6637")
 text = "Host"
 
 [node name="Button2" type="Button" parent="VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("1_s6637")
 
 [node name="Label2" type="Label" parent="VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("1_s6637")
 text = "Client"
 
 [node name="ConnectButton" type="Button" parent="VBoxContainer/PanelContainer2/VBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("1_s6637")
 text = "Connect"
