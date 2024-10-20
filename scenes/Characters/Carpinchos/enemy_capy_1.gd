@@ -20,8 +20,9 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if _nav_agent.is_navigation_finished():
-		return
+	
+	#if _nav_agent.is_navigation_finished():
+	#	return
 	# Buscar el jugador más cercano
 	var closest = null
 	var closest_distance_squared = 0
