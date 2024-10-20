@@ -1,0 +1,126 @@
+[gd_resource type="Theme" load_steps=13 format=3 uid="uid://d1pvjfd35s47x"]
+
+[ext_resource type="FontFile" uid="uid://cabmeo2bktbcn" path="res://fonts/Unispace Bd.otf" id="1_oda81"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eaerf"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.179357, 0.229144, 0.24745, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rfq0b"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.317647, 0.392157, 0.419608, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i42nh"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.317647, 0.392157, 0.419608, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iu68e"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.227451, 0.298039, 0.329412, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4xi57"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.227451, 0.298039, 0.329412, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0gvs1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tsqy7"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.317647, 0.392157, 0.419608, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4p66o"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_m48rl"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oejws"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.247059, 0.321569, 0.352941, 0.517647)
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0fk41"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.101961, 0.113725, 0.137255, 1)
+
+[resource]
+default_font = ExtResource("1_oda81")
+default_font_size = 20
+Button/colors/font_hover_color = Color(0.913725, 0.866667, 0.839216, 1)
+Button/styles/disabled = SubResource("StyleBoxFlat_eaerf")
+Button/styles/focus = SubResource("StyleBoxFlat_rfq0b")
+Button/styles/hover = SubResource("StyleBoxFlat_i42nh")
+Button/styles/normal = SubResource("StyleBoxFlat_iu68e")
+Button/styles/pressed = SubResource("StyleBoxFlat_4xi57")
+CheckBox/styles/focus = SubResource("StyleBoxEmpty_0gvs1")
+CheckBox/styles/hover_pressed = SubResource("StyleBoxFlat_tsqy7")
+CheckBox/styles/normal = SubResource("StyleBoxEmpty_4p66o")
+CheckBox/styles/pressed = SubResource("StyleBoxEmpty_m48rl")
+HBoxContainer/constants/separation = 8
+LineEdit/styles/normal = SubResource("StyleBoxFlat_oejws")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_0fk41")
+VBoxContainer/constants/separation = 8
