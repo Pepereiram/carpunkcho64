@@ -1,0 +1,92 @@
+[gd_scene load_steps=6 format=3 uid="uid://yptgh8b2olib"]
+
+[ext_resource type="Texture2D" uid="uid://dohypceiqoh5b" path="res://assets/defeated/defeated2.png" id="1_035we"]
+[ext_resource type="Script" path="res://scenes/ui/defeated.gd" id="1_xgh7x"]
+[ext_resource type="FontFile" uid="uid://bibpu0bsaq310" path="res://fonts/edo.ttf" id="2_v8s2n"]
+[ext_resource type="Theme" uid="uid://d1pvjfd35s47x" path="res://themes/ui_theme.tres" id="4_wa0fp"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pwsv6"]
+bg_color = Color(0.101961, 0.113725, 0.137255, 0.752941)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xgh7x")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_035we")
+expand_mode = 3
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -328.0
+offset_top = 98.0
+offset_right = 328.0
+offset_bottom = 166.0
+grow_horizontal = 2
+theme_override_colors/font_outline_color = Color(0.803922, 0.0156863, 0.054902, 1)
+theme_override_constants/outline_size = 15
+theme_override_fonts/font = ExtResource("2_v8s2n")
+theme_override_font_sizes/font_size = 60
+text = "You were Carpinched"
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -223.5
+offset_top = -76.0
+offset_right = 223.5
+offset_bottom = 201.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_wa0fp")
+theme_override_styles/panel = SubResource("StyleBoxFlat_pwsv6")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "The invasion has happened.
+The world will never be the same."
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 20
+
+[node name="Retry" type="Button" parent="PanelContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Retry"
+
+[node name="BackToMenu" type="Button" parent="PanelContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Back to menu"
+
+[connection signal="pressed" from="PanelContainer/VBoxContainer/VBoxContainer/Retry" to="." method="_on_retry_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/VBoxContainer/BackToMenu" to="." method="_on_back_to_menu_pressed"]

@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://dc34yf1m73b10"]
+
+[ext_resource type="Script" path="res://scenes/ui/global_menu.gd" id="1_17sf0"]
+[ext_resource type="PackedScene" uid="uid://baej8w6k5eqoo" path="res://scenes/ui/background_animation.tscn" id="2_y3ihn"]
+[ext_resource type="PackedScene" uid="uid://b2csjodclnh14" path="res://scenes/ui/main_menu.tscn" id="3_a3v1e"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_17sf0")
+
+[node name="Backgroud" parent="." instance=ExtResource("2_y3ihn")]
+layout_mode = 1
+
+[node name="MainMenu" parent="." instance=ExtResource("3_a3v1e")]
+layout_mode = 1

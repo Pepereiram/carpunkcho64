@@ -1,0 +1,104 @@
+[gd_scene load_steps=5 format=3 uid="uid://urvx5o7pwm57"]
+
+[ext_resource type="Theme" uid="uid://d1pvjfd35s47x" path="res://themes/ui_theme.tres" id="1_f0gwy"]
+[ext_resource type="FontFile" uid="uid://cabmeo2bktbcn" path="res://fonts/Unispace Bd.otf" id="1_s6637"]
+[ext_resource type="StyleBox" uid="uid://di5fucqof14o2" path="res://ui_top_style_box_flat.tres" id="2_l4rxw"]
+[ext_resource type="StyleBox" uid="uid://dmsjm5rh8phqh" path="res://ui_down_style_box_flat.tres" id="4_bv8po"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_f0gwy")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -213.5
+offset_top = -128.0
+offset_right = 213.5
+offset_bottom = 128.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("2_l4rxw")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="BackButton" type="Button" parent="VBoxContainer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_s6637")
+text = "Back"
+
+[node name="PlayerSettingsLabel" type="Label" parent="VBoxContainer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_fonts/font = ExtResource("1_s6637")
+text = "Player Settings"
+
+[node name="PanelContainer2" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("4_bv8po")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/PanelContainer2"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_s6637")
+text = "Name:"
+
+[node name="NameInput" type="LineEdit" parent="VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("1_s6637")
+placeholder_text = "Type your nickname"
+max_length = 30
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/PanelContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="ServerBox" type="CheckBox" parent="VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+button_pressed = true
+text = "Server"
+
+[node name="ClientBox" type="CheckBox" parent="VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Client"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer/PanelContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="IpLabel" type="Label" parent="VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+text = "IP:"
+
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "127.0.0.1"
+max_length = 15
+
+[node name="ConnectButton" type="Button" parent="VBoxContainer/PanelContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_fonts/font = ExtResource("1_s6637")
+text = "Connect"
