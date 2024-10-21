@@ -166,8 +166,6 @@ func _add_player(player: Statics.PlayerData) -> void:
 	for child in players.get_children():
 		players.move_child(child, child.player.index)
 	
-	
-
 
 func _remove_player(id: int):
 	var lobby_player = players.find_child(str(id), true, false)
