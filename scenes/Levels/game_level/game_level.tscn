@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://kuusfw6ema2j"]
+[gd_scene load_steps=30 format=3 uid="uid://kuusfw6ema2j"]
 
 [ext_resource type="Script" path="res://scenes/Levels/game_level/game_level.gd" id="1_1ajdb"]
 [ext_resource type="PackedScene" uid="uid://ns14ka6ue5dy" path="res://scenes/Characters/Players/player1.tscn" id="2_ugcq1"]
@@ -63,6 +63,14 @@ radius = 0.34952
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_pgu6b"]
 size = Vector3(1, 1.01807, 0.694336)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_4l2v3"]
+properties/0/path = NodePath(".:enemies_spawned")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:kill_count_round")
+properties/1/spawn = true
+properties/1/replication_mode = 1
 
 [node name="GameLevel" type="Node3D"]
 script = ExtResource("1_1ajdb")
@@ -707,3 +715,6 @@ transform = Transform3D(0.754263, 0, 0.656573, 0, 1, 0, -0.656573, 0, 0.754263, 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://scenes/Characters/Carpinchos/carpincho.tscn")
 spawn_path = NodePath(".")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_4l2v3")
