@@ -49,18 +49,17 @@ func _ready() -> void:
 		player_inst.id = player_data.id
 		add_child(player_inst)
 		player_data.local_scene = player_inst
-		
-		
-	
 
 
+	for player in Game.players:
+		var player_distance_squared = (player.local_scene.global_position - global_position).length_squared()
 ## Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	t = t + delta
 	if kill_count_round == max_enemy_spawns:
 		Debug.log("Ganaste xd")
 		change_scene("res://scenes/ui/win.tscn")
-	if alive_players == 0:
+	if not Game.players[0].local_scene.vivo and not Game.players[1].local_scene.vivo:
 		Debug.log("Perdiste xdddd")
 		change_scene("res://scenes/ui/defeated.tscn")
 	if t > enemy_spawn_time:

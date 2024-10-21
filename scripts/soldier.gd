@@ -5,7 +5,7 @@ extends CharacterBody3D
 @export var id := 1
 @export var SPEED = 30.0
 const JUMP_VELOCITY = 4.5
-var vivo = true
+@export var vivo = true
 var _players_inside: Array[Player] = []
 
 # Vectores qliaos pal mouse
@@ -55,7 +55,7 @@ func _physics_process(delta: float) -> void:
 		velocity = Vector3(0,0,0)
 		move_and_slide()
 		return
-	
+
 	if is_local_player() == id:
 		#obtener posicion mouse
 		var mouse_position = get_viewport().get_mouse_position()
@@ -112,64 +112,65 @@ func setup(id: int) -> void:
 	multiplayer_synchronizer.set_multiplayer_authority(id)
 	
 func _input(event: InputEvent) -> void:
+	if not is_multiplayer_authority():
+		return
 	if event.is_action_pressed("revivir"):
 		for player in _players_inside:
 			if is_instance_valid(player):
 				player.resurrect.rpc_id(1)
+				#multiplayer.send_rpc_id(1, "resurrect", player.get_multiplayer_authority())
 
 #saca la id de la conexion
 func is_local_player():
 	return get_tree().get_multiplayer().get_unique_id()
 	
 func take_damage(damage: int) -> void:
-	#print("recibi daño soy " + str(id))
 	stats.health = max(stats.health - damage, 0)
-	#notify_take_damage(damage)
-	
-#@rpc("any_peer", "call_local", "reliable")
-#func notify_take_damage(damage: int) -> void:
-#	Debug.log("damage received: %d" % damage)
 	
 func _on_health_changed(health) -> void:
 	hud.health = health
-	#health_bar.value = health
 	if health == 0 and vivo:
 		vivo = false
 		die()
+	if health == 100:
+		muelto.visible = false
+		model.visible = true
+		vivo = true
 
 #@rpc("reliable", "authority")
-func notify_death():
-	var game_level = get_parent()
-	game_level.alive_players -=1
-	rpc("notify_clients_death", get_multiplayer().get_unique_id())
-	
-@rpc("reliable", "any_peer") # Notificar a todos los peers sobre la muerte de un jugador
-func notify_clients_death(player_id: int) -> void:
-	Debug.log("El jugador con ID " + str(player_id) + " ha muerto.")
+#func notify_death():
+	#var game_level = get_parent()
+	#game_level.alive_players -=1
+	#rpc("notify_clients_death", get_multiplayer().get_unique_id())
+	#
+#@rpc("reliable", "any_peer") # Notificar a todos los peers sobre la muerte de un jugador
+#func notify_clients_death(player_id: int) -> void:
+	#Debug.log("El jugador con ID " + str(player_id) + " ha muerto.")
 	
 
 func die() -> void:
 	Debug.log("Muerte player")
 	muelto.visible = true
 	model.visible = false
-	gun_controller.muelto = true
 	vivo = false
-	notify_death()
+#	notify_death()
 
 @rpc("call_local", "reliable", "any_peer")
 func resurrect():
 	stats.health = stats.max_health
-	var game_level = get_parent().get_parent()
-	game_level.alive_players +=1
-	Debug.log("Vivos: " + str(game_level.alive_players))
-	update_model()
-
-@rpc("any_peer", "call_local", "reliable")
-func update_model():
-	muelto.visible = false
-	model.visible = true
-	gun_controller.muelto = false
 	vivo = true
+#	var game_level = get_parent()
+#	game_level.alive_players +=1
+#	Debug.log("Vivos: " + str(game_level.alive_players))
+	#update_model()
+
+#@rpc("any_peer", "call_local", "reliable")
+#@rpc("any_peer", "call_local", "reliable")
+#func update_model():
+#	muelto.visible = false
+#	model.visible = true
+#	gun_controller.muelto = false
+
 
 func _on_dead_player_entered(body: Node) -> void:
 	if body == self:
@@ -183,6 +184,3 @@ func _on_dead_player_entered(body: Node) -> void:
 func _on_dead_player_exited(body: Node) -> void:
 	if body in _players_inside:
 		_players_inside.erase(body)
-
-#func _process(delta: float) -> void:
-	#gun_controller.shoot()

@@ -44,4 +44,5 @@ func _input(event: InputEvent) -> void:
 func shoot():
 	var nueva_bala = bala.instantiate()
 	nueva_bala.global_transform = $spawn.global_transform
+	nueva_bala.damage = 50
 	bullet_spawner.add_child(nueva_bala, true)
