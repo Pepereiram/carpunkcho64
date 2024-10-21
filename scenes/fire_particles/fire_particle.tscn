@@ -1,0 +1,64 @@
+[gd_scene load_steps=9 format=3 uid="uid://chrfq7tol0dnh"]
+
+[ext_resource type="Script" path="res://scenes/fire_particles/fire_particle.gd" id="1_sc7nv"]
+
+[sub_resource type="Gradient" id="Gradient_1hpp8"]
+offsets = PackedFloat32Array(0, 0.337209, 0.833333, 1)
+colors = PackedColorArray(1, 0, 0, 1, 0.993591, 0.0922494, 0.00556136, 1, 0.940092, 0.862332, 0.0519866, 1, 1, 0.988702, 0.870968, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_34jf3"]
+gradient = SubResource("Gradient_1hpp8")
+
+[sub_resource type="Curve" id="Curve_yby7s"]
+_data = [Vector2(0, 0.626805), 0.0, 0.154434, 0, 0, Vector2(0.243407, 1), 0.0188959, 0.0188959, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_2xur3"]
+curve = SubResource("Curve_yby7s")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_gnw3u"]
+lifetime_randomness = 1.0
+emission_shape = 2
+emission_sphere_radius = 0.75
+direction = Vector3(0, 1, 0)
+spread = 0.0
+initial_velocity_min = 1.0
+initial_velocity_max = 5.0
+gravity = Vector3(0, 0, 0)
+tangential_accel_min = -5.0
+tangential_accel_max = 5.0
+scale_min = 10.0
+scale_max = 25.0
+scale_curve = SubResource("CurveTexture_2xur3")
+color_ramp = SubResource("GradientTexture1D_34jf3")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bqhvv"]
+transparency = 4
+blend_mode = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_color = Color(1, 1, 1, 0.501961)
+billboard_mode = 1
+billboard_keep_scale = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_3qofc"]
+material = SubResource("StandardMaterial3D_bqhvv")
+radius = 0.05
+height = 0.1
+radial_segments = 8
+rings = 6
+
+[node name="FireParticle" type="GPUParticles3D"]
+amount = 50
+process_material = SubResource("ParticleProcessMaterial_gnw3u")
+draw_pass_1 = SubResource("SphereMesh_3qofc")
+script = ExtResource("1_sc7nv")
+
+[node name="fireLight" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0150049, 0, -0.00100994)
+light_color = Color(1, 0.582387, 0.211982, 1)
+light_energy = 5.0
+light_size = 0.5
+shadow_bias = 8.282
+shadow_reverse_cull_face = true
+omni_range = 10.0
