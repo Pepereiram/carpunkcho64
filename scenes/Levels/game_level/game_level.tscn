@@ -65,6 +65,14 @@ radius = 0.34952
 [sub_resource type="BoxShape3D" id="BoxShape3D_pgu6b"]
 size = Vector3(1, 1.01807, 0.694336)
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_4l2v3"]
+properties/0/path = NodePath(".:enemies_spawned")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:kill_count_round")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
 [node name="GameLevel" type="Node3D"]
 script = ExtResource("1_1ajdb")
 player_1_scene = ExtResource("2_ugcq1")
@@ -709,14 +717,5 @@ transform = Transform3D(0.754263, 0, 0.656573, 0, 1, 0, -0.656573, 0, 0.754263, 
 _spawnable_scenes = PackedStringArray("res://scenes/Characters/Carpinchos/carpincho.tscn")
 spawn_path = NodePath(".")
 
-[node name="FireParticle" parent="." instance=ExtResource("18_fnkip")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -55.8499, 1.50751, -47.4754)
-
-[node name="FireParticle2" parent="." instance=ExtResource("18_fnkip")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49.0551, 3.31577, -53.5121)
-
-[node name="FireParticle3" parent="." instance=ExtResource("18_fnkip")]
-transform = Transform3D(0.682126, 0, 0.731235, 0, 1, 0, -0.731235, 0, 0.682126, -55.7613, 1.20592, -52.7068)
-
-[node name="FireParticle4" parent="." instance=ExtResource("18_fnkip")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -52.4133, 4.50469, -49.0385)
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_4l2v3")

@@ -20,7 +20,7 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	
+
 	#if _nav_agent.is_navigation_finished():
 	#	return
 	# Buscar el jugador más cercano
@@ -43,11 +43,12 @@ func _physics_process(delta: float) -> void:
 		offset.y = 0
 		if not offset.is_zero_approx():
 			look_at(global_position + offset, Vector3.UP)
+			
+	if not multiplayer.is_server():
+		return
 	# Gravedad
 	if not is_on_floor():
 		velocity += get_gravity() * delta
-	if not multiplayer.is_server():
-		return
 
 	move_and_slide()
 
@@ -64,10 +65,11 @@ func _on_health_changed(health) -> void:
 	if health <= 0:
 		die()
 
-@rpc("reliable","any_peer")
+@rpc("reliable","any_peer","call_local")
 func die():
 	Debug.log("Muerte capy")
-	var game_level = get_parent().get_parent()
-	game_level.kill_count_round +=1
-	Debug.log("KC: " + str(game_level.kill_count_round))
+	if is_multiplayer_authority():
+		var game_level = get_parent().get_parent()
+		game_level.kill_count_round +=1
+		Debug.log("KC: " + str(game_level.kill_count_round))
 	queue_free()
