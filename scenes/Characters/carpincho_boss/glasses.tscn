@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://ckweyra3xsb43"]
+
+[ext_resource type="PackedScene" uid="uid://b4w10ru6fk4yu" path="res://scenes/Characters/carpincho_boss/Glasses.glb" id="1_sc0oj"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1nsrw"]
+resource_name = "Material.012"
+transparency = 1
+blend_mode = 1
+cull_mode = 1
+depth_draw_mode = 1
+albedo_color = Color(0.6912, 0.96, 0.95552, 1)
+metallic = 0.4
+roughness = 0.272166
+
+[node name="Root Scene" instance=ExtResource("1_sc0oj")]
+
+[node name="glasses12_001" parent="RootNode" index="0"]
+surface_material_override/1 = SubResource("StandardMaterial3D_1nsrw")

@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://cpiu3bd315tmx"]
+
+[ext_resource type="PackedScene" uid="uid://cm7l5fcr7lqx5" path="res://scenes/Characters/carpincho_boss/Necktie.glb" id="1_7sxci"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oab7j"]
+resource_name = "F44336"
+albedo_color = Color(0.108, 0.2394, 0.4, 1)
+roughness = 0.903922
+emission_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4vpi2"]
+resource_name = "F44336"
+albedo_color = Color(0.316488, 0.578215, 0.816828, 1)
+roughness = 0.903922
+emission_enabled = true
+
+[node name="Necktie" instance=ExtResource("1_7sxci")]
+
+[node name="Necktie_01_Cube_028" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_oab7j")
+surface_material_override/1 = SubResource("StandardMaterial3D_4vpi2")
