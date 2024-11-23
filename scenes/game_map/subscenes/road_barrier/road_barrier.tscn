@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://d1qhs1y0ei8yi"]
+
+[ext_resource type="PackedScene" uid="uid://cbwa7kp45g8kk" path="res://scenes/game_map/subscenes/road_barrier/road_barrier.glb" id="1_qnlyk"]
+
+[node name="RoadBarrier" type="Node3D"]
+
+[node name="road_barrier2" parent="." instance=ExtResource("1_qnlyk")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
