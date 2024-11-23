@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://yyh3t8fuy767"]
+
+[ext_resource type="PackedScene" uid="uid://dgvtjuicdx1u1" path="res://scenes/game_map/subscenes/trash_rubbish/Rubbish.glb" id="1_88jkt"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_u63tm"]
+size = Vector3(92.606, 37.9235, 24.2393)
+
+[node name="TrashRubbish" type="Node3D"]
+transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0, 0)
+
+[node name="Rubbish" parent="." instance=ExtResource("1_88jkt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -12.3506)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.75269, 18.4617, -0.885254)
+shape = SubResource("BoxShape3D_u63tm")

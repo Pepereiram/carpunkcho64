@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://byad1ctgeqrct"]
+
+[ext_resource type="PackedScene" uid="uid://cckpr3d1vx6fr" path="res://scenes/game_map/subscenes/trash_bag/Trash Bag.glb" id="1_i5eg7"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_t8tyt"]
+radius = 0.253724
+height = 0.748539
+
+[node name="TrashBag" type="Node3D"]
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, -0.0467293, 0)
+
+[node name="Root Scene" parent="." instance=ExtResource("1_i5eg7")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.297677, 0)
+shape = SubResource("CapsuleShape3D_t8tyt")

@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://bghshjbmjabsq"]
+
+[ext_resource type="PackedScene" uid="uid://sqd71diemy7o" path="res://scenes/game_map/subscenes/car_broken/brokencar.glb" id="1_l21ne"]
+[ext_resource type="PackedScene" uid="uid://chrfq7tol0dnh" path="res://scenes/game_map/fire_particles/fire_particle.tscn" id="2_xq53a"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_t3iyc"]
+size = Vector3(2.58105, 1.78528, 5.53247)
+
+[node name="Brokencar" type="Node3D"]
+
+[node name="Root Scene" parent="." instance=ExtResource("1_l21ne")]
+transform = Transform3D(2.86, 0, 0, 0, 2.86, 0, 0, 0, 2.86, 0, 0, 0)
+
+[node name="fire" type="Node3D" parent="."]
+
+[node name="FireParticle" parent="fire" instance=ExtResource("2_xq53a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0313148, 2.96901, -5.00999)
+
+[node name="FireParticle2" parent="fire" instance=ExtResource("2_xq53a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.56399, 3.08356, -0.563624)
+
+[node name="FireParticle3" parent="fire" instance=ExtResource("2_xq53a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.19187, 2.30156, 2.81812)
+
+[node name="FireParticle4" parent="fire" instance=ExtResource("2_xq53a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7535, 2.64679, 7.11327)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(2.86, 0, 0, 0, 2.86, 0, 0, 0, 2.86, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.776917, 0.196167)
+shape = SubResource("BoxShape3D_t3iyc")

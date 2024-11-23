@@ -12,9 +12,6 @@ extends Node3D
 @onready var playerMarkers: Node3D = $PlayerMarkers
 @onready var enemyMarkers: Node3D = $EnemyMarkers
 
-
-
-
 var t = 0
 @export var enemies_spawned = 0
 
@@ -53,25 +50,24 @@ func _ready() -> void:
 
 ## Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	Debug.log(kill_count_round)
-	t = t + delta
-	if kill_count_round == max_enemy_spawns:
-		Debug.log("Ganaste xd")
-		change_scene("res://scenes/ui/win.tscn")
-	if not Game.players[0].local_scene.vivo and not Game.players[1].local_scene.vivo:
-		Debug.log("Perdiste xdddd")
-		change_scene("res://scenes/ui/defeated.tscn")
-	if t > enemy_spawn_time:
+	# Debug prints
+	if is_multiplayer_authority():
+		pass
 		
-		if enemies_spawned < max_enemy_spawns:
-			if is_multiplayer_authority():
-				spawn_enemy()
-			#var enemyMarker : Marker3D = enemyMarkers.get_children()[randi() % enemyMarkers.get_child_count()]
-			#var enemyInstance = enemy_capybara_basic.instantiate()
-			#enemyInstance.global_transform = enemyMarker.global_transform
-			#$MultiplayerSpawner.add_child(enemyInstance, true)
-			#enemies_spawned += 1
-		t = 0
+	#t = t + delta
+	#if kill_count_round == max_enemy_spawns:
+		#Debug.log("Ganaste xd")
+		#change_scene("res://scenes/ui/win.tscn")
+	#if not Game.players[0].local_scene.vivo and not Game.players[1].local_scene.vivo:
+		#Debug.log("Perdiste xdddd")
+		#change_scene("res://scenes/ui/defeated.tscn")a
+	#
+	#if t > enemy_spawn_time:
+		#if enemies_spawned < max_enemy_spawns:
+			#if is_multiplayer_authority():
+				#spawn_enemy()
+				#
+		#t = 0
 
 @rpc("authority", "reliable")
 func spawn_enemy():

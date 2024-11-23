@@ -1,0 +1,46 @@
+[gd_scene load_steps=4 format=3 uid="uid://dla1oinshyiop"]
+
+[ext_resource type="PackedScene" uid="uid://fq6fsf13d1y5" path="res://scenes/game_map/subscenes/truck/Truck.glb" id="1_jwo6y"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wev8n"]
+size = Vector3(15.0608, 10.1836, 10.1836)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_v4oal"]
+size = Vector3(9.91943, 8.92871, 9.07324)
+
+[node name="Truck" type="Node3D"]
+
+[node name="Root Scene" parent="." instance=ExtResource("1_jwo6y")]
+transform = Transform3D(2.3, 0, 0, 0, 2.3, 0, 0, 0, 2.3, 0.154439, 0, -13.0306)
+
+[node name="headlight_l" type="SpotLight3D" parent="."]
+transform = Transform3D(-0.252633, -0.437573, 0.862964, 0.431482, 0.747348, 0.505266, -0.866025, 0.5, 1.05235e-07, -10.813, 3.91193, -3.68744)
+light_color = Color(0.917632, 0.945693, 0.670083, 1)
+light_energy = 20.0
+light_size = 0.1
+shadow_enabled = true
+distance_fade_begin = 45.0
+spot_range = 45.0
+spot_angle = 42.4574
+spot_angle_attenuation = 0.241484
+
+[node name="headlight_l2" type="SpotLight3D" parent="."]
+transform = Transform3D(-0.252633, -0.437573, 0.862964, 0.431482, 0.747348, 0.505266, -0.866025, 0.5, 1.18139e-07, -10.813, 3.91193, 3.74418)
+light_color = Color(0.917632, 0.945693, 0.670083, 1)
+light_energy = 20.0
+light_size = 0.1
+shadow_enabled = true
+distance_fade_begin = 45.0
+spot_range = 52.969
+spot_angle = 42.4574
+spot_angle_attenuation = 0.258817
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.41199, 4.5918, 0)
+shape = SubResource("BoxShape3D_wev8n")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.1727, 3.96436, 0)
+shape = SubResource("BoxShape3D_v4oal")
