@@ -7,6 +7,8 @@ extends CharacterBody3D
 const JUMP_VELOCITY = 4.5
 @export var vivo = true
 var _players_inside: Array[Player] = []
+var kill_count = 0
+var mejorando = false
 
 # Vectores qliaos pal mouse
 var ray_origin = Vector3()
@@ -25,6 +27,7 @@ var ray_target = Vector3()
 @onready var hud = $HUD
 @onready var health_bar: ProgressBar = $HealthBar
 @onready var muelto = $Muelto
+@onready var mejoras = $HUD/Control
 
 
 func _ready() -> void:
@@ -51,6 +54,10 @@ func _enter_tree() -> void:
 	$Cuerpo/mano/Gun.id = id
 
 func _physics_process(delta: float) -> void:
+	if mejorando:
+		mejoras.visible = true
+		return
+	
 	if stats.health <= 0:
 		velocity = Vector3(0,0,0)
 		move_and_slide()

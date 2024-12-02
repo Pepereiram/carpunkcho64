@@ -11,6 +11,7 @@ extends Node3D
 var _time_of_last_shot: float
 var _fire_pressed := false
 var muelto = false
+var pausa = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -31,6 +32,8 @@ func _process(delta: float) -> void:
 
 func _input(event: InputEvent) -> void:
 	if not is_multiplayer_authority():
+		return
+	if pausa:
 		return
 	if event.is_action_pressed("disparar"):
 		_fire_pressed = true

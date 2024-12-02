@@ -1,17 +1,23 @@
 extends Node3D
 
+# Personajes
 @export var player_1_scene: PackedScene
 @export var player_2_scene: PackedScene
 @export var enemy_capybara_basic: PackedScene
+
+# Variables del round
 @export var enemy_spawn_time: float = 5.0
-@export var max_enemy_spawns: int = 10
+@export var max_enemy_spawns: int = 2
 @export var kill_count_round: int = 0
 @export var round: int = 1
 @export var alive_players: int = 2
 
+#Spawners
 @onready var playerMarkers: Node3D = $PlayerMarkers
 @onready var enemyMarkers: Node3D = $EnemyMarkers
 
+#Estado 
+var horda_activa = true
 var t = 0
 @export var enemies_spawned = 0
 
@@ -48,26 +54,47 @@ func _ready() -> void:
 		player_data.local_scene = player_inst
 
 
+func round_logic(delta):
+	t = t + delta
+	if kill_count_round == max_enemy_spawns:
+		Debug.log("Ganaste xd")
+		horda_activa = false
+		Game.players[0].local_scene.mejorando = true
+		Game.players[1].local_scene.mejorando = true
+		
+		#change_scene("res://scenes/ui/win.tscn")
+	if not Game.players[0].local_scene.vivo and not Game.players[1].local_scene.vivo:
+		Debug.log("Perdiste xdddd")
+		#change_scene("res://scenes/ui/defeated.tscn")a
+	if t > enemy_spawn_time:
+		if enemies_spawned < max_enemy_spawns:
+			if is_multiplayer_authority():
+				spawn_enemy()
+		t = 0
+		
+func levelup_logic():
+	if  not Game.players[0].local_scene.mejorando and not Game.players[1].local_scene.mejorando:
+		restart_round()
+
+func restart_round():
+	enemies_spawned = 0
+	max_enemy_spawns += 1
+	kill_count_round = 0
+	t = 0
+	horda_activa = true
+	
+
+
 ## Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	# Debug prints
 	if is_multiplayer_authority():
 		pass
-		
-	#t = t + delta
-	#if kill_count_round == max_enemy_spawns:
-		#Debug.log("Ganaste xd")
-		#change_scene("res://scenes/ui/win.tscn")
-	#if not Game.players[0].local_scene.vivo and not Game.players[1].local_scene.vivo:
-		#Debug.log("Perdiste xdddd")
-		#change_scene("res://scenes/ui/defeated.tscn")a
-	#
-	#if t > enemy_spawn_time:
-		#if enemies_spawned < max_enemy_spawns:
-			#if is_multiplayer_authority():
-				#spawn_enemy()
-				#
-		#t = 0
+	#fase de horda
+	if horda_activa:
+		round_logic(delta)
+	else:
+		levelup_logic()
 
 @rpc("authority", "reliable")
 func spawn_enemy():

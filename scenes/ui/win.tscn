@@ -26,7 +26,7 @@ theme_override_constants/outline_size = 15
 theme_override_fonts/font = ExtResource("1_fwdvy")
 theme_override_font_sizes/font_size = 60
 text = "Good job!
-Horde 1 has been defeated"
+Horde  has been defeated"
 horizontal_alignment = 1
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
