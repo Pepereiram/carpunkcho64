@@ -1,15 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://ri2u2l61th86"]
+[gd_scene load_steps=4 format=3 uid="uid://ri2u2l61th86"]
 
-[ext_resource type="FontFile" uid="uid://b31cp2ivxlcwv" path="res://fonts/A-Space Black Demo.otf" id="1_fwdvy"]
-[ext_resource type="Theme" uid="uid://d1pvjfd35s47x" path="res://themes/ui_theme.tres" id="2_c33dd"]
+[ext_resource type="Script" path="res://scenes/ui/upgrade_menu.gd" id="1_e125c"]
+[ext_resource type="FontFile" uid="uid://b31cp2ivxlcwv" path="res://fonts/A-Space Black Demo.otf" id="1_opbqp"]
+[ext_resource type="Theme" uid="uid://d1pvjfd35s47x" path="res://themes/ui_theme.tres" id="2_4c48t"]
 
-[node name="Control" type="Control"]
+[node name="UpgradeMenu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_e125c")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 1
@@ -23,10 +25,10 @@ offset_bottom = 191.0
 grow_horizontal = 2
 theme_override_colors/font_outline_color = Color(0.101961, 0.113725, 0.137255, 1)
 theme_override_constants/outline_size = 15
-theme_override_fonts/font = ExtResource("1_fwdvy")
-theme_override_font_sizes/font_size = 60
+theme_override_fonts/font = ExtResource("1_opbqp")
+theme_override_font_sizes/font_size = 55
 text = "Good job!
-Horde  has been defeated"
+The Horde has been defeated"
 horizontal_alignment = 1
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
@@ -42,7 +44,7 @@ offset_right = 266.5
 offset_bottom = 163.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("2_c33dd")
+theme = ExtResource("2_4c48t")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
 layout_mode = 2
@@ -87,7 +89,7 @@ layout_mode = 2
 layout_mode = 2
 text = "Upgrades"
 
-[node name="Button" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+[node name="Button1" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 text = "Attack damage"
 
@@ -99,7 +101,12 @@ text = "Attack speed"
 layout_mode = 2
 text = "Speed"
 
-[node name="Button" type="Button" parent="PanelContainer/VBoxContainer"]
+[node name="Choose" type="Button" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Choose"
+
+[connection signal="pressed" from="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Button1" to="." method="_on_button_1_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Button2" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Button3" to="." method="_on_button_3_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Choose" to="." method="_on_choose_pressed"]
