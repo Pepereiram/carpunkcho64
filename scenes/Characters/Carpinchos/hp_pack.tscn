@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://df2pcq4ukelv1"]
+
+[ext_resource type="Script" path="res://scenes/Characters/Carpinchos/hp_pack.gd" id="1_rpqe7"]
+[ext_resource type="PackedScene" uid="uid://b8urjqyowv4hk" path="res://assets/models/Scifi Crate2.glb" id="1_w8mef"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_245fw"]
+
+[node name="HpPack" type="StaticBody3D"]
+collision_layer = 0
+script = ExtResource("1_rpqe7")
+
+[node name="Root Scene" parent="." instance=ExtResource("1_w8mef")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0.35, 0)
+shape = SubResource("BoxShape3D_245fw")
+disabled = true
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0.35, 0)
+shape = SubResource("BoxShape3D_245fw")
