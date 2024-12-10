@@ -65,8 +65,8 @@ func round_logic(delta):
 		Game.players[1].local_scene.mejorando = true
 
 		# Generar stats al azar para mejora
-		# Game.players[1].local_scene.generate_random_stats()
-		# Game.players[1].local_scene.generate_random_stats()
+		Game.players[1].local_scene.generate_random_stats()
+		Game.players[1].local_scene.generate_random_stats()
 		
 		#change_scene("res://scenes/ui/win.tscn")
 	if not Game.players[0].local_scene.vivo and not Game.players[1].local_scene.vivo:
