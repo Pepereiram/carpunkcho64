@@ -68,7 +68,7 @@ func _process(delta: float) -> void:
 				state = STATE_WANDER
 				
 	if t_bomb > 0.4:
-		var game_level = get_parent()
+		var multiplayer_spawner = get_parent()
 		var bombInstance = bombScene.instantiate()
 		
 		add_collision_exception_with(bombInstance)
@@ -84,7 +84,7 @@ func _process(delta: float) -> void:
 				minDistance = distance
 				
 		bombInstance.direction = (closestPlayer.local_scene.global_position - global_transform.origin + Vector3(0, 1, 0)).normalized() 
-		game_level.get_node('MultiplayerSpawner').add_child(bombInstance, true)
+		multiplayer_spawner.add_child(bombInstance, true)
 		
 		t_bomb = 0
 		global_position.y = start_location.y

@@ -1006,7 +1006,7 @@ transform = Transform3D(0.754263, 0, 0.656573, 0, 1, 0, -0.656573, 0, 0.754263, 
 transform = Transform3D(0.754263, 0, 0.656573, 0, 1, 0, -0.656573, 0, 0.754263, -39.0416, 0.361845, 73.8179)
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://scenes/Characters/Carpinchos/carpincho.tscn", "res://scenes/Characters/carpincho_bomb/carpincho_bomb.tscn")
+_spawnable_scenes = PackedStringArray("res://scenes/Characters/Carpinchos/carpincho.tscn")
 spawn_path = NodePath(".")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
@@ -1017,5 +1017,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.7985, 1.04696, -20.0282)
 
 [node name="BGM" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("29_7gxxi")
-volume_db = -34.345
+volume_db = -24.361
 autoplay = true

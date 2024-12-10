@@ -54,9 +54,9 @@ func _ready() -> void:
 		
 	spawnable_enemies = [enemy_capybara_basic, enemy_capybara_bomb]
 	
-	var capyboss = enemy_capybara_boss.instantiate()
-	capyboss.global_transform.origin = $bossmark.global_transform.origin
-	add_child(capyboss, true)
+	#var capyboss = enemy_capybara_boss.instantiate()
+	#capyboss.global_transform.origin = $bossmark.global_transform.origin
+	#add_child(capyboss, true)
 	
 
 
@@ -86,14 +86,20 @@ func _process(delta: float) -> void:
 func spawn_enemy():
 		var enemyMarker: Marker3D = enemyMarkers.get_children()[randi() % enemyMarkers.get_child_count()]
 		var spawn_position = enemyMarker.global_transform.origin
-		Debug.log("Spawneando enemigo en: " + str(spawn_position)) 
-		rpc("spawn_enemy_client", spawn_position)  # Llama al RPC para todos los peers
+		#Debug.log("Spawneando enemigo en: " + str(spawn_position)) 
+		
+		var i = RandomNumberGenerator.new().randi_range(0, 1)
+		#var enemyScene = spawnable_enemies.pick_random()
+		
+		
+		rpc("spawn_enemy_client", spawn_position, i)  # Llama al RPC para todos los peers
 		enemies_spawned += 1
 
 @rpc("any_peer","call_local" ,"reliable")
-func spawn_enemy_client(spawn_position: Vector3):
-	var enemyScene = spawnable_enemies.pick_random()
+func spawn_enemy_client(spawn_position: Vector3, i: int):
+	var enemyScene = spawnable_enemies[i]
 	var enemyInstance = enemyScene.instantiate()
+	#var enemyInstance = enemy_capybara_bomb.instantiate()
 	enemyInstance.global_transform.origin = spawn_position
 	$MultiplayerSpawner.add_child(enemyInstance, true)
 

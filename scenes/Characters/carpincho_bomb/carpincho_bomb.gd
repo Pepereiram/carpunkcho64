@@ -78,8 +78,8 @@ func explode() -> void:
 	explosion2.global_position = $explosion_locations/loc2.global_position
 	
 	var game_level = get_parent().get_parent()
-	game_level.add_child(explosion1)
-	game_level.add_child(explosion2)
+	game_level.get_node("MultiplayerSpawner").add_child(explosion1, true)
+	game_level.get_node("MultiplayerSpawner").add_child(explosion2, true)
 	
 	
 	var players_in_range = []

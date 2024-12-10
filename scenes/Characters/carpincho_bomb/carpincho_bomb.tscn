@@ -115,11 +115,11 @@ emission_energy_multiplier = 10.0
 [sub_resource type="BoxShape3D" id="BoxShape3D_xre8c"]
 size = Vector3(1.9873, 4.70874, 7.78638)
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_y3k22"]
-properties/0/path = NodePath("Capybara_mesh:rotation")
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_wq512"]
+properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 1
-properties/1/path = NodePath(".:position")
+properties/1/path = NodePath(".:rotation")
 properties/1/spawn = true
 properties/1/replication_mode = 1
 
@@ -239,9 +239,6 @@ script = ExtResource("7_hcmp6")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0942383, 1.85437, -0.327515)
 shape = SubResource("BoxShape3D_xre8c")
 
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_y3k22")
-
 [node name="baselight" type="OmniLight3D" parent="."]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 2.20684e-09, 0.0237595, 0.0252433)
 light_color = Color(0.64, 0, 0.0106665, 1)
@@ -249,9 +246,13 @@ light_energy = 1.608
 omni_range = 3.729
 
 [node name="explosion_locations" type="Node3D" parent="."]
+transform = Transform3D(1.00272, 0, 0, 0, 1.00272, 0, 0, 0, 1.00272, 0, 0, 0)
 
 [node name="loc1" type="Marker3D" parent="explosion_locations"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.954696, 4.09354, -1.12633)
 
 [node name="loc2" type="Marker3D" parent="explosion_locations"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.00088, 4.09354, -1.00958)
+
+[node name="MultiplayerSynchronizer2" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_wq512")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://27vg21qmw6l0"]
+[gd_scene load_steps=15 format=3 uid="uid://27vg21qmw6l0"]
 
 [ext_resource type="PackedScene" uid="uid://5c11swc81vb" path="res://scenes/Characters/carpincho_boss/boss_bomb/Spike Mine.glb" id="1_b425d"]
 [ext_resource type="Script" path="res://scenes/Characters/carpincho_boss/boss_bomb/boss_bomb.gd" id="1_f1nsq"]
@@ -53,6 +53,14 @@ rings = 6
 [sub_resource type="SphereShape3D" id="SphereShape3D_t3763"]
 radius = 0.0589305
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_s51gr"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
 [node name="BossBomb" type="CharacterBody3D"]
 transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0)
 script = ExtResource("1_f1nsq")
@@ -79,3 +87,6 @@ script = null
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_t3763")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_s51gr")
