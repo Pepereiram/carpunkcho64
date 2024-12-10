@@ -5,6 +5,8 @@ extends Node3D
 @export var fire_rate := 0.5
 @export var rango := 50
  
+@export var damage_xd = 50
+@export var bullet_speed = 100
 
 @export var recarga = 0.3
 @export var id := 1
@@ -43,6 +45,7 @@ func _input(event: InputEvent) -> void:
 @rpc("reliable", "any_peer", "call_local")
 func shoot():
 	var nueva_bala = bala.instantiate()
+	nueva_bala.damage = damage_xd
+	nueva_bala.velocidad = bullet_speed
 	nueva_bala.global_transform = $spawn.global_transform
-	nueva_bala.damage = 50
 	bullet_spawner.add_child(nueva_bala, true)
