@@ -8,7 +8,14 @@ const JUMP_VELOCITY = 4.5
 @export var vivo = true
 var _players_inside: Array[Player] = []
 var kill_count = 0
-var mejorando = false
+@export var mejorando = false
+
+# stats modificables
+@export var speed_a = 30.0
+@export var Max_health = 100
+@export var Damage = 30
+@export var gun_Range = 20  
+@export var attack_speed = 30
 
 # Vectores qliaos pal mouse
 var ray_origin = Vector3()
@@ -47,8 +54,6 @@ func _ready() -> void:
 		resurrect_area.body_exited.connect(_on_dead_player_exited)
 
 
-	
-	
 
 func _enter_tree() -> void:
 	$Cuerpo/mano/Gun.id = id
@@ -191,3 +196,10 @@ func _on_dead_player_entered(body: Node) -> void:
 func _on_dead_player_exited(body: Node) -> void:
 	if body in _players_inside:
 		_players_inside.erase(body)
+
+func update_stats():
+	SPEED = speed_a
+	stats.max_health = Max_health
+	gun_controller.damage_xd = Damage
+	gun_controller.rango = gun_Range  
+	gun_controller.bullet_speed = attack_speed

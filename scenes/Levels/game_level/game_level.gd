@@ -60,6 +60,7 @@ func round_logic(delta):
 		Debug.log("Ganaste xd")
 		horda_activa = false
 		Game.players[0].local_scene.mejorando = true
+		
 		Game.players[1].local_scene.mejorando = true
 		
 		#change_scene("res://scenes/ui/win.tscn")
@@ -73,7 +74,7 @@ func round_logic(delta):
 		t = 0
 		
 func levelup_logic():
-	if  not Game.players[0].local_scene.mejorando and not Game.players[1].local_scene.mejorando:
+	if not Game.players[0].local_scene.mejorando and not Game.players[1].local_scene.mejorando:
 		restart_round()
 
 func restart_round():
