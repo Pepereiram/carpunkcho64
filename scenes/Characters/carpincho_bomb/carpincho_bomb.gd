@@ -1,26 +1,30 @@
 extends CharacterBody3D
 
 # Stats
-@export var speed = 5.0
+@export var speed = 10.0
 @export var acceleration = 100
 @export var attack_dmg = 1
 const JUMP_VELOCITY = 4.5
 @export var is_global = true
-@export var item_to_spawn: PackedScene
+
 var target: Node3D
 var target_position: Vector3
 
 @onready var _nav_agent := $NavigationAgent3D as NavigationAgent3D
 @onready var stats = $Stats
+@export var explosionScene: PackedScene
+
+
+var explosion_detection_radius: float = 6
+var explosion_damage_radius: float = 7
+var explosion_damage: float = 33
 
 
 func _ready() -> void:
 	stats.health_changed.connect(_on_health_changed)
 
 
-
 func _physics_process(delta: float) -> void:
-
 	#if _nav_agent.is_navigation_finished():
 	#	return
 	# Buscar el jugador más cercano
@@ -42,7 +46,7 @@ func _physics_process(delta: float) -> void:
 		#Mira hacia donde camina
 		offset.y = 0
 		if not offset.is_zero_approx():
-			look_at(global_position + offset, Vector3.UP)
+			look_at(global_position - offset, Vector3.UP)
 			
 	if not multiplayer.is_server():
 		return
@@ -64,7 +68,35 @@ func take_damage(damage: int) -> void:
 func _on_health_changed(health) -> void:
 	if health <= 0:
 		die()
+		
+func explode() -> void:
+	var explosion1 = explosionScene.instantiate()
+	explosion1.global_position = $explosion_locations/loc1.global_position
 	
+	#player_inst.global_position = playerMarkers.get_child(i).global_position
+	var explosion2 = explosionScene.instantiate()
+	explosion2.global_position = $explosion_locations/loc2.global_position
+	
+	var game_level = get_parent().get_parent()
+	game_level.add_child(explosion1)
+	game_level.add_child(explosion2)
+	
+	
+	var players_in_range = []
+	for player in Game.players:
+		var distance = global_position.distance_to(player.local_scene.global_position)
+		if distance < explosion_damage_radius:
+			player.local_scene.take_damage(explosion_damage)
+			
+	die()
+		
+func _process(delta: float) -> void:
+	for player in Game.players:
+		var distance = global_position.distance_to(player.local_scene.global_position)
+		if distance < explosion_detection_radius:
+			Debug.log('explota')
+			explode()
+
 
 @rpc("reliable","any_peer","call_local")
 func die():
@@ -73,11 +105,4 @@ func die():
 		var game_level = get_parent().get_parent()
 		game_level.kill_count_round +=1
 		Debug.log("KC: " + str(game_level.kill_count_round))
-	
-		#Spawn Item
-		if item_to_spawn and randf() <= 1: # 20% de probabilidad
-			var item_instance = item_to_spawn.instantiate()
-			item_instance.global_position = global_position
-			get_parent().add_child(item_instance)
-	
 	queue_free()

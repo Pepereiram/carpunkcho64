@@ -2,17 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cvjhd0pn42rl0"
-path.s3tc="res://.godot/imported/Trash Bag_Zombie_Atlas.png-6feaf8b8fcbd5ca9d22ebc7f1f7498c7.s3tc.ctex"
+uid="uid://boymfa838vbex"
+path.s3tc="res://.godot/imported/Bomb_Diffuse_palette_2.jpg-e9e1dc2e4bcb55e9546d15dabad81c30.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
+generator_parameters={
+"md5": "4f5c1a764fc9801ab8cb5731c984d383"
+}
 
 [deps]
 
-source_file="res://scenes/game_map/subscenes/trash_bag/Trash Bag_Zombie_Atlas.png"
-dest_files=["res://.godot/imported/Trash Bag_Zombie_Atlas.png-6feaf8b8fcbd5ca9d22ebc7f1f7498c7.s3tc.ctex"]
+source_file="res://scenes/Characters/carpincho_bomb/Bomb_Diffuse_palette_2.jpg"
+dest_files=["res://.godot/imported/Bomb_Diffuse_palette_2.jpg-e9e1dc2e4bcb55e9546d15dabad81c30.s3tc.ctex"]
 
 [params]
 
