@@ -143,17 +143,21 @@ func spawn_enemy():
 		var enemyMarker: Marker3D = enemyMarkers.get_children()[randi() % enemyMarkers.get_child_count()]
 		var spawn_position = enemyMarker.global_transform.origin
 		#Debug.log("Spawneando enemigo en: " + str(spawn_position)) 
+		var enemyScene
+		#var i = RandomNumberGenerator.new().randi_range(0, 1)
+		if game_round % 7 == 0:
+			max_enemy_spawns = 1
+			enemyScene = enemy_capybara_boss
+		else:
+			enemyScene = spawnable_enemies.pick_random()
 		
-		var i = RandomNumberGenerator.new().randi_range(0, 1)
-		#var enemyScene = spawnable_enemies.pick_random()
 		
-		
-		rpc("spawn_enemy_client", spawn_position, i)  # Llama al RPC para todos los peers
+		rpc("spawn_enemy_client", spawn_position, enemyScene)  # Llama al RPC para todos los peers
 		enemies_spawned += 1
 
 @rpc("any_peer","call_local" ,"reliable")
-func spawn_enemy_client(spawn_position: Vector3, i: int):
-	var enemyScene = spawnable_enemies[i]
+func spawn_enemy_client(spawn_position: Vector3, enemyScene: PackedScene):
+	#var enemyScene = spawnable_enemies[i]
 	var enemyInstance = enemyScene.instantiate()
 	#var enemyInstance = enemy_capybara_bomb.instantiate()
 	enemyInstance.global_transform.origin = spawn_position
