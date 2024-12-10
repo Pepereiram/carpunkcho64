@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://dnfryh8sq8idd"]
+
+[ext_resource type="PackedScene" uid="uid://dshb8wml66uoi" path="res://scenes/game_map/subscenes/dumpster/Dumpster.glb" id="1_w7p74"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vyv2c"]
+size = Vector3(2.73242, 1.86523, 1.43311)
+
+[node name="Dumpster" type="Node3D"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+
+[node name="Root Scene" parent="." instance=ExtResource("1_w7p74")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.871, 0, -3.56)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00195313, 0.724609, -0.0151367)
+shape = SubResource("BoxShape3D_vyv2c")

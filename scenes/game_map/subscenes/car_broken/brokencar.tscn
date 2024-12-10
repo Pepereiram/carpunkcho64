@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://dhvq4urm8mf4j"]
+
+[ext_resource type="PackedScene" uid="uid://sqd71diemy7o" path="res://scenes/game_map/subscenes/car_broken/brokencar.glb" id="1_eoiu6"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jgwl5"]
+size = Vector3(2.59383, 1.7991, 5.52264)
+
+[node name="Brokencar" type="Node3D"]
+
+[node name="Root Scene" parent="." instance=ExtResource("1_eoiu6")]
+transform = Transform3D(2.86, 0, 0, 0, 2.86, 0, 0, 0, 2.86, 0, 0, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(2.86, 0, 0, 0, 2.86, 0, 0, 0, 2.86, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.8632e-05, 0.791977, 0.197052)
+shape = SubResource("BoxShape3D_jgwl5")

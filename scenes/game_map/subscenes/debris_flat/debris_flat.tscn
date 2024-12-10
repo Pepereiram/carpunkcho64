@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://v3utkch2cjau"]
+
+[ext_resource type="PackedScene" uid="uid://d1y0twpr6pq6t" path="res://scenes/game_map/subscenes/debris_flat/Debris Pile.glb" id="1_0kwrr"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3uvbj"]
+size = Vector3(1.87476, 0.0375061, 1.98328)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_udxte"]
+size = Vector3(0.209412, 0.0187035, 0.427032)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_snkj6"]
+size = Vector3(0.270004, 0.0342865, 0.363419)
+
+[node name="DebrisFlat" type="Node3D"]
+transform = Transform3D(3, 0, 0, 0, 1, 0, 0, 0, 3, 0, 0, 0)
+
+[node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(0.279259, 0, 0.960216, 0, 1, 0, -0.960216, 0, 0.279259, 0, 0, 0)
+
+[node name="Root Scene" parent="Node3D" instance=ExtResource("1_0kwrr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/StaticBody3D"]
+transform = Transform3D(0.958232, 0, 0.285989, 0, 1, 0, -0.285989, 0, 0.958232, 0.116616, 0.0597992, -0.0874966)
+shape = SubResource("BoxShape3D_3uvbj")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Node3D/StaticBody3D"]
+transform = Transform3D(0.92683, 0, 0.37548, 0, 1, 0, -0.37548, 0, 0.92683, -0.153251, 0.0448132, 1.19868)
+shape = SubResource("BoxShape3D_udxte")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Node3D/StaticBody3D"]
+transform = Transform3D(0.92683, 0, 0.37548, 0, 1, 0, -0.37548, 0, 0.92683, -0.344701, 0.0526047, -0.990617)
+shape = SubResource("BoxShape3D_snkj6")

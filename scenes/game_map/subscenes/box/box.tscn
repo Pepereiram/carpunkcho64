@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://d4mx1xr1uynby"]
+
+[ext_resource type="PackedScene" uid="uid://brarselrhj7m6" path="res://scenes/game_map/subscenes/box/box_1.glb" id="1_pbgy3"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xembo"]
+size = Vector3(1.13501, 1.16113, 1.11523)
+
+[node name="Box" type="Node3D"]
+transform = Transform3D(2.2, 0, 0, 0, 2.2, 0, 0, 0, 2.2, 0, 0, 0)
+
+[node name="box_1" parent="." instance=ExtResource("1_pbgy3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.582418, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.582418, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.575512, 0)
+shape = SubResource("BoxShape3D_xembo")

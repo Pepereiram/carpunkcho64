@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://b5364q0xbq0r"]
+
+[ext_resource type="PackedScene" uid="uid://dd6x84lhkr88w" path="res://scenes/game_map/subscenes/pine_tree/Pine.glb" id="1_03elx"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ubujg"]
+height = 1.32424
+radius = 1.02894
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_d8yta"]
+height = 0.747256
+radius = 0.960448
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_e6gy3"]
+height = 7.25045
+radius = 0.852275
+
+[node name="Pine" type="Node3D"]
+
+[node name="Root Scene" parent="." instance=ExtResource("1_03elx")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.14804, 0)
+shape = SubResource("CylinderShape3D_ubujg")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.110615, 0)
+shape = SubResource("CylinderShape3D_d8yta")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.93321, 0)
+shape = SubResource("CylinderShape3D_e6gy3")
