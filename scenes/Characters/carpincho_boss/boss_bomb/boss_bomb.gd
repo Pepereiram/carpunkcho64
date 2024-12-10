@@ -12,6 +12,9 @@ var explosion_damage: float = 20
 var direction
 var t
 
+@onready var boom = $boom
+@onready var boom_3d = $boom3D
+
 func _ready() -> void:
 	#global_transform.scaled(Vector3(20, 20, 20))
 	scale = Vector3(20, 20, 20)
@@ -38,6 +41,8 @@ func _physics_process(delta: float) -> void:
 func _process(delta: float) -> void:
 	t += delta
 	if t > fuse_time:
+		boom.play()
+		boom_3d.play()
 		var explosionInstance = explosionScene.instantiate()
 		explosionInstance.global_position = global_position
 		

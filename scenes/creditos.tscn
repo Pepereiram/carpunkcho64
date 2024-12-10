@@ -1,0 +1,75 @@
+[gd_scene load_steps=6 format=3 uid="uid://c782goloscrws"]
+
+[ext_resource type="Theme" uid="uid://d1pvjfd35s47x" path="res://themes/ui_theme.tres" id="1_68xbb"]
+[ext_resource type="Script" path="res://scenes/creditos.gd" id="1_hhieq"]
+[ext_resource type="PackedScene" uid="uid://dc34yf1m73b10" path="res://scenes/ui/global_menu.tscn" id="2_aba8n"]
+[ext_resource type="FontFile" uid="uid://cabmeo2bktbcn" path="res://fonts/Unispace Bd.otf" id="2_dwdn1"]
+[ext_resource type="FontFile" uid="uid://b31cp2ivxlcwv" path="res://fonts/A-Space Black Demo.otf" id="4_cvsop"]
+
+[node name="Creditos" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hhieq")
+menu_scene = ExtResource("2_aba8n")
+
+[node name="TextEdit" type="TextEdit" parent="."]
+layout_mode = 0
+offset_right = 1150.0
+offset_bottom = 648.0
+theme = ExtResource("1_68xbb")
+theme_override_fonts/font = ExtResource("2_dwdn1")
+theme_override_font_sizes/font_size = 19
+text = "Asphalt 02 by Rob Tuytel
+
+Leafy Grass by Charlotte Baglioni
+
+Concrete Floor 03 by Rob Tuytel
+
+Pine by Quaternius
+
+Truckk by KolosStudios
+
+Broken Car by Quaternius
+
+Streetlight by Kay Lousberg
+
+Police Car by Quaternius
+
+Post-Apocalyptic Assets by Atomic Realm
+
+Post-Apocalyptic Gas Station by Atomic Realm
+
+Post-Apocalyptic Into The Wild by Atomic Realm
+
+Edo SZ by Vic Fieger
+
+Unispace by Typodermic Fonts
+
+Brown Fox by Leonard Posavec - LeoSupply.co
+
+A Space by Studio Typo
+
+cheese burger by Sergio Sanchez
+
+Gun SFX by Shapeforms
+
+BGM by davidkbd
+"
+wrap_mode = 1
+scroll_smooth = true
+scroll_v_scroll_speed = 10.0
+scroll_past_end_of_file = true
+
+[node name="Back" type="Button" parent="."]
+layout_mode = 0
+offset_left = 953.0
+offset_top = 560.0
+offset_right = 1103.0
+offset_bottom = 617.0
+theme_override_fonts/font = ExtResource("4_cvsop")
+theme_override_font_sizes/font_size = 40
+text = "BACK"
