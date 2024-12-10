@@ -12,8 +12,10 @@ func _process(delta: float) -> void:
 
 
 func _on_retry_pressed() -> void:
-	get_tree().change_scene_to_file("res://scenes/lobby.tscn")
+	pass
 
 
 func _on_back_to_menu_pressed() -> void:
+	# Check if a server is running
+	multiplayer.multiplayer_peer.close()
 	get_tree().change_scene_to_file("res://scenes/ui/global_menu.tscn")

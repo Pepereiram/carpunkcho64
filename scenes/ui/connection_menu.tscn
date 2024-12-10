@@ -37,7 +37,9 @@ layout_mode = 2
 theme_override_styles/panel = ExtResource("2_l4rxw")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainer"]
+layout_direction = 2
 layout_mode = 2
+alignment = 1
 
 [node name="BackButton" type="Button" parent="VBoxContainer/PanelContainer/HBoxContainer"]
 layout_mode = 2
@@ -49,6 +51,7 @@ layout_mode = 2
 size_flags_horizontal = 8
 theme_override_fonts/font = ExtResource("1_s6637")
 text = "Player Settings"
+horizontal_alignment = 2
 
 [node name="PanelContainer2" type="PanelContainer" parent="VBoxContainer"]
 layout_mode = 2

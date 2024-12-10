@@ -121,6 +121,12 @@ shader_parameter/shadow_color = Color(0, 0, 0, 1)
 shader_parameter/shadow_thickness = 2.0
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ukp70"]
+properties/0/path = NodePath(".:damage_xd")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath(".:bullet_speed")
+properties/1/spawn = true
+properties/1/replication_mode = 2
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_dxrug"]
 properties/0/path = NodePath(".:id")

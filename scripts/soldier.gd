@@ -3,10 +3,19 @@ extends CharacterBody3D
 
 # Variables de instancia lol
 @export var id := 1
-@export var SPEED = 30.0
+@export var SPEED = 10.0
 const JUMP_VELOCITY = 4.5
 @export var vivo = true
 var _players_inside: Array[Player] = []
+var kill_count = 0
+@export var mejorando = false
+@export var derrotado = false
+
+# stats modificables
+@export var speed_a = 30.0
+@export var Max_health = 100
+@export var Damage = 30
+@export var attack_speed = 30
 
 # Vectores qliaos pal mouse
 var ray_origin = Vector3()
@@ -25,6 +34,8 @@ var ray_target = Vector3()
 @onready var hud = $HUD
 @onready var health_bar: ProgressBar = $HealthBar
 @onready var muelto = $Muelto
+@onready var mejoras = $HUD/Control
+@onready var derrota = $HUD/Control2
 
 
 func _ready() -> void:
@@ -42,15 +53,29 @@ func _ready() -> void:
 	if is_multiplayer_authority():
 		resurrect_area.body_entered.connect(_on_dead_player_entered)
 		resurrect_area.body_exited.connect(_on_dead_player_exited)
-
-
 	
-	
+	Damage = gun_controller.damage_xd
+	attack_speed = gun_controller.bullet_speed
+
 
 func _enter_tree() -> void:
 	$Cuerpo/mano/Gun.id = id
 
 func _physics_process(delta: float) -> void:
+	# Lógica de derrota
+#	if derrotado:
+#		derrota.visible = true
+#		return
+#	else:
+#		derrota.visible = false
+	
+	# Lógica de mejora
+	if mejorando:
+		mejoras.visible = true
+		return
+	else:
+		mejoras.visible = false
+	
 	if stats.health <= 0:
 		velocity = Vector3(0,0,0)
 		move_and_slide()
@@ -159,17 +184,6 @@ func die() -> void:
 func resurrect():
 	stats.health = stats.max_health
 	vivo = true
-#	var game_level = get_parent()
-#	game_level.alive_players +=1
-#	Debug.log("Vivos: " + str(game_level.alive_players))
-	#update_model()
-
-#@rpc("any_peer", "call_local", "reliable")
-#@rpc("any_peer", "call_local", "reliable")
-#func update_model():
-#	muelto.visible = false
-#	model.visible = true
-#	gun_controller.muelto = false
 
 
 func _on_dead_player_entered(body: Node) -> void:
@@ -184,8 +198,37 @@ func _on_dead_player_entered(body: Node) -> void:
 func _on_dead_player_exited(body: Node) -> void:
 	if body in _players_inside:
 		_players_inside.erase(body)
-		
+
+func update_stats():
+	SPEED = speed_a
+	stats.max_health = Max_health
+	gun_controller.damage_xd = Damage
+	gun_controller.bullet_speed = attack_speed
+	Debug.log("Stats actualizadas")
+	Debug.log("Speed: " + str(SPEED))
+	Debug.log("Max health: " + str(stats.max_health))
+	Debug.log("Damage: " + str(gun_controller.damage_xd))
+	Debug.log("Attack speed: " + str(gun_controller.bullet_speed))
+
+func get_upgrade_stat():
+	var stat = mejoras.elegido
+	if stat == "hp":
+		Max_health += 10
+	elif stat == "atk":
+		Damage += 1
+	elif stat == "spd":
+		speed_a += 10
+	elif stat == "atkspd":
+		attack_speed += 10
+	else:
+		Debug.log("Error al mejorar")
+	# Obtener la variable elegido desde mejores
+
+
+func generate_upgrade_stats():
+	Debug.log("Generando stats del jugador" + str(id))
+	mejoras.change_button_labels()
 
 func heal_player(amount) -> void:
 	stats.health = min(stats.health + amount, stats.max_health)
-	Debug.log("Player healed by " + str(amount))
+	#Debug.log("Player healed by " + str(amount))

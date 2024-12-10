@@ -1,21 +1,27 @@
 extends Node3D
 
+# Personajes
 @export var player_1_scene: PackedScene
 @export var player_2_scene: PackedScene
 
 @export var enemy_capybara_basic: PackedScene
+
 @export var enemy_capybara_bomb: PackedScene
 @export var enemy_capybara_boss: PackedScene
 
+
 @export var enemy_spawn_time: float = 5.0
-@export var max_enemy_spawns: int = 10
+@export var max_enemy_spawns: int = 2
 @export var kill_count_round: int = 0
-@export var round: int = 1
+@export var game_round: int = 1
 @export var alive_players: int = 2
 
+#Spawners
 @onready var playerMarkers: Node3D = $PlayerMarkers
 @onready var enemyMarkers: Node3D = $EnemyMarkers
 
+#Estado 
+var horda_activa = true
 var t = 0
 var spawnable_enemies
 @export var enemies_spawned = 0
@@ -60,27 +66,77 @@ func _ready() -> void:
 	
 
 
-## Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	# Debug prints
-	if is_multiplayer_authority():
-		pass
-		
+func round_logic(delta):
 	t = t + delta
 	if kill_count_round == max_enemy_spawns:
 		Debug.log("Ganaste xd")
-		change_scene("res://scenes/ui/win.tscn")
+		horda_activa = false
+
+		# Se muestra el menu de mejora
+		Game.players[0].local_scene.mejorando = true
+		Game.players[1].local_scene.mejorando = true
+
+		# Se generan las estadisticas de mejora disponibles
+		Debug.log("Generando estadisticas de mejora aleatoriamente.")
+		Game.players[0].local_scene.generate_upgrade_stats()
+		Game.players[1].local_scene.generate_upgrade_stats()
+		
+		#change_scene("res://scenes/ui/win.tscn")
 	if not Game.players[0].local_scene.vivo and not Game.players[1].local_scene.vivo:
 		Debug.log("Perdiste xdddd")
-		change_scene("res://scenes/ui/defeated.tscn")
 	
+		# Se muestra el menu de mejora
+		Debug.log("Mostrando pantalla de derrota.")
+		Game.players[0].local_scene.derrotado = true
+		Game.players[1].local_scene.derrotado = true
+
+		
+
+
 
 	if t > enemy_spawn_time:
 		if enemies_spawned < max_enemy_spawns:
 			if is_multiplayer_authority():
 				spawn_enemy()
-
 		t = 0
+		
+func levelup_logic():
+	if not Game.players[0].local_scene.mejorando and not Game.players[1].local_scene.mejorando:
+		restart_round()
+
+# Reinicia la ronda, preparando la siguiente.
+func restart_round():
+	# Avanza el contador de la ronda
+	game_round += 1
+	# Aumenta la cantidad de enemigos a spawnear
+	max_enemy_spawns = game_round * 2
+	# Se reinician las variables de la ronda
+	enemies_spawned = 0
+	kill_count_round = 0
+	t = 0
+	# Se cambia el estado de hordas, para que el process vuelva a round_logic
+	horda_activa = true
+
+	# Actualizacion de estadisticas de los jugadores
+	Game.players[0].local_scene.get_upgrade_stat()
+	Game.players[1].local_scene.get_upgrade_stat()
+	Game.players[0].local_scene.update_stats()
+	Game.players[1].local_scene.update_stats()
+
+
+## Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	# print(multiplayer)
+	# Debug prints
+	if is_multiplayer_authority():
+		pass
+
+	#fase de horda
+	if horda_activa:
+		round_logic(delta)
+	else:
+		levelup_logic()
+
 
 @rpc("authority", "reliable")
 func spawn_enemy():
