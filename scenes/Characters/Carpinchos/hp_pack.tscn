@@ -1,15 +1,17 @@
 [gd_scene load_steps=4 format=3 uid="uid://df2pcq4ukelv1"]
 
 [ext_resource type="Script" path="res://scenes/Characters/Carpinchos/hp_pack.gd" id="1_rpqe7"]
-[ext_resource type="PackedScene" uid="uid://b8urjqyowv4hk" path="res://assets/models/Scifi Crate2.glb" id="1_w8mef"]
+[ext_resource type="PackedScene" uid="uid://dpmy8okeoyyfq" path="res://assets/models/cheese burger.glb" id="2_4ad7i"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_245fw"]
 
 [node name="HpPack" type="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 0.984028, -0.178012, 0, 0.178012, 0.984028, 0, 0.307207, 0)
 collision_layer = 0
 script = ExtResource("1_rpqe7")
 
-[node name="Root Scene" parent="." instance=ExtResource("1_w8mef")]
+[node name="burger" parent="." instance=ExtResource("2_4ad7i")]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0.35, 0)
@@ -19,5 +21,9 @@ disabled = true
 [node name="Area3D" type="Area3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
-transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0.35, 0)
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0.75, 0)
 shape = SubResource("BoxShape3D_245fw")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.30878, 0)
+omni_range = 3.642

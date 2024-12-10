@@ -74,7 +74,7 @@ func die():
 		Debug.log("KC: " + str(game_level.kill_count_round))
 	
 		#Spawn Item
-		if item_to_spawn and randf() <= 0.2: # 20% de probabilidad
+		if item_to_spawn and randf() <= 1: # 20% de probabilidad
 			var item_instance = item_to_spawn.instantiate()
 			item_instance.global_position = global_position
 			get_parent().add_child(item_instance)
