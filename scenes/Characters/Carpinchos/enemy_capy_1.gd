@@ -56,30 +56,33 @@ func _physics_process(delta: float) -> void:
 func set_target_position(target_position: Vector3) -> void:
 	_nav_agent.set_target_position(target_position)
 	
-	
+
+@rpc("reliable", "authority")
 func take_damage(damage: int) -> void:
 	stats.health -= damage
 
+@rpc("reliable", "any_peer")
+func request_damage(enemy_path: NodePath, damage: int):
+	if is_multiplayer_authority():
+		var enemy = get_node_or_null(enemy_path)
+		if enemy:
+			enemy.take_damage(damage)
+
 # Ver si murió
 func _on_health_changed(health) -> void:
-	if health <= 0:
+	if is_multiplayer_authority() and health <= 0:
 		die()
 
 @rpc("reliable","any_peer","call_local")
 func die():
-#	Debug.log("Muerte capy")
-#	if is_multiplayer_authority():
-#		var game_level = get_parent().get_parent()
-#		game_level.kill_count_round +=1
-#		Debug.log("KC: " + str(game_level.kill_count_round))
-#	queue_free()
-	# Imprimimos la id del capybara que muere
-	Debug.log("Muerte capy" + str(get_multiplayer_authority()))
-	if is_multiplayer_authority():
-		# Solo el servidor actualiza el conteo de muertes
-		var game_level = get_parent().get_parent()
-		game_level.kill_count_round += 1
-		Debug.log("KC: " + str(game_level.kill_count_round))
+
+	if not is_multiplayer_authority():
+		return  # Solo el servidor maneja la lógica de muerte
+	
+	Debug.log("Muerte capy")
+	var game_level = get_parent().get_parent()
+	game_level.kill_count_round += 1
+	Debug.log("KC: " + str(game_level.kill_count_round))
 
 	# Sincroniza la eliminación para todos los peers
 	rpc("remove_enemy_globally", get_path())

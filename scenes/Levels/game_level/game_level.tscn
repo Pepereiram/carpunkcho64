@@ -999,7 +999,7 @@ transform = Transform3D(0.754263, 0, 0.656573, 0, 1, 0, -0.656573, 0, 0.754263, 
 transform = Transform3D(0.754263, 0, 0.656573, 0, 1, 0, -0.656573, 0, 0.754263, -39.0416, 0.361845, 73.8179)
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://scenes/Characters/Carpinchos/carpincho.tscn")
+_spawnable_scenes = PackedStringArray("res://scenes/Characters/Carpinchos/carpunkcho.tscn")
 spawn_path = NodePath(".")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
