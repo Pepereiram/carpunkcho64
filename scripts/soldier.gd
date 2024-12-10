@@ -3,7 +3,7 @@ extends CharacterBody3D
 
 # Variables de instancia lol
 @export var id := 1
-@export var SPEED = 30.0
+@export var SPEED = 10.0
 const JUMP_VELOCITY = 4.5
 @export var vivo = true
 var _players_inside: Array[Player] = []
@@ -53,7 +53,9 @@ func _ready() -> void:
 	if is_multiplayer_authority():
 		resurrect_area.body_entered.connect(_on_dead_player_entered)
 		resurrect_area.body_exited.connect(_on_dead_player_exited)
-
+	
+	Damage = gun_controller.damage_xd
+	attack_speed = gun_controller.bullet_speed
 
 
 func _enter_tree() -> void:

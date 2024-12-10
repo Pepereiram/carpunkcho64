@@ -78,6 +78,10 @@ func round_logic(delta):
 		Game.players[0].local_scene.derrotado = true
 		Game.players[1].local_scene.derrotado = true
 
+		
+
+
+
 	if t > enemy_spawn_time:
 		if enemies_spawned < max_enemy_spawns:
 			if is_multiplayer_authority():
@@ -110,6 +114,7 @@ func restart_round():
 
 ## Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	# print(multiplayer)
 	# Debug prints
 	if is_multiplayer_authority():
 		pass

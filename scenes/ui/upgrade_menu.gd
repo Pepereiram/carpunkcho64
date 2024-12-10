@@ -13,11 +13,10 @@ var stats_label = {
 	"hp": "HP",
 	"atk": "Damage",
 	"spd": "Speed",
-	"atkspd": "Attack Speed",
-	"range": "Range"
+	"atkspd": "Attack Speed"
 }
 
-var stats = ["hp", "atk", "spd", "atkspd", "range"]
+var stats = ["hp", "atk", "spd", "atkspd"]
 var current_stats = ["","",""]
 
 @onready var cont_labels = $PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2
@@ -28,8 +27,7 @@ func get_dic_stats() -> Dictionary:
 		"hp": player.Max_health,
 		"atk": player.Damage,
 		"spd": player.speed_a,
-		"atkspd": player.attack_speed,
-		"range": player.gun_Range
+		"atkspd": player.attack_speed
 	}
 
 func get_random_stats():

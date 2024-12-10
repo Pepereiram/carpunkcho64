@@ -6,11 +6,12 @@ extends Node3D
 @export var rango := 50
  
 @export var damage_xd = 50
-@export var bullet_speed = 100
+@export var bullet_speed = 180
 
 @export var recarga = 0.3
 @export var id := 1
 @onready var multiplayer_synchronizer: MultiplayerSynchronizer = $MultiplayerSynchronizer
+
 
 var _time_of_last_shot: float
 var _fire_pressed := false

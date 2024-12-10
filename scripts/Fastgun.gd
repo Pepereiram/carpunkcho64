@@ -9,12 +9,18 @@ extends Node3D
 @onready var multiplayer_synchronizer: MultiplayerSynchronizer = $MultiplayerSynchronizer
 
 @export var damage_xd = 10
-@export var bullet_speed = 200
+@export var bullet_speed = 400
 
 var _time_of_last_shot: float
 var _fire_pressed := false
 var muelto = false
 var pausa = false
+
+# Estadisticas base del arma
+const BASE_STATS = {
+	"damage": 10,
+	"fire_rate": 0.1
+}
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

@@ -115,6 +115,7 @@ func _on_join_pressed() -> void:
 
 # Intenta conectarse a un servidor como cliente.
 func _on_confirm_join_pressed() -> void:
+	print("Confirm Join presionado con IP: ", ip.text)
 	var peer = ENetMultiplayerPeer.new()
 	var err = peer.create_client(ip.text, Statics.PORT)
 	if err:
@@ -238,9 +239,7 @@ func starting_game(value: bool):
 @rpc("any_peer", "call_local", "reliable")
 func start_game() -> void:
 	Game.players.sort_custom(func(a, b): return a.index < b.index)
-	#get_tree().change_scene_to_file("res://scenes/Levels/test_level.tscn")
 	get_tree().change_scene_to_file("res://scenes/Levels/game_level/game_level.tscn")
-	#get_tree().change_scene_to_file.call_deferred("res://scenes/Levels/test_level.tscn")
 
 
 
