@@ -1,14 +1,11 @@
-[gd_scene load_steps=18 format=4 uid="uid://ddfomeakgb2qd"]
+[gd_scene load_steps=15 format=4 uid="uid://ddfomeakgb2qd"]
 
 [ext_resource type="Texture2D" uid="uid://bp7ddjwmpeese" path="res://assets/models/capybara/Capybara_Capybara_BaseColor.png" id="1_u85a5"]
 [ext_resource type="Script" path="res://scenes/Characters/carpincho_boss/carpincho_boss.gd" id="1_ylmnv"]
-[ext_resource type="PackedScene" uid="uid://27vg21qmw6l0" path="res://scenes/Characters/carpincho_boss/boss_bomb/boss_bomb.tscn" id="2_t2sn7"]
 [ext_resource type="PackedScene" uid="uid://ckweyra3xsb43" path="res://scenes/Characters/carpincho_boss/glasses.tscn" id="2_yha2e"]
 [ext_resource type="PackedScene" uid="uid://cpiu3bd315tmx" path="res://scenes/Characters/carpincho_boss/necktie.tscn" id="3_q23on"]
 [ext_resource type="PackedScene" uid="uid://bo0go5uy5qtbu" path="res://scenes/Characters/carpincho_boss/Anti-Gravity Drone.glb" id="4_hxv2o"]
 [ext_resource type="PackedScene" uid="uid://mlcg22thcs0u" path="res://scenes/Characters/Players/stats.tscn" id="5_n21sn"]
-[ext_resource type="Script" path="res://scenes/Characters/Carpinchos/hurtbox_enemy.gd" id="8_6hc8l"]
-[ext_resource type="Script" path="res://scenes/Characters/Carpinchos/hit_box_enemy.gd" id="9_mljg7"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1cqqt"]
 resource_name = "Capybara_mat"
@@ -75,7 +72,6 @@ emission_energy_multiplier = 10.0
 
 [node name="CarpinchoBoss" type="CharacterBody3D"]
 script = ExtResource("1_ylmnv")
-bombScene = ExtResource("2_t2sn7")
 
 [node name="mesh" type="Node3D" parent="."]
 
@@ -92,63 +88,6 @@ transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 1.15511, 1.66253)
 
 [node name="drone" parent="mesh" instance=ExtResource("4_hxv2o")]
 transform = Transform3D(9.96, 0, 0, 0, 4.985, 0, 0, 0, 9.96, 0, 0, -1.39523)
-
-[node name="OmniLight3D" type="OmniLight3D" parent="mesh/drone"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.572679, 0.129777, -0.136264)
-light_color = Color(0.878431, 0.894118, 0.105882, 1)
-omni_range = 1.79911
-
-[node name="OmniLight3D2" type="OmniLight3D" parent="mesh/drone"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.142095, 0.129777, -0.573069)
-light_color = Color(0.878431, 0.894118, 0.105882, 1)
-omni_range = 1.79911
-
-[node name="OmniLight3D3" type="OmniLight3D" parent="mesh/drone"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5637, 0.129777, 0.143462)
-light_color = Color(0.878431, 0.894118, 0.105882, 1)
-omni_range = 1.79911
-
-[node name="OmniLight3D4" type="OmniLight3D" parent="mesh/drone"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.141136, 0.129777, 0.560392)
-light_color = Color(0.878431, 0.894118, 0.105882, 1)
-omni_range = 1.79911
-
-[node name="OmniLight3D5" type="OmniLight3D" parent="mesh/drone"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.572679, -0.089731, -0.136264)
-light_color = Color(0.878431, 0.894118, 0.105882, 1)
-omni_range = 1.79911
-
-[node name="OmniLight3D6" type="OmniLight3D" parent="mesh/drone"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.142095, -0.089731, -0.573069)
-light_color = Color(0.878431, 0.894118, 0.105882, 1)
-omni_range = 1.79911
-
-[node name="OmniLight3D7" type="OmniLight3D" parent="mesh/drone"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5637, -0.089731, 0.143462)
-light_color = Color(0.878431, 0.894118, 0.105882, 1)
-omni_range = 1.79911
-
-[node name="OmniLight3D8" type="OmniLight3D" parent="mesh/drone"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.141136, -0.089731, 0.560392)
-light_color = Color(0.878431, 0.894118, 0.105882, 1)
-omni_range = 1.79911
-
-[node name="baselight" type="OmniLight3D" parent="mesh/drone/OmniLight3D8"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.24256, 1.82494, -5.58977)
-light_color = Color(0.619953, 0.869628, 0.822393, 1)
-light_energy = 1.608
-omni_range = 5.39584
-
-[node name="baselight2" type="OmniLight3D" parent="mesh/drone/OmniLight3D8"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.24256, -0.438778, -5.58977)
-light_color = Color(0.619953, 0.869628, 0.822393, 1)
-light_energy = 1.608
-omni_range = 5.39584
-
-[node name="baselight3" type="OmniLight3D" parent="mesh/drone/OmniLight3D8"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.24256, 6.85739, -4.87692)
-light_color = Color(0.83334, 0.890955, 0.701924, 1)
-omni_range = 10.7628
 
 [node name="collision_drone" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0615635, 0.120669, -1.41595)
@@ -189,26 +128,3 @@ shadow_enabled = true
 omni_range = 2.0
 
 [node name="Stats" parent="." instance=ExtResource("5_n21sn")]
-health = 650
-max_health = 650
-
-[node name="HurtboxEnemy" type="Area3D" parent="."]
-collision_layer = 4
-collision_mask = 4
-script = ExtResource("8_6hc8l")
-
-[node name="collision_drone" type="CollisionShape3D" parent="HurtboxEnemy"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0615635, 0.120669, -1.41595)
-shape = SubResource("CylinderShape3D_hy1dr")
-
-[node name="collision_capy" type="CollisionShape3D" parent="HurtboxEnemy"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000447683, 3.18086, -0.292728)
-shape = SubResource("BoxShape3D_1oxeo")
-
-[node name="HitBoxEnemy" type="Area3D" parent="."]
-script = ExtResource("9_mljg7")
-damage = 5
-
-[node name="collision_drone" type="CollisionShape3D" parent="HitBoxEnemy"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0615635, 0.120669, -1.41595)
-shape = SubResource("CylinderShape3D_hy1dr")
