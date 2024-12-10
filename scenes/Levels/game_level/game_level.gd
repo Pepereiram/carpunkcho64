@@ -56,6 +56,7 @@ func _ready() -> void:
 
 func round_logic(delta):
 	t = t + delta
+	#Debug.log("Kill count round: " + str(kill_count_round))
 	if kill_count_round == max_enemy_spawns:
 		Debug.log("Ganaste xd")
 		horda_activa = false
@@ -64,8 +65,8 @@ func round_logic(delta):
 		Game.players[1].local_scene.mejorando = true
 
 		# Generar stats al azar para mejora
-		Game.players[1].local_scene.generate_random_stats()
-		Game.players[1].local_scene.generate_random_stats()
+		# Game.players[1].local_scene.generate_random_stats()
+		# Game.players[1].local_scene.generate_random_stats()
 		
 		#change_scene("res://scenes/ui/win.tscn")
 	if not Game.players[0].local_scene.vivo and not Game.players[1].local_scene.vivo:
@@ -79,7 +80,6 @@ func round_logic(delta):
 		
 func levelup_logic():
 	if not Game.players[0].local_scene.mejorando and not Game.players[1].local_scene.mejorando:
-
 		restart_round()
 
 func restart_round():

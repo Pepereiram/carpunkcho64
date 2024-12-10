@@ -50,25 +50,29 @@ func change_button_labels():
 	# Generar estadísticas aleatorias
 	get_random_stats()
 	#var dic_stats = get_dic_stats()
-	print(current_stats)
+	#print(stats_label.get(current_stats[0]))
 	# Actualizar los botones de mejora disponibles
-	#button1.text = "+10 " + str(stats_label.get(current_stats[0]))
+	#button1.text = "+10 " + stats_label.get(current_stats[0])
 	#button2.text = "+10 " + str(stats_label.get(current_stats[1]))
 	#button3.text = "+10 " + str(stats_label.get(current_stats[2]))
 
 # Funciones para cada boton
+# Función para el boton 1 de mejora
 func _on_button_1_pressed() -> void:
+	Debug.log("Mejora 1 seleccionada: " + str(current_stats[0]))
 	elegido = current_stats[0]
 
+# Función para el boton 2 de mejora
 func _on_button_2_pressed() -> void:
+	Debug.log("Mejora 2 seleccionada: " + str(current_stats[1]))
 	elegido = current_stats[1]
-	print("button 2")
 
+# Función para el boton 3 de mejora
 func _on_button_3_pressed() -> void:
+	Debug.log("Mejora 3 seleccionada: " + str(current_stats[2]))
 	elegido = current_stats[2]
-	print("button 3")
 
 func _on_choose_pressed() -> void:
 	#Manda señal para cambiar stats en los players
-	print("elegido: ", elegido)
+	print("Elegido: ", elegido)
 	player.mejorando = false
