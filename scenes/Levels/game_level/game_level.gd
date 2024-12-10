@@ -9,7 +9,7 @@ extends Node3D
 @export var enemy_spawn_time: float = 5.0
 @export var max_enemy_spawns: int = 2
 @export var kill_count_round: int = 0
-@export var round: int = 1
+@export var game_round: int = 1
 @export var alive_players: int = 2
 
 #Spawners
@@ -59,9 +59,13 @@ func round_logic(delta):
 	if kill_count_round == max_enemy_spawns:
 		Debug.log("Ganaste xd")
 		horda_activa = false
+		# Mostrar menu de mejora
 		Game.players[0].local_scene.mejorando = true
-		
 		Game.players[1].local_scene.mejorando = true
+
+		# Generar stats al azar para mejora
+		Game.players[1].local_scene.generate_random_stats()
+		Game.players[1].local_scene.generate_random_stats()
 		
 		#change_scene("res://scenes/ui/win.tscn")
 	if not Game.players[0].local_scene.vivo and not Game.players[1].local_scene.vivo:
@@ -75,14 +79,25 @@ func round_logic(delta):
 		
 func levelup_logic():
 	if not Game.players[0].local_scene.mejorando and not Game.players[1].local_scene.mejorando:
+
 		restart_round()
 
 func restart_round():
-	enemies_spawned = 0
-	max_enemy_spawns += 1
+	# Aumentamos el numero de ronda
+	game_round += 1
+	# Aumentamos el numero de enemigos a spawneear en funciona de la ronda
+	max_enemy_spawns += game_round*2
+
+	# Reseteamos las variables de la ronda
 	kill_count_round = 0
+	enemies_spawned = 0
 	t = 0
 	horda_activa = true
+
+	# Ocultamos el menu de mejora
+	Game.players[0].local_scene.mejorando = false
+	Game.players[1].local_scene.mejorando = false
+
 	
 
 

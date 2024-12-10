@@ -9,11 +9,18 @@ var damage_xd = 0
 var rango = 0
 var bullet_speed = 0
 
+var stats_label = {
+	"hp": "HP",
+	"atk": "Damage",
+	"spd": "Speed",
+	"atkspd": "Attack Speed",
+	"range": "Range"
+}
 
 var stats = ["hp", "atk", "spd", "atkspd", "range"]
 var current_stats = [-1,-1,-1] #Indices de stats
 
-@onready var cont_labels = $PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer
+@onready var cont_labels = $PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2
 
 # Funciones para generar stats al azar en el menu:
 func get_dic_stats() -> Dictionary:
@@ -25,6 +32,7 @@ func get_dic_stats() -> Dictionary:
 		"range": player.gun_Range
 	}
 
+# Función para obtener 3 stats al azar
 func get_random_stats():
 	var selected_stats = []
 	while selected_stats.size() < 3:
@@ -33,26 +41,24 @@ func get_random_stats():
 			selected_stats.append(random_stat)
 	current_stats = selected_stats
 
-func change_labels():
+func change_button_labels():
 	# Obtener las etiquetas
-	var label1 = cont_labels.get_node("Label1")
-	var label2 = cont_labels.get_node("Label2")
-	var label3 = cont_labels.get_node("Label3")
+	var button1 = cont_labels.get_node("Button1")
+	var button2 = cont_labels.get_node("Button2")
+	var button3 = cont_labels.get_node("Button3")
 	
 	# Generar estadísticas aleatorias
 	get_random_stats()
-	var dic_stats = get_dic_stats()
-	
-	# Actualizar texto de las etiquetas con los valores actuales del player
-	label1.text = current_stats[0] + " " + str(dic_stats.get(current_stats[0], 0)) + " :"
-	label2.text = current_stats[1] + " " + str(dic_stats.get(current_stats[1], 0)) + " :"
-	label3.text = current_stats[2] + " " + str(dic_stats.get(current_stats[2], 0)) + " :"
+	#var dic_stats = get_dic_stats()
+	print(current_stats)
+	# Actualizar los botones de mejora disponibles
+	#button1.text = "+10 " + str(stats_label.get(current_stats[0]))
+	#button2.text = "+10 " + str(stats_label.get(current_stats[1]))
+	#button3.text = "+10 " + str(stats_label.get(current_stats[2]))
 
 # Funciones para cada boton
 func _on_button_1_pressed() -> void:
 	elegido = current_stats[0]
-	change_labels()
-	
 
 func _on_button_2_pressed() -> void:
 	elegido = current_stats[1]

@@ -62,6 +62,9 @@ func _physics_process(delta: float) -> void:
 	if mejorando:
 		mejoras.visible = true
 		return
+	else:
+		mejoras.visible = false
+		
 	
 	if stats.health <= 0:
 		velocity = Vector3(0,0,0)
@@ -203,3 +206,7 @@ func update_stats():
 	gun_controller.damage_xd = Damage
 	gun_controller.rango = gun_Range  
 	gun_controller.bullet_speed = attack_speed
+
+func generate_random_stats():
+	mejoras.change_button_labels()
+	
