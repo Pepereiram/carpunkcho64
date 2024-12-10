@@ -2,10 +2,12 @@ extends Control
 
 @export var lobby_player_scene: PackedScene
 
-# { id: true }
+# Estructura para almacenar el estado de los jugadores en el lobby.
+# { id: true/false } indica si el jugador está listo.
 var status = { 1 : false }
 var _menu_stack: Array[Control] = []
 
+# Referencias a nodos de la interfaz de usuario.
 @onready var user = %User
 @onready var host = %Host
 @onready var join = %Join
@@ -25,30 +27,36 @@ var _menu_stack: Array[Control] = []
 @onready var time_container: HBoxContainer = %TimeContainer
 @onready var time: Label = %Time
 
-
+# Función llamada cuando la escena está lista.
 func _ready():
-	# esto solo sirve si multiplayer test 
+	# Comportamiento especial para pruebas locales.
 	if Game.multiplayer_test:
 		get_tree().change_scene_to_file("res://scenes/Levels/game_level/game_level.tscn")
 		#get_tree().change_scene_to_file.call_deferred("res://scenes/lobby_test.tscn")
 		#get_tree().change_scene_to_file.call_deferred("res://scenes/Levels/test_level.tscn")
 		return
 	
+	# Conexión de señales para eventos multijugador.
 	multiplayer.connected_to_server.connect(_on_connected_to_server)
 	multiplayer.connection_failed.connect(_on_connection_failed)
 	multiplayer.peer_connected.connect(_on_peer_connected)
 	multiplayer.peer_disconnected.connect(_on_peer_disconnected)
 	multiplayer.server_disconnected.connect(_on_server_disconnected)
 	
+	# Actualización de estados cuando cambian los jugadores.
 	Game.player_updated.connect(func(_id) : _check_ready())
 	Game.players_updated.connect(_check_ready)
 	
+	# Conexión de botones a funciones.
+	# Host
 	host.pressed.connect(_on_host_pressed)
+	# Join
 	join.pressed.connect(_on_join_pressed)
-	
+	# Confirm Join
 	confirm_join.pressed.connect(_on_confirm_join_pressed)
-	
+	# Back menu
 	back_join.pressed.connect(_back_menu)
+	# Back ready
 	back_ready.pressed.connect(_back_menu)
 	
 	role_a.pressed.connect(func(): Game.set_current_player_role(Statics.Role.ROLE_A))
@@ -58,21 +66,24 @@ func _ready():
 	
 	start_timer.timeout.connect(_on_start_timer_timeout)
 	
+	# Configuración inicial de botones y menús.
 	ready_toggle.disabled = true
 	time_container.hide()
 
 	_go_to_menu(start_menu)
 	
+	# Configuración del nombre de usuario local.
 	user.text = OS.get_environment("USERNAME") + (str(randi() % 1000) if Engine.is_editor_hint() else "")
 	
+	# Manejo de redirección de puertos (UPnP).
 	Game.upnp_completed.connect(_on_upnp_completed, 1)
 
-
+# Actualiza el temporizador en la pantalla mientras está corriendo.
 func _process(_delta: float) -> void:
 	if !start_timer.is_stopped():
 		time.text = str(ceil(start_timer.time_left))
 
-
+# Evento al completar la configuración de UPnP (para abrir puertos).
 func _on_upnp_completed(error) -> void:
 	print(error)
 	if error == OK:
@@ -80,30 +91,29 @@ func _on_upnp_completed(error) -> void:
 	else:
 		Debug.log("Port Error", 5)
 
-
+# Función para iniciar un servidor como host.
 func _on_host_pressed() -> void:
+	print("Host presionado")
 	var peer = ENetMultiplayerPeer.new()
-	
 	var err = peer.create_server(Statics.PORT, Statics.MAX_CLIENTS)
 	if err:
 		Debug.log("Host Error: %d" %err)
 		return
 	
+	# Configura el servidor y el estado inicial del jugador.
 	multiplayer.multiplayer_peer = peer
-	
 	var player = Statics.PlayerData.new(multiplayer.get_unique_id(), user.text)
 	_add_player(player)
-	
 	_go_to_menu(ready_menu)
-	
 	Debug.add_to_window_title("(Server)")
-	Game.set_player_id("1")
+	Game.set_player_id("1") # Asigna el ID del servidor.
 
-
+# Navega al menú de conexión.
 func _on_join_pressed() -> void:
+	print("Join presionado")
 	_go_to_menu(join_menu)
 
-
+# Intenta conectarse a un servidor como cliente.
 func _on_confirm_join_pressed() -> void:
 	var peer = ENetMultiplayerPeer.new()
 	var err = peer.create_client(ip.text, Statics.PORT)
@@ -111,14 +121,14 @@ func _on_confirm_join_pressed() -> void:
 		Debug.log("Host Error: %d" %err)
 		return
 	
+	# Configura el cliente y agrega el jugador local al lobby.
 	multiplayer.multiplayer_peer = peer
 	
 	var player = Statics.PlayerData.new(multiplayer.get_unique_id(), user.text)
 	_add_player(player)
-	
 	_go_to_menu(ready_menu)
 
-
+# Cuando el servidor inicia la cuenta atrás para comenzar el juego.
 func _on_connected_to_server() -> void:
 	Debug.log("connected_to_server")
 
@@ -212,7 +222,7 @@ func set_player_ready(id: int, value: bool):
 		if player.player.id == id:
 			player.set_ready(value)
 
-
+# Cuando el servidor inicia la cuenta atrás para comenzar el juego.
 @rpc("any_peer", "call_local", "reliable")
 func starting_game(value: bool):
 	role_a.disabled = value
@@ -224,7 +234,7 @@ func starting_game(value: bool):
 	else:
 		start_timer.stop()
 
-
+# Cambia a la escena del juego.
 @rpc("any_peer", "call_local", "reliable")
 func start_game() -> void:
 	Game.players.sort_custom(func(a, b): return a.index < b.index)
@@ -278,7 +288,7 @@ func _back_menu() -> void:
 		menu.show()
 	_disconnect()
 
-
+# Navega de regreso al primer menú del stack.
 func _back_to_first_menu() -> void:
 	var first = _menu_stack.front()
 	_menu_stack.clear()

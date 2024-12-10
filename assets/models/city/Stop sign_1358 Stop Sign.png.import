@@ -2,14 +2,11 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b8dhpsjrabjp1"
+uid="uid://dtkp612182jc2"
 path.s3tc="res://.godot/imported/Stop sign_1358 Stop Sign.png-21ccf3976d13f82d7afac63edfe17bc5.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
-}
-generator_parameters={
-"md5": "5befeab8f1d21924d20e02fe0fe87260"
 }
 
 [deps]

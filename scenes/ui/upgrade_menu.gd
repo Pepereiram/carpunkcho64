@@ -17,6 +17,7 @@ func get_random() -> void:
 func fetch_stats():
 	#Obtener stats del player con current stats
 	pass
+
 func _on_button_1_pressed() -> void:
 	elegido = 1
 	print("button 1")
