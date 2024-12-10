@@ -1,10 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://ri2u2l61th86"]
+[gd_scene load_steps=4 format=3 uid="uid://ri2u2l61th86"]
 
 [ext_resource type="Script" path="res://scenes/ui/upgrade_menu.gd" id="1_e125c"]
 [ext_resource type="FontFile" uid="uid://b31cp2ivxlcwv" path="res://fonts/A-Space Black Demo.otf" id="1_opbqp"]
 [ext_resource type="Theme" uid="uid://d1pvjfd35s47x" path="res://themes/ui_theme.tres" id="2_4c48t"]
-
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_wqrl4"]
 
 [node name="UpgradeMenu" type="Control"]
 layout_mode = 3
@@ -103,9 +101,6 @@ text = "Speed"
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Choose"
-
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_wqrl4")
 
 [connection signal="pressed" from="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Button1" to="." method="_on_button_1_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Button2" to="." method="_on_button_2_pressed"]

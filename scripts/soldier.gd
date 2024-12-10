@@ -12,7 +12,7 @@ var kill_count = 0
 @export var derrotado = false
 
 # stats modificables
-@export var speed_a = 30.0
+@export var speed_a = 10.0
 @export var Max_health = 100
 @export var Damage = 30
 @export var attack_speed = 30
