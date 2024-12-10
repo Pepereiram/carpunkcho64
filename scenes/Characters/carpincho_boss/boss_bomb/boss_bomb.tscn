@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://27vg21qmw6l0"]
+[gd_scene load_steps=16 format=3 uid="uid://27vg21qmw6l0"]
 
 [ext_resource type="PackedScene" uid="uid://5c11swc81vb" path="res://scenes/Characters/carpincho_boss/boss_bomb/Spike Mine.glb" id="1_b425d"]
 [ext_resource type="Script" path="res://scenes/Characters/carpincho_boss/boss_bomb/boss_bomb.gd" id="1_f1nsq"]
