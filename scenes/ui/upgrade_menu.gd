@@ -9,11 +9,18 @@ var damage_xd = 0
 var rango = 0
 var bullet_speed = 0
 
+var stats_label = {
+	"hp": "HP",
+	"atk": "Damage",
+	"spd": "Speed",
+	"atkspd": "Attack Speed",
+	"range": "Range"
+}
 
 var stats = ["hp", "atk", "spd", "atkspd", "range"]
 var current_stats = [-1,-1,-1] #Indices de stats
 
-@onready var cont_labels = $PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer
+@onready var cont_labels = $PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2
 
 # Funciones para generar stats al azar en el menu:
 func get_dic_stats() -> Dictionary:
@@ -33,34 +40,33 @@ func get_random_stats():
 			selected_stats.append(random_stat)
 	current_stats = selected_stats
 
-func change_labels():
-	# Obtener las etiquetas
-	var label1 = cont_labels.get_node("Label1")
-	var label2 = cont_labels.get_node("Label2")
-	var label3 = cont_labels.get_node("Label3")
+func change_button_labels():
+	# Obtener las etiquetas de los botones
+	var button1 = cont_labels.get_node("Button1")
+	var button2 = cont_labels.get_node("Button2")
+	var button3 = cont_labels.get_node("Button3")
 	
 	# Generar estadísticas aleatorias
 	get_random_stats()
-	var dic_stats = get_dic_stats()
-	
-	# Actualizar texto de las etiquetas con los valores actuales del player
-	label1.text = current_stats[0] + " " + str(dic_stats.get(current_stats[0], 0)) + " :"
-	label2.text = current_stats[1] + " " + str(dic_stats.get(current_stats[1], 0)) + " :"
-	label3.text = current_stats[2] + " " + str(dic_stats.get(current_stats[2], 0)) + " :"
+	button1.text = stats_label.get(current_stats[0], "Error")
+	button2.text = stats_label.get(current_stats[1], "Error")
+	button3.text = stats_label.get(current_stats[2], "Error")
 
 # Funciones para cada boton
+# Funcion de seleccion del boton 1
 func _on_button_1_pressed() -> void:
 	elegido = current_stats[0]
-	change_labels()
+	Debug.log("Mejora 1 seleccionada: " + stats_label.get(current_stats[0], "Error"))
 	
-
+# Funcion de seleccion del boton 2
 func _on_button_2_pressed() -> void:
 	elegido = current_stats[1]
-	print("button 2")
+	Debug.log("Mejora 2 seleccionada: " + stats_label.get(current_stats[1], "Error"))
 
+# Funcion de seleccion del boton 3
 func _on_button_3_pressed() -> void:
 	elegido = current_stats[2]
-	print("button 3")
+	Debug.log("Mejora 3 seleccionada: " + stats_label.get(current_stats[2], "Error"))
 
 func _on_choose_pressed() -> void:
 	#Manda señal para cambiar stats en los players
