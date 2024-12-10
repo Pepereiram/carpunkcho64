@@ -17,9 +17,18 @@ script = ExtResource("1_hhieq")
 menu_scene = ExtResource("2_aba8n")
 
 [node name="TextEdit" type="TextEdit" parent="."]
-layout_mode = 0
-offset_right = 1150.0
-offset_bottom = 648.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -575.0
+offset_top = -324.0
+offset_right = 575.0
+offset_bottom = 324.0
+grow_horizontal = 2
+grow_vertical = 2
 theme = ExtResource("1_68xbb")
 theme_override_fonts/font = ExtResource("2_dwdn1")
 theme_override_font_sizes/font_size = 19
@@ -99,11 +108,18 @@ scroll_v_scroll_speed = 10.0
 scroll_past_end_of_file = true
 
 [node name="Back" type="Button" parent="."]
-layout_mode = 0
-offset_left = 953.0
-offset_top = 560.0
-offset_right = 1103.0
-offset_bottom = 617.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 331.0
+offset_top = 198.0
+offset_right = 481.0
+offset_bottom = 255.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_fonts/font = ExtResource("4_cvsop")
 theme_override_font_sizes/font_size = 40
 text = "BACK"
