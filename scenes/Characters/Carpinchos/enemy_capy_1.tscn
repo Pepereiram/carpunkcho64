@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://bp7ddjwmpeese" path="res://assets/models/capybara/Capybara_Capybara_BaseColor.png" id="1_ne1ri"]
 [ext_resource type="Script" path="res://scenes/Characters/Carpinchos/enemy_capy_1.gd" id="1_t5svl"]
-[ext_resource type="PackedScene" path="res://scenes/Characters/Carpinchos/hp_pack.tscn" id="2_2vf3s"]
+[ext_resource type="PackedScene" uid="uid://df2pcq4ukelv1" path="res://scenes/Characters/Carpinchos/hp_pack.tscn" id="2_2vf3s"]
 [ext_resource type="PackedScene" uid="uid://mlcg22thcs0u" path="res://scenes/Characters/Players/stats.tscn" id="3_qh0lm"]
 [ext_resource type="Script" path="res://scenes/Characters/Carpinchos/hit_box_enemy.gd" id="4_1o7xl"]
 [ext_resource type="Script" path="res://scenes/Characters/Carpinchos/hurtbox_enemy.gd" id="4_gj2om"]

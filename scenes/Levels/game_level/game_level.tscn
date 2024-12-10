@@ -1019,3 +1019,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.7985, 1.04696, -20.0282)
 stream = ExtResource("29_7gxxi")
 volume_db = -34.345
 autoplay = true
+parameters/looping = true

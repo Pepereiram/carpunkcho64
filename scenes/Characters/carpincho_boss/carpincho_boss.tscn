@@ -186,8 +186,6 @@ shadow_enabled = true
 omni_range = 2.0
 
 [node name="Stats" parent="." instance=ExtResource("5_n21sn")]
-health = 650
-max_health = 650
 
 [node name="HurtboxEnemy" type="Area3D" parent="."]
 collision_layer = 4
