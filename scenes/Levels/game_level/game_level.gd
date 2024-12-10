@@ -54,7 +54,7 @@ func _process(delta: float) -> void:
 	if is_multiplayer_authority():
 		pass
 		
-	#t = t + delta
+	t = t + delta
 	#if kill_count_round == max_enemy_spawns:
 		#Debug.log("Ganaste xd")
 		#change_scene("res://scenes/ui/win.tscn")
@@ -62,12 +62,12 @@ func _process(delta: float) -> void:
 		#Debug.log("Perdiste xdddd")
 		#change_scene("res://scenes/ui/defeated.tscn")a
 	#
-	#if t > enemy_spawn_time:
-		#if enemies_spawned < max_enemy_spawns:
-			#if is_multiplayer_authority():
-				#spawn_enemy()
+	if t > enemy_spawn_time:
+		if enemies_spawned < max_enemy_spawns:
+			if is_multiplayer_authority():
+				spawn_enemy()
 				#
-		#t = 0
+		t = 0
 
 @rpc("authority", "reliable")
 func spawn_enemy():

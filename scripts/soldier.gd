@@ -184,3 +184,8 @@ func _on_dead_player_entered(body: Node) -> void:
 func _on_dead_player_exited(body: Node) -> void:
 	if body in _players_inside:
 		_players_inside.erase(body)
+		
+
+func heal_player(amount) -> void:
+	stats.health = min(stats.health + amount, stats.max_health)
+	Debug.log("Player healed by " + str(amount))
