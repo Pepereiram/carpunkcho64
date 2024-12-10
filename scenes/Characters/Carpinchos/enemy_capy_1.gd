@@ -7,6 +7,7 @@ extends CharacterBody3D
 const JUMP_VELOCITY = 4.5
 @export var is_global = true
 @export var item_to_spawn: PackedScene
+@export var heal_chance = 0.2
 var target: Node3D
 var target_position: Vector3
 
@@ -75,7 +76,7 @@ func die():
 		Debug.log("KC: " + str(game_level.kill_count_round))
 	
 		#Spawn Item
-		if item_to_spawn and randf() <= 1: # 20% de probabilidad
+		if item_to_spawn and randf() <= heal_chance:
 			var item_instance = item_to_spawn.instantiate()
 			item_instance.global_position = global_position
 			get_parent().add_child(item_instance)

@@ -1,9 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://27vg21qmw6l0"]
+[gd_scene load_steps=15 format=3 uid="uid://27vg21qmw6l0"]
 
 [ext_resource type="PackedScene" uid="uid://5c11swc81vb" path="res://scenes/Characters/carpincho_boss/boss_bomb/Spike Mine.glb" id="1_b425d"]
 [ext_resource type="Script" path="res://scenes/Characters/carpincho_boss/boss_bomb/boss_bomb.gd" id="1_f1nsq"]
 [ext_resource type="PackedScene" uid="uid://chrfq7tol0dnh" path="res://scenes/game_map/fire_particles/fire_particle.tscn" id="2_6vyu8"]
 [ext_resource type="PackedScene" uid="uid://b4unyg6s6dtul" path="res://scenes/Characters/carpincho_bomb/explosion/explosion.tscn" id="2_w7e1a"]
+[ext_resource type="AudioStream" uid="uid://bkjxaaj7uv2nq" path="res://assets/sfx/EXPLDsgn_Explosion Rumble Distorted_01.wav" id="5_65m1y"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_rle18"]
 
@@ -79,3 +80,12 @@ script = null
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_t3763")
+
+[node name="boom" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_65m1y")
+volume_db = -18.864
+
+[node name="boom3D" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0.0475433, 0)
+stream = ExtResource("5_65m1y")
+volume_db = -7.619
