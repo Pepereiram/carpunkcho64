@@ -4,6 +4,7 @@ extends Node3D
 @onready var bullet_spawner: MultiplayerSpawner = $BalasSpawner
 @export var fire_rate := 0.1
 
+@onready var fire = $fire
 @export var recarga = 0.1
 @export var id := 1
 @onready var multiplayer_synchronizer: MultiplayerSynchronizer = $MultiplayerSynchronizer
@@ -27,6 +28,7 @@ func _process(delta: float) -> void:
 			return
 		if _fire_pressed and (Time.get_ticks_msec() / 1000.0 - _time_of_last_shot) > fire_rate:
 			_time_of_last_shot = Time.get_ticks_msec() / 1000.0
+			fire.play()
 			shoot.rpc_id(1)
 
 func _input(event: InputEvent) -> void:
