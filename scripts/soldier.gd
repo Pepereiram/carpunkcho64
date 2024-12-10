@@ -15,7 +15,6 @@ var kill_count = 0
 @export var speed_a = 30.0
 @export var Max_health = 100
 @export var Damage = 30
-@export var gun_Range = 20  
 @export var attack_speed = 30
 
 # Vectores qliaos pal mouse
@@ -62,11 +61,11 @@ func _enter_tree() -> void:
 
 func _physics_process(delta: float) -> void:
 	# Lógica de derrota
-	if derrotado:
-		derrota.visible = true
-		return
-	else:
-		derrota.visible = false
+#	if derrotado:
+#		derrota.visible = true
+#		return
+#	else:
+#		derrota.visible = false
 	
 	# Lógica de mejora
 	if mejorando:
@@ -183,17 +182,6 @@ func die() -> void:
 func resurrect():
 	stats.health = stats.max_health
 	vivo = true
-#	var game_level = get_parent()
-#	game_level.alive_players +=1
-#	Debug.log("Vivos: " + str(game_level.alive_players))
-	#update_model()
-
-#@rpc("any_peer", "call_local", "reliable")
-#@rpc("any_peer", "call_local", "reliable")
-#func update_model():
-#	muelto.visible = false
-#	model.visible = true
-#	gun_controller.muelto = false
 
 
 func _on_dead_player_entered(body: Node) -> void:
@@ -213,31 +201,25 @@ func update_stats():
 	SPEED = speed_a
 	stats.max_health = Max_health
 	gun_controller.damage_xd = Damage
-	gun_controller.rango = gun_Range  
 	gun_controller.bullet_speed = attack_speed
 	Debug.log("Stats actualizadas")
 	Debug.log("Speed: " + str(SPEED))
 	Debug.log("Max health: " + str(stats.max_health))
 	Debug.log("Damage: " + str(gun_controller.damage_xd))
-	Debug.log("Range: " + str(gun_controller.rango))
 	Debug.log("Attack speed: " + str(gun_controller.bullet_speed))
 
 func get_upgrade_stat():
-	# var stat = mejoras.elegido
-	# print(stat)
-	# if stat == "hp":
-	# 	Max_health += 10
-	# elif stat == "atk":
-	# 	Damage += 10
-	# elif stat == "spd":
-	# 	speed_a += 10
-	# elif stat == "atkspd":
-	# 	attack_speed += 10
-	# elif stat == "range":
-	# 	gun_Range += 10
-	# else:
-	# 	Debug.log("Error al mejorar")
-	pass
+	var stat = mejoras.elegido
+	if stat == "hp":
+		Max_health += 10
+	elif stat == "atk":
+		Damage += 1
+	elif stat == "spd":
+		speed_a += 10
+	elif stat == "atkspd":
+		attack_speed += 10
+	else:
+		Debug.log("Error al mejorar")
 	# Obtener la variable elegido desde mejores
 
 

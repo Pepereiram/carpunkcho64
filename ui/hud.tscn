@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dtk8qb2aaqwp4"]
+[gd_scene load_steps=6 format=3 uid="uid://dtk8qb2aaqwp4"]
 
 [ext_resource type="Script" path="res://ui/hud.gd" id="1_aue1l"]
 [ext_resource type="PackedScene" uid="uid://ri2u2l61th86" path="res://scenes/ui/upgradeMenu.tscn" id="2_hkvnm"]
@@ -8,6 +8,11 @@ bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m0cxk"]
 bg_color = Color(0.5293, 0.67, 0.201, 1)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ai10p"]
+properties/0/path = NodePath("Control:elegido")
+properties/0/spawn = true
+properties/0/replication_mode = 2
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_aue1l")
@@ -27,3 +32,6 @@ show_percentage = false
 
 [node name="Control" parent="." instance=ExtResource("2_hkvnm")]
 visible = false
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_ai10p")
