@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://kuusfw6ema2j"]
+[gd_scene load_steps=40 format=3 uid="uid://kuusfw6ema2j"]
 
 [ext_resource type="Script" path="res://scenes/Levels/game_level/game_level.gd" id="1_1ajdb"]
 [ext_resource type="PackedScene" uid="uid://ns14ka6ue5dy" path="res://scenes/Characters/Players/player1.tscn" id="2_ugcq1"]
@@ -1014,6 +1014,7 @@ replication_config = SubResource("SceneReplicationConfig_4l2v3")
 
 [node name="bossmark" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.7985, 1.04696, -20.0282)
+
 [node name="BGM" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("29_7gxxi")
 volume_db = -24.361

@@ -5,6 +5,7 @@ extends StaticBody3D
 
 @onready var area = $Area3D
 @onready var burger = $burger
+@onready var eat = $eat
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -16,5 +17,6 @@ func _process(delta: float) -> void:
 
 func _on_body_entered(body: Node) -> void:
 	if body is Player:  # Verifica si el objeto que entra es un Player
+		eat.play()
 		body.heal_player(HEAL)  # Llama a la función de curación del jugador
 		queue_free()  # Elimina el hp_pack después de usarse
