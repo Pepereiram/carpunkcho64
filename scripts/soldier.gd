@@ -63,11 +63,11 @@ func _enter_tree() -> void:
 
 func _physics_process(delta: float) -> void:
 	# Lógica de derrota
-#	if derrotado:
-#		derrota.visible = true
-#		return
-#	else:
-#		derrota.visible = false
+	if derrotado:
+		derrota.visible = true
+		return
+	else:
+		derrota.visible = false
 	
 	# Lógica de mejora
 	if mejorando:
