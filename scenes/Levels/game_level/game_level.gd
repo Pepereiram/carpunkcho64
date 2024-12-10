@@ -3,9 +3,13 @@ extends Node3D
 # Personajes
 @export var player_1_scene: PackedScene
 @export var player_2_scene: PackedScene
+
 @export var enemy_capybara_basic: PackedScene
 
-# Variables del round
+@export var enemy_capybara_bomb: PackedScene
+@export var enemy_capybara_boss: PackedScene
+
+
 @export var enemy_spawn_time: float = 5.0
 @export var max_enemy_spawns: int = 2
 @export var kill_count_round: int = 0
@@ -19,6 +23,7 @@ extends Node3D
 #Estado 
 var horda_activa = true
 var t = 0
+var spawnable_enemies
 @export var enemies_spawned = 0
 
 # Called when the node enters the scene tree for the first time.
@@ -52,6 +57,13 @@ func _ready() -> void:
 		player_inst.id = player_data.id
 		add_child(player_inst)
 		player_data.local_scene = player_inst
+		
+	spawnable_enemies = [enemy_capybara_basic, enemy_capybara_bomb]
+	
+	#var capyboss = enemy_capybara_boss.instantiate()
+	#capyboss.global_transform.origin = $bossmark.global_transform.origin
+	#add_child(capyboss, true)
+	
 
 
 func round_logic(delta):
@@ -118,23 +130,32 @@ func _process(delta: float) -> void:
 	# Debug prints
 	if is_multiplayer_authority():
 		pass
+
 	#fase de horda
 	if horda_activa:
 		round_logic(delta)
 	else:
 		levelup_logic()
 
+
 @rpc("authority", "reliable")
 func spawn_enemy():
 		var enemyMarker: Marker3D = enemyMarkers.get_children()[randi() % enemyMarkers.get_child_count()]
 		var spawn_position = enemyMarker.global_transform.origin
-		Debug.log("Spawneando enemigo en: " + str(spawn_position)) 
-		rpc("spawn_enemy_client", spawn_position)  # Llama al RPC para todos los peers
+		#Debug.log("Spawneando enemigo en: " + str(spawn_position)) 
+		
+		var i = RandomNumberGenerator.new().randi_range(0, 1)
+		#var enemyScene = spawnable_enemies.pick_random()
+		
+		
+		rpc("spawn_enemy_client", spawn_position, i)  # Llama al RPC para todos los peers
 		enemies_spawned += 1
 
 @rpc("any_peer","call_local" ,"reliable")
-func spawn_enemy_client(spawn_position: Vector3):
-	var enemyInstance = enemy_capybara_basic.instantiate()
+func spawn_enemy_client(spawn_position: Vector3, i: int):
+	var enemyScene = spawnable_enemies[i]
+	var enemyInstance = enemyScene.instantiate()
+	#var enemyInstance = enemy_capybara_bomb.instantiate()
 	enemyInstance.global_transform.origin = spawn_position
 	$MultiplayerSpawner.add_child(enemyInstance, true)
 

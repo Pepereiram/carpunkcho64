@@ -228,3 +228,7 @@ func get_upgrade_stat():
 func generate_upgrade_stats():
 	Debug.log("Generando stats del jugador" + str(id))
 	mejoras.change_button_labels()
+
+func heal_player(amount) -> void:
+	stats.health = min(stats.health + amount, stats.max_health)
+	#Debug.log("Player healed by " + str(amount))
