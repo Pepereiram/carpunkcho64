@@ -84,11 +84,9 @@ func round_logic(delta):
 		#change_scene("res://scenes/ui/win.tscn")
 	if not Game.players[0].local_scene.vivo and not Game.players[1].local_scene.vivo:
 		Debug.log("Perdiste xdddd")
-	
 		# Se muestra el menu de mejora
 		Debug.log("Mostrando pantalla de derrota.")
-		Game.players[0].local_scene.derrotado = true
-		Game.players[1].local_scene.derrotado = true
+		change_scene("res://scenes/ui/defeated.tscn")
 
 		
 

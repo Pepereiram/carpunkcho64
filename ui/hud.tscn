@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://dtk8qb2aaqwp4"]
+[gd_scene load_steps=7 format=3 uid="uid://dtk8qb2aaqwp4"]
 
 [ext_resource type="Script" path="res://ui/hud.gd" id="1_aue1l"]
 [ext_resource type="PackedScene" uid="uid://ri2u2l61th86" path="res://scenes/ui/upgradeMenu.tscn" id="2_hkvnm"]
+[ext_resource type="PackedScene" uid="uid://yptgh8b2olib" path="res://scenes/ui/defeated.tscn" id="3_2272b"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n5gy7"]
 bg_color = Color(0, 0, 0, 1)
@@ -31,6 +32,9 @@ value = 75.0
 show_percentage = false
 
 [node name="Control" parent="." instance=ExtResource("2_hkvnm")]
+visible = false
+
+[node name="Control2" parent="." instance=ExtResource("3_2272b")]
 visible = false
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]

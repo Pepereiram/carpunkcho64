@@ -1,5 +1,6 @@
 extends Control
 
+@onready var player:Player = get_parent().get_parent()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -16,6 +17,4 @@ func _on_retry_pressed() -> void:
 
 
 func _on_back_to_menu_pressed() -> void:
-	# Check if a server is running
-	multiplayer.multiplayer_peer.close()
-	get_tree().change_scene_to_file("res://scenes/ui/global_menu.tscn")
+	get_tree().quit()

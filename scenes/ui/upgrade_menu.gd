@@ -20,6 +20,7 @@ var stats = ["hp", "atk", "spd", "atkspd"]
 var current_stats = ["","",""]
 
 @onready var cont_labels = $PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2
+@onready var cont_labels2 = $PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer
 
 # Funciones para generar stats al azar en el menu:
 func get_dic_stats() -> Dictionary:
@@ -52,6 +53,17 @@ func change_button_labels():
 	button3.text = stats_label.get(current_stats[2], "Error")
 
 	# Actualizar estadisticas del player
+	var label1 = cont_labels2.get_node("Label1")
+	var label2 = cont_labels2.get_node("Label2")
+	var label3 = cont_labels2.get_node("Label3")
+	var label4 = cont_labels2.get_node("Label4")
+
+	var stats_to_show = get_dic_stats()
+	label1.text = "HP: " + str(stats_to_show.get("hp", "Error"))
+	label2.text = "Damage: " + str(stats_to_show.get("atk", "Error"))
+	label3.text = "Speed: " + str(stats_to_show.get("spd", "Error"))
+	label4.text = "Attack Speed: " + str(stats_to_show.get("atkspd", "Error"))
+	
 
 # Funciones para cada boton
 # Funcion de seleccion del boton 1
