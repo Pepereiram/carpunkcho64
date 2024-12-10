@@ -54,6 +54,14 @@ rings = 6
 [sub_resource type="SphereShape3D" id="SphereShape3D_t3763"]
 radius = 0.0589305
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_s51gr"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
 [node name="BossBomb" type="CharacterBody3D"]
 transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0)
 script = ExtResource("1_f1nsq")
@@ -80,6 +88,9 @@ script = null
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_t3763")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_s51gr")
 
 [node name="boom" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_65m1y")
