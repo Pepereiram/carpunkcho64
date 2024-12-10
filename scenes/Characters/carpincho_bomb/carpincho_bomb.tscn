@@ -1,7 +1,16 @@
-[gd_scene load_steps=13 format=4 uid="uid://bm1rwnpfwb8t8"]
+[gd_scene load_steps=29 format=4 uid="uid://bm1rwnpfwb8t8"]
 
+[ext_resource type="Script" path="res://scenes/Characters/carpincho_bomb/carpincho_bomb.gd" id="1_fi0i8"]
 [ext_resource type="Texture2D" uid="uid://bp7ddjwmpeese" path="res://assets/models/capybara/Capybara_Capybara_BaseColor.png" id="1_q6n42"]
 [ext_resource type="PackedScene" uid="uid://g6dleg7020rp" path="res://scenes/Characters/carpincho_bomb/Bomb.glb" id="2_iwrht"]
+[ext_resource type="PackedScene" uid="uid://b4unyg6s6dtul" path="res://scenes/Characters/carpincho_bomb/explosion/explosion.tscn" id="2_uange"]
+[ext_resource type="PackedScene" uid="uid://chrfq7tol0dnh" path="res://scenes/game_map/fire_particles/fire_particle.tscn" id="3_mjsvd"]
+[ext_resource type="PackedScene" uid="uid://mlcg22thcs0u" path="res://scenes/Characters/Players/stats.tscn" id="5_82gtr"]
+[ext_resource type="Script" path="res://scenes/Characters/Carpinchos/hurtbox_enemy.gd" id="6_as17m"]
+[ext_resource type="Script" path="res://scenes/Characters/Carpinchos/hit_box_enemy.gd" id="7_hcmp6"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_apwra"]
+size = Vector3(1.9873, 4.70874, 7.78638)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1cqqt"]
 resource_name = "Capybara_mat"
@@ -66,7 +75,62 @@ albedo_color = Color(1, 0, 0, 1)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yu2jp"]
 albedo_color = Color(1, 0, 0, 1)
 
+[sub_resource type="Gradient" id="Gradient_1hpp8"]
+offsets = PackedFloat32Array(0, 0.337209, 0.833333, 1)
+colors = PackedColorArray(1, 0, 0, 1, 0.993591, 0.0922494, 0.00556136, 1, 0.940092, 0.862332, 0.0519866, 1, 1, 0.988702, 0.870968, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_34jf3"]
+gradient = SubResource("Gradient_1hpp8")
+
+[sub_resource type="Curve" id="Curve_yby7s"]
+_data = [Vector2(0, 0.626805), 0.0, 0.154434, 0, 0, Vector2(0.243407, 1), 0.0188959, 0.0188959, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_2xur3"]
+curve = SubResource("Curve_yby7s")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_2q2ii"]
+lifetime_randomness = 1.0
+emission_shape_scale = Vector3(0.1, 0.1, 0.1)
+emission_shape = 2
+emission_sphere_radius = 0.75
+direction = Vector3(0, 1, 0)
+spread = 0.0
+initial_velocity_max = 1.0
+gravity = Vector3(0, 0, 0)
+tangential_accel_min = -5.0
+tangential_accel_max = 5.0
+scale_max = 2.0
+scale_curve = SubResource("CurveTexture_2xur3")
+color_ramp = SubResource("GradientTexture1D_34jf3")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_87cu0"]
+albedo_color = Color(1, 0, 0, 1)
+emission_enabled = true
+emission = Color(1, 0, 0, 1)
+emission_energy_multiplier = 10.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_0e28l"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xre8c"]
+size = Vector3(1.9873, 4.70874, 7.78638)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_y3k22"]
+properties/0/path = NodePath("Capybara_mesh:rotation")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:position")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
 [node name="CarpinchoBomb" type="CharacterBody3D"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
+script = ExtResource("1_fi0i8")
+explosionScene = ExtResource("2_uange")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0942383, 1.85437, -0.327515)
+shape = SubResource("BoxShape3D_apwra")
 
 [node name="mesh" type="Node3D" parent="."]
 
@@ -107,5 +171,87 @@ mesh = SubResource("PlaneMesh_rnlbq")
 [node name="bomb1" parent="mesh/bomb" instance=ExtResource("2_iwrht")]
 transform = Transform3D(0.351171, 0, 6.24013, 0, 6.25, 0, -6.24013, 0, 0.351171, 0.84937, 3.97981, -1.17061)
 
+[node name="FireParticle" parent="mesh/bomb/bomb1" instance=ExtResource("3_mjsvd")]
+transform = Transform3D(0.00898997, 0, -0.159747, 0, 0.16, 0, 0.159747, 0, 0.00898997, -0.20539, 0.0159253, -0.00269253)
+process_material = SubResource("ParticleProcessMaterial_2q2ii")
+max_energy = 1.0
+light_frequency = 0.0
+max_range = 5.0
+particle_amount = 10
+
 [node name="bomb2" parent="mesh/bomb" instance=ExtResource("2_iwrht")]
 transform = Transform3D(0.357816, 0, -6.23975, 0, 6.25, 0, 6.23975, 0, 0.357816, -0.935157, 3.97981, -1.04218)
+
+[node name="FireParticle2" parent="mesh/bomb/bomb2" instance=ExtResource("3_mjsvd")]
+transform = Transform3D(0.00916009, 0, 0.159738, 0, 0.16, 0, -0.159738, 0, 0.00916009, 0.183359, 0.0159253, -0.00401539)
+process_material = SubResource("ParticleProcessMaterial_2q2ii")
+max_energy = 1.0
+light_frequency = 0.0
+max_range = 5.0
+particle_amount = 10
+
+[node name="eyes" type="Node3D" parent="mesh"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -4.24486e-07, -0.015, 0.000253681)
+
+[node name="eyeL" type="MeshInstance3D" parent="mesh/eyes"]
+transform = Transform3D(0.151, 0.0309704, 0.0162743, 2.18549e-09, 0.0721008, -0.13721, -0.034986, 0.133669, 0.0702401, 0.428059, 4.08773, -2.52966)
+material_override = SubResource("StandardMaterial3D_87cu0")
+mesh = SubResource("CapsuleMesh_0e28l")
+
+[node name="lightL" type="OmniLight3D" parent="mesh/eyes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.527016, 4.12195, -2.51965)
+light_color = Color(1, 0, 0, 1)
+light_energy = 0.5
+shadow_enabled = true
+omni_range = 2.0
+
+[node name="eyeR" type="MeshInstance3D" parent="mesh/eyes"]
+transform = Transform3D(0.148445, -0.0394814, -0.0207467, 4.44071e-09, 0.0721008, -0.13721, 0.0446005, 0.131407, 0.0690515, -0.429639, 4.08773, -2.52966)
+material_override = SubResource("StandardMaterial3D_87cu0")
+mesh = SubResource("CapsuleMesh_0e28l")
+
+[node name="lightR" type="OmniLight3D" parent="mesh/eyes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.533165, 4.12195, -2.51965)
+light_color = Color(1, 0, 0, 1)
+light_energy = 0.5
+shadow_enabled = true
+omni_range = 2.0
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="Stats" parent="." instance=ExtResource("5_82gtr")]
+health = 50
+max_health = 50
+
+[node name="HurtboxEnemy" type="Area3D" parent="."]
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("6_as17m")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HurtboxEnemy"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0942383, 1.85437, -0.327515)
+shape = SubResource("BoxShape3D_xre8c")
+
+[node name="HitBoxEnemy" type="Area3D" parent="."]
+script = ExtResource("7_hcmp6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitBoxEnemy"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0942383, 1.85437, -0.327515)
+shape = SubResource("BoxShape3D_xre8c")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_y3k22")
+
+[node name="baselight" type="OmniLight3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 2.20684e-09, 0.0237595, 0.0252433)
+light_color = Color(0.64, 0, 0.0106665, 1)
+light_energy = 1.608
+omni_range = 3.729
+
+[node name="explosion_locations" type="Node3D" parent="."]
+
+[node name="loc1" type="Marker3D" parent="explosion_locations"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.954696, 4.09354, -1.12633)
+
+[node name="loc2" type="Marker3D" parent="explosion_locations"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.00088, 4.09354, -1.00958)

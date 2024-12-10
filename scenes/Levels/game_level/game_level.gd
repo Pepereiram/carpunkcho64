@@ -2,7 +2,10 @@ extends Node3D
 
 @export var player_1_scene: PackedScene
 @export var player_2_scene: PackedScene
+
 @export var enemy_capybara_basic: PackedScene
+@export var enemy_capybara_bomb: PackedScene
+
 @export var enemy_spawn_time: float = 5.0
 @export var max_enemy_spawns: int = 10
 @export var kill_count_round: int = 0
@@ -13,6 +16,7 @@ extends Node3D
 @onready var enemyMarkers: Node3D = $EnemyMarkers
 
 var t = 0
+var spawnable_enemies
 @export var enemies_spawned = 0
 
 # Called when the node enters the scene tree for the first time.
@@ -46,6 +50,8 @@ func _ready() -> void:
 		player_inst.id = player_data.id
 		add_child(player_inst)
 		player_data.local_scene = player_inst
+		
+	spawnable_enemies = [enemy_capybara_basic, enemy_capybara_bomb]
 
 
 ## Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -54,20 +60,20 @@ func _process(delta: float) -> void:
 	if is_multiplayer_authority():
 		pass
 		
-	#t = t + delta
-	#if kill_count_round == max_enemy_spawns:
-		#Debug.log("Ganaste xd")
-		#change_scene("res://scenes/ui/win.tscn")
-	#if not Game.players[0].local_scene.vivo and not Game.players[1].local_scene.vivo:
-		#Debug.log("Perdiste xdddd")
-		#change_scene("res://scenes/ui/defeated.tscn")a
-	#
-	#if t > enemy_spawn_time:
-		#if enemies_spawned < max_enemy_spawns:
-			#if is_multiplayer_authority():
-				#spawn_enemy()
-				#
-		#t = 0
+	t = t + delta
+	if kill_count_round == max_enemy_spawns:
+		Debug.log("Ganaste xd")
+		change_scene("res://scenes/ui/win.tscn")
+	if not Game.players[0].local_scene.vivo and not Game.players[1].local_scene.vivo:
+		Debug.log("Perdiste xdddd")
+		change_scene("res://scenes/ui/defeated.tscn")
+	
+	if t > enemy_spawn_time:
+		if enemies_spawned < max_enemy_spawns:
+			if is_multiplayer_authority():
+				spawn_enemy()
+				
+		t = 0
 
 @rpc("authority", "reliable")
 func spawn_enemy():
@@ -79,7 +85,9 @@ func spawn_enemy():
 
 @rpc("any_peer","call_local" ,"reliable")
 func spawn_enemy_client(spawn_position: Vector3):
-	var enemyInstance = enemy_capybara_basic.instantiate()
+	#var enemyInstance = enemy_capybara_basic.instantiate()
+	var enemyScene = spawnable_enemies.pick_random()
+	var enemyInstance = enemyScene.instantiate()
 	enemyInstance.global_transform.origin = spawn_position
 	$MultiplayerSpawner.add_child(enemyInstance, true)
 
