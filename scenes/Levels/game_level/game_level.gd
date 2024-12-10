@@ -74,11 +74,12 @@ func _process(delta: float) -> void:
 		Debug.log("Perdiste xdddd")
 		change_scene("res://scenes/ui/defeated.tscn")
 	
+
 	if t > enemy_spawn_time:
 		if enemies_spawned < max_enemy_spawns:
 			if is_multiplayer_authority():
 				spawn_enemy()
-				
+
 		t = 0
 
 @rpc("authority", "reliable")
