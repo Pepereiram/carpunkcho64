@@ -91,7 +91,7 @@ func _process(delta: float) -> void:
 		print($Stats.health)
 		
 				
-	#Debug.log(state)
+	##Debug.log(state)
 			
 	#self.velocity = SPEED * direction;
 	
@@ -112,9 +112,26 @@ func _on_health_changed(health) -> void:
 
 @rpc("reliable","any_peer","call_local")
 func die():
-	Debug.log("Muerte capy")
-	if is_multiplayer_authority():
-		var game_level = get_parent()
-		game_level.kill_count_round +=1
-		Debug.log("KC: " + str(game_level.kill_count_round))
-	queue_free()
+	if not is_multiplayer_authority():
+		return  # Solo el servidor maneja la lógica de muerte
+	
+	#Debug.log("Muerte capy")
+	var game_level = get_parent().get_parent()
+	game_level.kill_count_round += 1
+
+	# Sincroniza la eliminación para todos los peers
+	rpc("remove_enemy_globally", get_path())
+
+@rpc("reliable", "authority")
+func request_die(enemy_path: NodePath):
+	#Debug.log("Request die" + str(get_multiplayer_authority()))
+	var enemy = get_node_or_null(enemy_path)
+	if enemy:
+		enemy.die()
+
+@rpc("reliable", "any_peer", "call_local")
+func remove_enemy_globally(enemy_path: NodePath):
+	#Debug.log("Removing capy" + str(get_multiplayer_authority()))
+	var enemy = get_node_or_null(enemy_path)
+	if enemy:
+		enemy.queue_free()

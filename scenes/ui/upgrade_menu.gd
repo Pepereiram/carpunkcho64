@@ -69,19 +69,19 @@ func change_button_labels():
 # Funcion de seleccion del boton 1
 func _on_button_1_pressed() -> void:
 	elegido = current_stats[0]
-	Debug.log("Mejora 1 seleccionada: " + stats_label.get(current_stats[0], "Error"))
+	#Debug.log("Mejora 1 seleccionada: " + stats_label.get(current_stats[0], "Error"))
 	
 # Funcion de seleccion del boton 2
 func _on_button_2_pressed() -> void:
 	elegido = current_stats[1]
-	Debug.log("Mejora 2 seleccionada: " + stats_label.get(current_stats[1], "Error"))
+	#Debug.log("Mejora 2 seleccionada: " + stats_label.get(current_stats[1], "Error"))
 
 # Funcion de seleccion del boton 3
 func _on_button_3_pressed() -> void:
 	elegido = current_stats[2]
-	Debug.log("Mejora 3 seleccionada: " + stats_label.get(current_stats[2], "Error"))
+	#Debug.log("Mejora 3 seleccionada: " + stats_label.get(current_stats[2], "Error"))
 
 func _on_choose_pressed() -> void:
 	# Manda señal para cambiar stats en los players
-	Debug.log("Mejora elegida: " + stats_label.get(elegido, "Error"))
+	#Debug.log("Mejora elegida: " + stats_label.get(elegido, "Error"))
 	player.mejorando = false

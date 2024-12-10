@@ -33,6 +33,7 @@ show_percentage = false
 
 [node name="Control" parent="." instance=ExtResource("2_hkvnm")]
 visible = false
+elegido = null
 
 [node name="Control2" parent="." instance=ExtResource("3_2272b")]
 visible = false

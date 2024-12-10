@@ -170,11 +170,11 @@ func _on_health_changed(health) -> void:
 	#
 #@rpc("reliable", "any_peer") # Notificar a todos los peers sobre la muerte de un jugador
 #func notify_clients_death(player_id: int) -> void:
-	#Debug.log("El jugador con ID " + str(player_id) + " ha muerto.")
+	##Debug.log("El jugador con ID " + str(player_id) + " ha muerto.")
 	
 
 func die() -> void:
-	Debug.log("Muerte player")
+	#Debug.log("Muerte player")
 	muelto.visible = true
 	model.visible = false
 	vivo = false
@@ -204,11 +204,11 @@ func update_stats():
 	stats.max_health = Max_health
 	gun_controller.damage_xd = Damage
 	gun_controller.bullet_speed = attack_speed
-	Debug.log("Stats actualizadas")
-	Debug.log("Speed: " + str(SPEED))
-	Debug.log("Max health: " + str(stats.max_health))
-	Debug.log("Damage: " + str(gun_controller.damage_xd))
-	Debug.log("Attack speed: " + str(gun_controller.bullet_speed))
+	#Debug.log("Stats actualizadas")
+	#Debug.log("Speed: " + str(SPEED))
+	#Debug.log("Max health: " + str(stats.max_health))
+	#Debug.log("Damage: " + str(gun_controller.damage_xd))
+	#Debug.log("Attack speed: " + str(gun_controller.bullet_speed))
 
 func get_upgrade_stat():
 	var stat = mejoras.elegido
@@ -226,9 +226,9 @@ func get_upgrade_stat():
 
 
 func generate_upgrade_stats():
-	Debug.log("Generando stats del jugador" + str(id))
+	#Debug.log("Generando stats del jugador" + str(id))
 	mejoras.change_button_labels()
 
 func heal_player(amount) -> void:
 	stats.health = min(stats.health + amount, stats.max_health)
-	#Debug.log("Player healed by " + str(amount))
+	##Debug.log("Player healed by " + str(amount))

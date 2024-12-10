@@ -69,7 +69,7 @@ func _ready() -> void:
 func round_logic(delta):
 	t = t + delta
 	if kill_count_round == max_enemy_spawns:
-		Debug.log("Ganaste xd")
+		##Debug.log("Ganaste xd")
 		horda_activa = false
 
 		# Se muestra el menu de mejora
@@ -77,15 +77,15 @@ func round_logic(delta):
 		Game.players[1].local_scene.mejorando = true
 
 		# Se generan las estadisticas de mejora disponibles
-		Debug.log("Generando estadisticas de mejora aleatoriamente.")
+		##Debug.log("Generando estadisticas de mejora aleatoriamente.")
 		Game.players[0].local_scene.generate_upgrade_stats()
 		Game.players[1].local_scene.generate_upgrade_stats()
 		
 		#change_scene("res://scenes/ui/win.tscn")
 	if not Game.players[0].local_scene.vivo and not Game.players[1].local_scene.vivo:
-		Debug.log("Perdiste xdddd")
+		##Debug.log("Perdiste xdddd")
 		# Se muestra el menu de mejora
-		Debug.log("Mostrando pantalla de derrota.")
+		##Debug.log("Mostrando pantalla de derrota.")
 		change_scene("res://scenes/ui/defeated.tscn")
 
 		
@@ -124,36 +124,55 @@ func restart_round():
 
 ## Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	# print(multiplayer)
 	# Debug prints
 	if is_multiplayer_authority():
-		pass
-
+		pass	
+	
+	
 	#fase de horda
 	if horda_activa:
 		round_logic(delta)
 	else:
 		levelup_logic()
 
-
+func _input(event: InputEvent) -> void:
+	if Input.is_action_just_pressed("emergencia"):
+		clear_children($MultiplayerSpawner)
+		#for child in $MultiplayerSpawner.get_children():
+			#child.die()
+		kill_count_round = max_enemy_spawns
+		
+func clear_children(node: Node) -> void:
+	for child in node.get_children():
+		child.queue_free()
+		
+@rpc("any_peer", "reliable")
+func set_max_enemy_spawns(value: int):
+	max_enemy_spawns = value
+	
 @rpc("authority", "reliable")
 func spawn_enemy():
-		var enemyMarker: Marker3D = enemyMarkers.get_children()[randi() % enemyMarkers.get_child_count()]
-		var spawn_position = enemyMarker.global_transform.origin
-		#Debug.log("Spawneando enemigo en: " + str(spawn_position)) 
-		
-		var i = RandomNumberGenerator.new().randi_range(0, 1)
-		#var enemyScene = spawnable_enemies.pick_random()
-		
-		
-		rpc("spawn_enemy_client", spawn_position, i)  # Llama al RPC para todos los peers
-		enemies_spawned += 1
+	var enemyMarker: Marker3D = enemyMarkers.get_children()[randi() % enemyMarkers.get_child_count()]
+	var spawn_position = enemyMarker.global_transform.origin
+	var enemyScene
+	# Determine max_enemy_spawns and notify clients if it changes
+	if game_round % 5 == 0:
+		set_max_enemy_spawns(1)
+		rpc("set_max_enemy_spawns", 1)  # Sync with clients
+		enemyScene = enemy_capybara_boss
+	else:
+		#rpc("set_max_enemy_spawns", 5)  # Sync with clients
+		enemyScene = spawnable_enemies.pick_random()
 
-@rpc("any_peer","call_local" ,"reliable")
-func spawn_enemy_client(spawn_position: Vector3, i: int):
-	var enemyScene = spawnable_enemies[i]
+
+	# Broadcast enemy spawn to all clients
+	rpc("spawn_enemy_client", spawn_position, enemyScene)
+	enemies_spawned += 1
+
+@rpc("any_peer", "call_local", "reliable")
+func spawn_enemy_client(spawn_position: Vector3, enemyScene: PackedScene):
+	# Spawn the enemy locally
 	var enemyInstance = enemyScene.instantiate()
-	#var enemyInstance = enemy_capybara_bomb.instantiate()
 	enemyInstance.global_transform.origin = spawn_position
 	$MultiplayerSpawner.add_child(enemyInstance, true)
 
