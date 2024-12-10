@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=4 uid="uid://ddfomeakgb2qd"]
+[gd_scene load_steps=16 format=4 uid="uid://ddfomeakgb2qd"]
 
 [ext_resource type="Texture2D" uid="uid://bp7ddjwmpeese" path="res://assets/models/capybara/Capybara_Capybara_BaseColor.png" id="1_u85a5"]
 [ext_resource type="Script" path="res://scenes/Characters/carpincho_boss/carpincho_boss.gd" id="1_ylmnv"]
@@ -7,8 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://cpiu3bd315tmx" path="res://scenes/Characters/carpincho_boss/necktie.tscn" id="3_q23on"]
 [ext_resource type="PackedScene" uid="uid://bo0go5uy5qtbu" path="res://scenes/Characters/carpincho_boss/Anti-Gravity Drone.glb" id="4_hxv2o"]
 [ext_resource type="PackedScene" uid="uid://mlcg22thcs0u" path="res://scenes/Characters/Players/stats.tscn" id="5_n21sn"]
-[ext_resource type="Script" path="res://scenes/Characters/Carpinchos/hurtbox_enemy.gd" id="8_6hc8l"]
-[ext_resource type="Script" path="res://scenes/Characters/Carpinchos/hit_box_enemy.gd" id="9_mljg7"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1cqqt"]
 resource_name = "Capybara_mat"
@@ -189,26 +187,3 @@ shadow_enabled = true
 omni_range = 2.0
 
 [node name="Stats" parent="." instance=ExtResource("5_n21sn")]
-health = 650
-max_health = 650
-
-[node name="HurtboxEnemy" type="Area3D" parent="."]
-collision_layer = 4
-collision_mask = 4
-script = ExtResource("8_6hc8l")
-
-[node name="collision_drone" type="CollisionShape3D" parent="HurtboxEnemy"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0615635, 0.120669, -1.41595)
-shape = SubResource("CylinderShape3D_hy1dr")
-
-[node name="collision_capy" type="CollisionShape3D" parent="HurtboxEnemy"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000447683, 3.18086, -0.292728)
-shape = SubResource("BoxShape3D_1oxeo")
-
-[node name="HitBoxEnemy" type="Area3D" parent="."]
-script = ExtResource("9_mljg7")
-damage = 5
-
-[node name="collision_drone" type="CollisionShape3D" parent="HitBoxEnemy"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0615635, 0.120669, -1.41595)
-shape = SubResource("CylinderShape3D_hy1dr")

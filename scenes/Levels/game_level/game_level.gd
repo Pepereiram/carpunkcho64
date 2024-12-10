@@ -5,6 +5,7 @@ extends Node3D
 
 @export var enemy_capybara_basic: PackedScene
 @export var enemy_capybara_bomb: PackedScene
+@export var enemy_capybara_boss: PackedScene
 
 @export var enemy_spawn_time: float = 5.0
 @export var max_enemy_spawns: int = 10
@@ -52,6 +53,11 @@ func _ready() -> void:
 		player_data.local_scene = player_inst
 		
 	spawnable_enemies = [enemy_capybara_basic, enemy_capybara_bomb]
+	
+	var capyboss = enemy_capybara_boss.instantiate()
+	capyboss.global_transform.origin = $bossmark.global_transform.origin
+	add_child(capyboss, true)
+	
 
 
 ## Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -86,7 +92,6 @@ func spawn_enemy():
 
 @rpc("any_peer","call_local" ,"reliable")
 func spawn_enemy_client(spawn_position: Vector3):
-	#var enemyInstance = enemy_capybara_basic.instantiate()
 	var enemyScene = spawnable_enemies.pick_random()
 	var enemyInstance = enemyScene.instantiate()
 	enemyInstance.global_transform.origin = spawn_position
