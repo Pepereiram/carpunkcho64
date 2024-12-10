@@ -39,9 +39,9 @@ func _set_player_role(value: Statics.Role) -> void:
 	player_role.visible = value != Statics.Role.NONE
 	match value:
 		Statics.Role.ROLE_A:
-			player_role.text = "Role A"
+			player_role.text = "Fast Gun"
 		Statics.Role.ROLE_B:
-			player_role.text = "Role B"
+			player_role.text = "Shotgun"
 
 # Cambia el estado visual de "Listo".
 func set_ready(value: bool) -> void:

@@ -9,6 +9,7 @@ const JUMP_VELOCITY = 4.5
 var _players_inside: Array[Player] = []
 var kill_count = 0
 @export var mejorando = false
+@export var derrotado = false
 
 # stats modificables
 @export var speed_a = 30.0
@@ -35,6 +36,7 @@ var ray_target = Vector3()
 @onready var health_bar: ProgressBar = $HealthBar
 @onready var muelto = $Muelto
 @onready var mejoras = $HUD/Control
+@onready var derrota = $HUD/Control2
 
 
 func _ready() -> void:
@@ -59,6 +61,14 @@ func _enter_tree() -> void:
 	$Cuerpo/mano/Gun.id = id
 
 func _physics_process(delta: float) -> void:
+	# Lógica de derrota
+	if derrotado:
+		derrota.visible = true
+		return
+	else:
+		derrota.visible = false
+	
+	# Lógica de mejora
 	if mejorando:
 		mejoras.visible = true
 		return
@@ -205,6 +215,31 @@ func update_stats():
 	gun_controller.damage_xd = Damage
 	gun_controller.rango = gun_Range  
 	gun_controller.bullet_speed = attack_speed
+	Debug.log("Stats actualizadas")
+	Debug.log("Speed: " + str(SPEED))
+	Debug.log("Max health: " + str(stats.max_health))
+	Debug.log("Damage: " + str(gun_controller.damage_xd))
+	Debug.log("Range: " + str(gun_controller.rango))
+	Debug.log("Attack speed: " + str(gun_controller.bullet_speed))
+
+func get_upgrade_stat():
+	# var stat = mejoras.elegido
+	# print(stat)
+	# if stat == "hp":
+	# 	Max_health += 10
+	# elif stat == "atk":
+	# 	Damage += 10
+	# elif stat == "spd":
+	# 	speed_a += 10
+	# elif stat == "atkspd":
+	# 	attack_speed += 10
+	# elif stat == "range":
+	# 	gun_Range += 10
+	# else:
+	# 	Debug.log("Error al mejorar")
+	pass
+	# Obtener la variable elegido desde mejores
+
 
 func generate_upgrade_stats():
 	Debug.log("Generando stats del jugador" + str(id))

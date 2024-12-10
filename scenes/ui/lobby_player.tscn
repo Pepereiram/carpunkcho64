@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://chbh4lxk8rmmd"]
 
 [ext_resource type="Script" path="res://scenes/ui/lobby_player.gd" id="1_thc4c"]
-[ext_resource type="Texture2D" uid="uid://tw8t38ns0seh" path="res://icon.svg" id="2_acr8q"]
+[ext_resource type="Texture2D" uid="uid://7fhtiq5in1ae" path="res://assets/lobby/capy_ok.jpg" id="2_23gbm"]
 
 [node name="LobbyPlayer" type="MarginContainer"]
 offset_right = 144.0
@@ -31,5 +31,5 @@ unique_name_in_owner = true
 modulate = Color(0, 1, 0, 1)
 layout_mode = 2
 size_flags_horizontal = 10
-texture = ExtResource("2_acr8q")
+texture = ExtResource("2_23gbm")
 expand_mode = 3

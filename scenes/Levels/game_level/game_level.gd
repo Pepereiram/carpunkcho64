@@ -65,14 +65,19 @@ func round_logic(delta):
 		Game.players[1].local_scene.mejorando = true
 
 		# Se generan las estadisticas de mejora disponibles
-		Debug.log("Generando estadisticas de mejora.")
+		Debug.log("Generando estadisticas de mejora aleatoriamente.")
 		Game.players[0].local_scene.generate_upgrade_stats()
 		Game.players[1].local_scene.generate_upgrade_stats()
 		
 		#change_scene("res://scenes/ui/win.tscn")
 	if not Game.players[0].local_scene.vivo and not Game.players[1].local_scene.vivo:
 		Debug.log("Perdiste xdddd")
-		#change_scene("res://scenes/ui/defeated.tscn")a
+	
+		# Se muestra el menu de mejora
+		Debug.log("Mostrando pantalla de derrota.")
+		Game.players[0].local_scene.derrotado = true
+		Game.players[1].local_scene.derrotado = true
+
 	if t > enemy_spawn_time:
 		if enemies_spawned < max_enemy_spawns:
 			if is_multiplayer_authority():
@@ -83,7 +88,7 @@ func levelup_logic():
 	if not Game.players[0].local_scene.mejorando and not Game.players[1].local_scene.mejorando:
 		restart_round()
 
-# 
+# Reinicia la ronda, preparando la siguiente.
 func restart_round():
 	# Avanza el contador de la ronda
 	game_round += 1
@@ -93,10 +98,14 @@ func restart_round():
 	enemies_spawned = 0
 	kill_count_round = 0
 	t = 0
-	# Se cambia el estado de hordas, para que el proce
+	# Se cambia el estado de hordas, para que el process vuelva a round_logic
 	horda_activa = true
 
-	
+	# Actualizacion de estadisticas de los jugadores
+	Game.players[0].local_scene.get_upgrade_stat()
+	Game.players[1].local_scene.get_upgrade_stat()
+	Game.players[0].local_scene.update_stats()
+	Game.players[1].local_scene.update_stats()
 
 
 ## Called every frame. 'delta' is the elapsed time since the previous frame.
