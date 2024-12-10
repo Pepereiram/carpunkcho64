@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://ui/hud.gd" id="1_aue1l"]
 [ext_resource type="PackedScene" uid="uid://ri2u2l61th86" path="res://scenes/ui/upgradeMenu.tscn" id="2_hkvnm"]
+[ext_resource type="PackedScene" uid="uid://yptgh8b2olib" path="res://scenes/ui/defeated.tscn" id="3_yfshd"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n5gy7"]
 bg_color = Color(0, 0, 0, 1)
@@ -33,5 +34,10 @@ show_percentage = false
 [node name="Control" parent="." instance=ExtResource("2_hkvnm")]
 visible = false
 
+<<<<<<< Updated upstream
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_ai10p")
+=======
+[node name="Control2" parent="." instance=ExtResource("3_yfshd")]
+visible = false
+>>>>>>> Stashed changes
