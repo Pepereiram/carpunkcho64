@@ -16,3 +16,5 @@ mono_crash.*.json
 
 # Distributables
 dist/
+# Godot temp files
+*.tmp
