@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://dqm3qur65rpe5"]
+[gd_scene load_steps=13 format=3 uid="uid://dqm3qur65rpe5"]
 
 [ext_resource type="Script" path="res://scripts/Fastgun.gd" id="1_ih04v"]
 [ext_resource type="PackedScene" uid="uid://beh8hx1kednci" path="res://scenes/Weapons/bullet.tscn" id="2_t0jva"]
+[ext_resource type="AudioStream" uid="uid://cxjrr02vajhl0" path="res://assets/sfx/LASRGun_Classic Blaster A Fire_03.wav" id="3_43a6g"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_twyxq"]
 
@@ -120,6 +121,12 @@ shader_parameter/shadow_color = Color(0, 0, 0, 1)
 shader_parameter/shadow_thickness = 2.0
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ukp70"]
+properties/0/path = NodePath(".:damage_xd")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath(".:bullet_speed")
+properties/1/spawn = true
+properties/1/replication_mode = 2
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_dxrug"]
 properties/0/path = NodePath(".:id")
@@ -158,3 +165,7 @@ replication_config = SubResource("SceneReplicationConfig_ukp70")
 
 [node name="ServerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_dxrug")
+
+[node name="fire" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_43a6g")
+volume_db = -19.676

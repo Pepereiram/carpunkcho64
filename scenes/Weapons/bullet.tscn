@@ -37,6 +37,7 @@ shape = SubResource("SphereShape3D_5idni")
 replication_config = SubResource("SceneReplicationConfig_5aih8")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
+visible = false
 light_color = Color(1, 0.803922, 0, 1)
 light_energy = 10.0
 omni_range = 2.5

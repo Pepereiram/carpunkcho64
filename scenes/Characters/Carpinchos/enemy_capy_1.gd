@@ -7,6 +7,7 @@ extends CharacterBody3D
 const JUMP_VELOCITY = 4.5
 @export var is_global = true
 @export var item_to_spawn: PackedScene
+@export var heal_chance = 0.2
 var target: Node3D
 var target_position: Vector3
 
@@ -19,65 +20,74 @@ func _ready() -> void:
 
 
 
+@export var turn_speed := 10.0
+var _retarget_t := 0.0
+var _yaw_initialized := false
+
 func _physics_process(delta: float) -> void:
-
-	#if _nav_agent.is_navigation_finished():
-	#	return
-	# Buscar el jugador más cercano
-	var closest = null
-	var closest_distance_squared = 0
-	for player in Game.players:
-		var player_distance_squared = (player.local_scene.global_position - global_position).length_squared()
-		if not closest or player_distance_squared < closest_distance_squared:
-			closest = player.local_scene
-			closest_distance_squared = player_distance_squared
-	if closest:
-		target_position = closest.global_position
-		_nav_agent.set_target_position(target_position)
-	
-	if not _nav_agent.is_navigation_finished():
-		var next_position := _nav_agent.get_next_path_position()
-		global_position = global_position.move_toward(next_position, delta * speed)
-		var offset := next_position - global_position
-		#Mira hacia donde camina
-		offset.y = 0
-		if not offset.is_zero_approx():
-			look_at(global_position + offset, Vector3.UP)
-			
-	if not multiplayer.is_server():
+	# Solo el servidor mueve al enemigo (siguiendo el navmesh); los clientes reciben position/rotation por sync.
+	if not multiplayer.is_server() or dead:
 		return
-	# Gravedad
-	if not is_on_floor():
-		velocity += get_gravity() * delta
 
-	move_and_slide()
+	_retarget_t -= delta
+	if _retarget_t <= 0.0:
+		_retarget_t = 0.2
+		var closest: Node3D = null
+		var closest_distance_squared := INF
+		for scene in Game.get_alive_players():
+			var d2 = scene.global_position.distance_squared_to(global_position)
+			if d2 < closest_distance_squared:
+				closest = scene
+				closest_distance_squared = d2
+		if closest:
+			target_position = closest.global_position
+			_nav_agent.set_target_position(target_position)
+		else:
+			# Sin jugadores vivos no hay objetivo: el enemigo se queda quieto.
+			_nav_agent.set_target_position(global_position)
+
+	if _nav_agent.is_navigation_finished():
+		return
+	var next_position := _nav_agent.get_next_path_position()
+	global_position = global_position.move_toward(next_position, delta * speed)
+	# Mira hacia donde camina (girando de a poco para no dar saltos bruscos en las esquinas del camino)
+	var offset := next_position - global_position
+	offset.y = 0
+	if not offset.is_zero_approx():
+		var target_yaw := atan2(-offset.x, -offset.z)
+		if _yaw_initialized:
+			rotation.y = lerp_angle(rotation.y, target_yaw, 1.0 - exp(-turn_speed * delta))
+		else:
+			rotation.y = target_yaw
+			_yaw_initialized = true
 
 
 func set_target_position(target_position: Vector3) -> void:
 	_nav_agent.set_target_position(target_position)
 	
-	
+
 func take_damage(damage: int) -> void:
 	stats.health -= damage
 
-# Ver si murió
-func _on_health_changed(health) -> void:
-	if health <= 0:
-		die()
-	
+var dead := false
 
-@rpc("reliable","any_peer","call_local")
+func _on_health_changed(health) -> void:
+	if multiplayer.is_server() and health <= 0:
+		die()
+
+# Solo el servidor maneja la muerte; al liberar el nodo el MultiplayerSpawner lo elimina en los clientes.
 func die():
+	if not multiplayer.is_server() or dead:
+		return
+	dead = true
 	Debug.log("Muerte capy")
-	if is_multiplayer_authority():
-		var game_level = get_parent().get_parent()
-		game_level.kill_count_round +=1
-		Debug.log("KC: " + str(game_level.kill_count_round))
-	
-		#Spawn Item
-		if item_to_spawn and randf() <= 1: # 20% de probabilidad
-			var item_instance = item_to_spawn.instantiate()
-			item_instance.global_position = global_position
-			get_parent().add_child(item_instance)
-	
+	var game_level = get_parent().get_parent()
+	game_level.kill_count_round += 1
+
+	# Spawn Item
+	if item_to_spawn and randf() <= heal_chance:
+		var item_instance = item_to_spawn.instantiate()
+		item_instance.position = global_position
+		get_parent().add_child(item_instance, true)
+
 	queue_free()

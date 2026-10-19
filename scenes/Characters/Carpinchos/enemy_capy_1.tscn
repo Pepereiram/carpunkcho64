@@ -50,14 +50,6 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_doy2b")
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_yq3j3"]
-properties/0/path = NodePath("Capybara_mesh:rotation")
-properties/0/spawn = true
-properties/0/replication_mode = 1
-properties/1/path = NodePath(".:position")
-properties/1/spawn = true
-properties/1/replication_mode = 1
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3cdm1"]
 albedo_color = Color(1, 0, 0, 1)
 emission_enabled = true
@@ -65,6 +57,14 @@ emission = Color(1, 0, 0, 1)
 emission_energy_multiplier = 10.0
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_ybov2"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_4sv2b"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
 
 [node name="EnemyCapy1" type="CharacterBody3D"]
 script = ExtResource("1_t5svl")
@@ -97,9 +97,6 @@ shape = SubResource("BoxShape3D_n606f")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 avoidance_enabled = true
-
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_yq3j3")
 
 [node name="Stats" parent="." instance=ExtResource("3_qh0lm")]
 
@@ -135,5 +132,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0237595, -0.0252433)
 light_color = Color(0.64, 0, 0.0106665, 1)
 light_energy = 1.608
 omni_range = 3.729
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_4sv2b")
 
 [connection signal="health_changed" from="Stats" to="." method="_on_stats_health_changed"]

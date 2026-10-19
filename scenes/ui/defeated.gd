@@ -1,5 +1,6 @@
 extends Control
 
+@onready var player:Player = get_parent().get_parent()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -12,8 +13,8 @@ func _process(delta: float) -> void:
 
 
 func _on_retry_pressed() -> void:
-	get_tree().change_scene_to_file("res://scenes/lobby.tscn")
+	pass
 
 
 func _on_back_to_menu_pressed() -> void:
-	get_tree().change_scene_to_file("res://scenes/ui/global_menu.tscn")
+	get_tree().quit()

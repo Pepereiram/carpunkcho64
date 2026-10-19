@@ -24,37 +24,46 @@ func _ready() -> void:
 	stats.health_changed.connect(_on_health_changed)
 
 
-func _physics_process(delta: float) -> void:
-	#if _nav_agent.is_navigation_finished():
-	#	return
-	# Buscar el jugador más cercano
-	var closest = null
-	var closest_distance_squared = 0
-	for player in Game.players:
-		var player_distance_squared = (player.local_scene.global_position - global_position).length_squared()
-		if not closest or player_distance_squared < closest_distance_squared:
-			closest = player.local_scene
-			closest_distance_squared = player_distance_squared
-	if closest:
-		target_position = closest.global_position
-		_nav_agent.set_target_position(target_position)
-	
-	if not _nav_agent.is_navigation_finished():
-		var next_position := _nav_agent.get_next_path_position()
-		global_position = global_position.move_toward(next_position, delta * speed)
-		var offset := next_position - global_position
-		#Mira hacia donde camina
-		offset.y = 0
-		if not offset.is_zero_approx():
-			look_at(global_position - offset, Vector3.UP)
-			
-	if not multiplayer.is_server():
-		return
-	# Gravedad
-	if not is_on_floor():
-		velocity += get_gravity() * delta
+@export var turn_speed := 10.0
+var _retarget_t := 0.0
+var _yaw_initialized := false
 
-	move_and_slide()
+func _physics_process(delta: float) -> void:
+	# Solo el servidor mueve al enemigo (siguiendo el navmesh); los clientes reciben position/rotation por sync.
+	if not multiplayer.is_server() or dead:
+		return
+
+	_retarget_t -= delta
+	if _retarget_t <= 0.0:
+		_retarget_t = 0.2
+		var closest: Node3D = null
+		var closest_distance_squared := INF
+		for scene in Game.get_alive_players():
+			var d2 = scene.global_position.distance_squared_to(global_position)
+			if d2 < closest_distance_squared:
+				closest = scene
+				closest_distance_squared = d2
+		if closest:
+			target_position = closest.global_position
+			_nav_agent.set_target_position(target_position)
+		else:
+			# Sin jugadores vivos no hay objetivo: el enemigo se queda quieto.
+			_nav_agent.set_target_position(global_position)
+
+	if _nav_agent.is_navigation_finished():
+		return
+	var next_position := _nav_agent.get_next_path_position()
+	global_position = global_position.move_toward(next_position, delta * speed)
+	# Mira hacia donde camina (su modelo mira al reves; gira de a poco para no dar saltos bruscos)
+	var offset := next_position - global_position
+	offset.y = 0
+	if not offset.is_zero_approx():
+		var target_yaw := atan2(offset.x, offset.z)
+		if _yaw_initialized:
+			rotation.y = lerp_angle(rotation.y, target_yaw, 1.0 - exp(-turn_speed * delta))
+		else:
+			rotation.y = target_yaw
+			_yaw_initialized = true
 
 
 func set_target_position(target_position: Vector3) -> void:
@@ -64,45 +73,46 @@ func set_target_position(target_position: Vector3) -> void:
 func take_damage(damage: int) -> void:
 	stats.health -= damage
 
-# Ver si murió
+var dead := false
+
 func _on_health_changed(health) -> void:
-	if health <= 0:
+	if multiplayer.is_server() and health <= 0:
 		die()
-		
+
+# Solo el servidor decide la explosion y el dano; los clientes solo ven el efecto visual.
 func explode() -> void:
-	var explosion1 = explosionScene.instantiate()
-	explosion1.global_position = $explosion_locations/loc1.global_position
-	
-	#player_inst.global_position = playerMarkers.get_child(i).global_position
-	var explosion2 = explosionScene.instantiate()
-	explosion2.global_position = $explosion_locations/loc2.global_position
-	
+	if not multiplayer.is_server() or dead:
+		return
 	var game_level = get_parent().get_parent()
-	game_level.add_child(explosion1)
-	game_level.add_child(explosion2)
-	
-	
-	var players_in_range = []
-	for player in Game.players:
-		var distance = global_position.distance_to(player.local_scene.global_position)
+	game_level.spawn_explosions.rpc(PackedVector3Array([
+		$explosion_locations/loc1.global_position,
+		$explosion_locations/loc2.global_position,
+	]))
+
+	for player in Game.get_alive_players():
+		var distance = global_position.distance_to(player.global_position)
 		if distance < explosion_damage_radius:
-			player.local_scene.take_damage(explosion_damage)
-			
+			player.take_damage(explosion_damage)
+
 	die()
-		
+
 func _process(delta: float) -> void:
-	for player in Game.players:
-		var distance = global_position.distance_to(player.local_scene.global_position)
+	if not multiplayer.is_server() or dead:
+		return
+	for player in Game.get_alive_players():
+		var distance = global_position.distance_to(player.global_position)
 		if distance < explosion_detection_radius:
 			Debug.log('explota')
 			explode()
+			return
 
 
-@rpc("reliable","any_peer","call_local")
+# Solo el servidor maneja la muerte; al liberar el nodo el MultiplayerSpawner lo elimina en los clientes.
 func die():
-	Debug.log("Muerte capy")
-	if is_multiplayer_authority():
-		var game_level = get_parent().get_parent()
-		game_level.kill_count_round +=1
-		Debug.log("KC: " + str(game_level.kill_count_round))
+	if not multiplayer.is_server() or dead:
+		return
+	dead = true
+	var game_level = get_parent().get_parent()
+	game_level.kill_count_round += 1
+	Debug.log("KC: " + str(game_level.kill_count_round))
 	queue_free()

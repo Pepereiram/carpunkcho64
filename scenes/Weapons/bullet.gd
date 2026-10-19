@@ -20,4 +20,4 @@ func _physics_process(delta: float) -> void:
 	position += vel * delta
 
 func _on_body_entered(body: Node) -> void:
-	print("eeeeeee")
+	queue_free()

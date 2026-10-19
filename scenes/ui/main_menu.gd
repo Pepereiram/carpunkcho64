@@ -21,7 +21,7 @@ func _on_play_pressed() -> void:
 
 # Show the credits when the credits button is pressed.
 func _on_credits_pressed() -> void:
-	print("Credits pressed")
+	get_tree().change_scene_to_file("res://scenes/creditos.tscn")
 
 
 # Exit the game when the exit button is pressed.

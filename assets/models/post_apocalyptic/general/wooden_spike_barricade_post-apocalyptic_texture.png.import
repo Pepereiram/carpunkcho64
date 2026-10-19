@@ -2,14 +2,11 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dva4rh01tvvav"
+uid="uid://2e1l6lhvvexh"
 path.s3tc="res://.godot/imported/wooden_spike_barricade_post-apocalyptic_texture.png-9ac30926fdee8dbeef1ce9915e2023ea.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
-}
-generator_parameters={
-"md5": "5ea6a943fd76ab580302dece199fe194"
 }
 
 [deps]
