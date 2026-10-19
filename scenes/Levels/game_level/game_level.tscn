@@ -949,10 +949,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0.227727, 0)
 [node name="EnemyMarkers" type="Node3D" parent="."]
 
 [node name="EnemyMarker3D_01" type="Marker3D" parent="EnemyMarkers"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -89.7452, 0.361845, -92.4853)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -83.4621, 0.361845, -87.9855)
 
 [node name="EnemyMarker3D_03" type="Marker3D" parent="EnemyMarkers"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -71.7723, 0.361845, -95.0337)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -59.9202, 0.361845, -86.5735)
 
 [node name="EnemyMarker3D_13" type="Marker3D" parent="EnemyMarkers"]
 transform = Transform3D(-0.190175, 0, -0.98175, 0, 1, 0, 0.98175, 0, -0.190175, -77.5986, 0.361845, -10.2797)
@@ -967,7 +967,7 @@ transform = Transform3D(0.971088, 0, -0.23872, 0, 1, 0, 0.23872, 0, 0.971088, -6
 transform = Transform3D(0.971088, 0, -0.23872, 0, 1, 0, 0.23872, 0, 0.971088, 11.3596, 0.361845, -75.9639)
 
 [node name="EnemyMarker3D_17" type="Marker3D" parent="EnemyMarkers"]
-transform = Transform3D(0.971088, 0, -0.23872, 0, 1, 0, 0.23872, 0, 0.971088, 91.745, 0.361845, -8.4131)
+transform = Transform3D(0.971088, 0, -0.23872, 0, 1, 0, 0.23872, 0, 0.971088, 86.4139, 0.361845, -10.3199)
 
 [node name="EnemyMarker3D_18" type="Marker3D" parent="EnemyMarkers"]
 transform = Transform3D(0.971088, 0, -0.23872, 0, 1, 0, 0.23872, 0, 0.971088, 9.33306, 0.361845, 82.105)
@@ -976,7 +976,7 @@ transform = Transform3D(0.971088, 0, -0.23872, 0, 1, 0, 0.23872, 0, 0.971088, 9.
 transform = Transform3D(0.971088, 0, -0.23872, 0, 1, 0, 0.23872, 0, 0.971088, -7.21688, 0.361845, 78.0519)
 
 [node name="EnemyMarker3D_02" type="Marker3D" parent="EnemyMarkers"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -93.1704, 0.361845, -76.91)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -91.1537, 0.361845, -67.1145)
 
 [node name="EnemyMarker3D_04" type="Marker3D" parent="EnemyMarkers"]
 transform = Transform3D(-0.645351, 0, -0.763886, 0, 1, 0, 0.763886, 0, -0.645351, 88.0932, 0.361845, -91.9449)
@@ -985,7 +985,7 @@ transform = Transform3D(-0.645351, 0, -0.763886, 0, 1, 0, 0.763886, 0, -0.645351
 transform = Transform3D(-0.645351, 0, -0.763886, 0, 1, 0, 0.763886, 0, -0.645351, 92.4377, 0.361845, -74.3197)
 
 [node name="EnemyMarker3D_06" type="Marker3D" parent="EnemyMarkers"]
-transform = Transform3D(-0.645351, 0, -0.763886, 0, 1, 0, 0.763886, 0, -0.645351, 72.2523, 0.361845, -93.7849)
+transform = Transform3D(-0.645351, 0, -0.763886, 0, 1, 0, 0.763886, 0, -0.645351, 77.0776, 0.361845, -94.9912)
 
 [node name="EnemyMarker3D_07" type="Marker3D" parent="EnemyMarkers"]
 transform = Transform3D(-0.681091, 0, 0.732198, 0, 1, 0, -0.732198, 0, -0.681091, 72.046, 0.361845, 72.0045)
