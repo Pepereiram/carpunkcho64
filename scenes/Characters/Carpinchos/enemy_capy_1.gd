@@ -20,7 +20,9 @@ func _ready() -> void:
 
 
 
+@export var turn_speed := 10.0
 var _retarget_t := 0.0
+var _yaw_initialized := false
 
 func _physics_process(delta: float) -> void:
 	# Solo el servidor mueve al enemigo (siguiendo el navmesh); los clientes reciben position/rotation por sync.
@@ -48,11 +50,16 @@ func _physics_process(delta: float) -> void:
 		return
 	var next_position := _nav_agent.get_next_path_position()
 	global_position = global_position.move_toward(next_position, delta * speed)
-	# Mira hacia donde camina
+	# Mira hacia donde camina (girando de a poco para no dar saltos bruscos en las esquinas del camino)
 	var offset := next_position - global_position
 	offset.y = 0
 	if not offset.is_zero_approx():
-		look_at(global_position + offset, Vector3.UP)
+		var target_yaw := atan2(-offset.x, -offset.z)
+		if _yaw_initialized:
+			rotation.y = lerp_angle(rotation.y, target_yaw, 1.0 - exp(-turn_speed * delta))
+		else:
+			rotation.y = target_yaw
+			_yaw_initialized = true
 
 
 func set_target_position(target_position: Vector3) -> void:
