@@ -51,8 +51,8 @@ func _process(delta: float) -> void:
 			t = 0
 			
 		var all_far = true
-		for player in Game.players:
-			var distance = global_position.distance_to(player.local_scene.global_position)
+		for player in Game.get_alive_players():
+			var distance = global_position.distance_to(player.global_position)
 			all_far = all_far and (distance > 40)
 			
 		if all_far:
@@ -61,17 +61,17 @@ func _process(delta: float) -> void:
 
 	elif state == STATE_TOPLAYER:
 		var minDistance = 1000;
-		for player in Game.players:
-			var distance = global_position.distance_to(player.local_scene.global_position)
+		for player in Game.get_alive_players():
+			var distance = global_position.distance_to(player.global_position)
 			if distance < minDistance:
 				minDistance = distance
-				direction = player.local_scene.global_position - global_position
+				direction = player.global_position - global_position
 				direction = direction.normalized()
 				
 			if minDistance < 20:
 				state = STATE_WANDER
 				
-	if t_bomb > 0.4:
+	if t_bomb > 0.4 and not Game.get_alive_players().is_empty():
 		var bombInstance = bombScene.instantiate()
 		
 		add_collision_exception_with(bombInstance)
@@ -80,13 +80,13 @@ func _process(delta: float) -> void:
 		
 		var closestPlayer = null
 		var minDistance = 1000
-		for player in Game.players:
-			var distance = global_position.distance_to(player.local_scene.global_position)
+		for player in Game.get_alive_players():
+			var distance = global_position.distance_to(player.global_position)
 			if distance < minDistance:
 				closestPlayer = player
 				minDistance = distance
 				
-		bombInstance.direction = (closestPlayer.local_scene.global_position - global_transform.origin + Vector3(0, 1, 0)).normalized() 
+		bombInstance.direction = (closestPlayer.global_position - global_transform.origin + Vector3(0, 1, 0)).normalized() 
 		get_parent().add_child(bombInstance, true)
 		
 		t_bomb = 0

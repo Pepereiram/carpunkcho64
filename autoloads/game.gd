@@ -34,6 +34,16 @@ func add_player(player: Statics.PlayerData) -> void:
 	players_updated.emit()
 
 
+# Escenas locales de los jugadores que siguen vivos (los enemigos solo deben apuntar a estos).
+func get_alive_players() -> Array:
+	var alive := []
+	for player in players:
+		var scene = player.local_scene
+		if is_instance_valid(scene) and scene.vivo:
+			alive.append(scene)
+	return alive
+
+
 func remove_player(id: int) -> void:
 	for i in players.size():
 		if players[i].id == id:

@@ -20,38 +20,39 @@ func _ready() -> void:
 
 
 
+var _retarget_t := 0.0
+
 func _physics_process(delta: float) -> void:
-
-	#if _nav_agent.is_navigation_finished():
-	#	return
-	# Buscar el jugador más cercano
-	var closest = null
-	var closest_distance_squared = 0
-	for player in Game.players:
-		var player_distance_squared = (player.local_scene.global_position - global_position).length_squared()
-		if not closest or player_distance_squared < closest_distance_squared:
-			closest = player.local_scene
-			closest_distance_squared = player_distance_squared
-	if closest:
-		target_position = closest.global_position
-		_nav_agent.set_target_position(target_position)
-	
-	if not _nav_agent.is_navigation_finished():
-		var next_position := _nav_agent.get_next_path_position()
-		global_position = global_position.move_toward(next_position, delta * speed)
-		var offset := next_position - global_position
-		#Mira hacia donde camina
-		offset.y = 0
-		if not offset.is_zero_approx():
-			look_at(global_position + offset, Vector3.UP)
-			
-	if not multiplayer.is_server():
+	# Solo el servidor mueve al enemigo (siguiendo el navmesh); los clientes reciben position/rotation por sync.
+	if not multiplayer.is_server() or dead:
 		return
-	# Gravedad
-	if not is_on_floor():
-		velocity += get_gravity() * delta
 
-	move_and_slide()
+	_retarget_t -= delta
+	if _retarget_t <= 0.0:
+		_retarget_t = 0.2
+		var closest: Node3D = null
+		var closest_distance_squared := INF
+		for scene in Game.get_alive_players():
+			var d2 = scene.global_position.distance_squared_to(global_position)
+			if d2 < closest_distance_squared:
+				closest = scene
+				closest_distance_squared = d2
+		if closest:
+			target_position = closest.global_position
+			_nav_agent.set_target_position(target_position)
+		else:
+			# Sin jugadores vivos no hay objetivo: el enemigo se queda quieto.
+			_nav_agent.set_target_position(global_position)
+
+	if _nav_agent.is_navigation_finished():
+		return
+	var next_position := _nav_agent.get_next_path_position()
+	global_position = global_position.move_toward(next_position, delta * speed)
+	# Mira hacia donde camina
+	var offset := next_position - global_position
+	offset.y = 0
+	if not offset.is_zero_approx():
+		look_at(global_position + offset, Vector3.UP)
 
 
 func set_target_position(target_position: Vector3) -> void:
