@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://ckweyra3xsb43"]
 
-[ext_resource type="PackedScene" uid="uid://b4w10ru6fk4yu" path="res://scenes/Characters/carpincho_boss/Glasses.glb" id="1_sc0oj"]
+[ext_resource type="PackedScene" uid="uid://b4w10ru6fk4yu" path="res://scenes/Characters/carpincho_boss/glasses.glb" id="1_sc0oj"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1nsrw"]
 resource_name = "Material.012"

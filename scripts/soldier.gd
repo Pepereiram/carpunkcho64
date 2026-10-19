@@ -13,7 +13,12 @@ var kill_count = 0
 
 # stats modificables
 @export var speed_a = 10.0
-@export var Max_health = 100
+@export var Max_health = 100 :
+	set(value):
+		Max_health = value
+		# El servidor es quien maneja la vida real (Stats), asi que debe enterarse de la mejora de vida.
+		if stats and multiplayer.is_server():
+			stats.max_health = value
 @export var Damage = 30
 @export var attack_speed = 30
 
@@ -157,10 +162,6 @@ func _on_health_changed(health) -> void:
 	if health == 0 and vivo:
 		vivo = false
 		die()
-	if health == 100:
-		muelto.visible = false
-		model.visible = true
-		vivo = true
 
 #@rpc("reliable", "authority")
 #func notify_death():
@@ -180,9 +181,18 @@ func die() -> void:
 	vivo = false
 #	notify_death()
 
+# Se pide al servidor (rpc_id(1)); el servidor cura y avisa a todos los peers que el jugador revive.
 @rpc("call_local", "reliable", "any_peer")
 func resurrect():
+	if not multiplayer.is_server() or vivo:
+		return
 	stats.health = stats.max_health
+	_revive.rpc()
+
+@rpc("call_local", "reliable", "any_peer")
+func _revive():
+	muelto.visible = false
+	model.visible = true
 	vivo = true
 
 
@@ -196,8 +206,9 @@ func _on_dead_player_entered(body: Node) -> void:
 
 
 func _on_dead_player_exited(body: Node) -> void:
-	if body in _players_inside:
-		_players_inside.erase(body)
+	var player = body as Player
+	if player and player in _players_inside:
+		_players_inside.erase(player)
 
 func update_stats():
 	SPEED = speed_a
@@ -222,6 +233,7 @@ func get_upgrade_stat():
 		attack_speed += 10
 	else:
 		Debug.log("Error al mejorar")
+	mejoras.elegido = ""
 	# Obtener la variable elegido desde mejores
 
 
@@ -230,5 +242,7 @@ func generate_upgrade_stats():
 	mejoras.change_button_labels()
 
 func heal_player(amount) -> void:
+	if not vivo:
+		return
 	stats.health = min(stats.health + amount, stats.max_health)
 	#Debug.log("Player healed by " + str(amount))

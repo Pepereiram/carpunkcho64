@@ -3,7 +3,9 @@ extends Area3D
 @export var self_damage = false
 
 func _ready() -> void:
-	area_entered.connect(_on_area_entered)
+	# El dano a enemigos lo aplica solo el servidor; la vida se replica a los clientes.
+	if multiplayer.is_server():
+		area_entered.connect(_on_area_entered)
 
 
 func _on_area_entered(area: Area3D) -> void:

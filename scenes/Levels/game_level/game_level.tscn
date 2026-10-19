@@ -1006,7 +1006,7 @@ transform = Transform3D(0.754263, 0, 0.656573, 0, 1, 0, -0.656573, 0, 0.754263, 
 transform = Transform3D(0.754263, 0, 0.656573, 0, 1, 0, -0.656573, 0, 0.754263, -39.0416, 0.361845, 73.8179)
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://scenes/Characters/Carpinchos/carpincho.tscn", "res://scenes/Characters/carpincho_bomb/carpincho_bomb.tscn")
+_spawnable_scenes = PackedStringArray("res://scenes/Characters/Carpinchos/enemy_capy_1.tscn", "res://scenes/Characters/carpincho_bomb/carpincho_bomb.tscn", "res://scenes/Characters/carpincho_boss/carpincho_boss.tscn", "res://scenes/Characters/carpincho_boss/boss_bomb/boss_bomb.tscn", "res://scenes/Characters/Carpinchos/hp_pack.tscn")
 spawn_path = NodePath(".")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]

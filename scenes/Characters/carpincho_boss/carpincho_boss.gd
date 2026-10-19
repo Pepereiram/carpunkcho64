@@ -39,6 +39,10 @@ func _process(delta: float) -> void:
 	t_bomb += delta
 	$mesh/drone.rotate_y(drone_rotation_speed*delta)
 	
+	# La logica del jefe corre solo en el servidor; los clientes reciben posicion/vida replicadas.
+	if not multiplayer.is_server():
+		return
+	
 	if state == STATE_WANDER:
 		if t > 1:
 			var angle_delta = rng.randf_range(-PI/2, PI/2)
@@ -68,12 +72,11 @@ func _process(delta: float) -> void:
 				state = STATE_WANDER
 				
 	if t_bomb > 0.4:
-		var multiplayer_spawner = get_parent()
 		var bombInstance = bombScene.instantiate()
 		
 		add_collision_exception_with(bombInstance)
 		
-		bombInstance.global_transform.origin = global_transform.origin + Vector3(0, 1, 0)
+		bombInstance.position = global_position + Vector3(0, 1, 0)
 		
 		var closestPlayer = null
 		var minDistance = 1000
@@ -84,11 +87,10 @@ func _process(delta: float) -> void:
 				minDistance = distance
 				
 		bombInstance.direction = (closestPlayer.local_scene.global_position - global_transform.origin + Vector3(0, 1, 0)).normalized() 
-		multiplayer_spawner.add_child(bombInstance, true)
+		get_parent().add_child(bombInstance, true)
 		
 		t_bomb = 0
 		global_position.y = start_location.y
-		print($Stats.health)
 		
 				
 	#Debug.log(state)
@@ -96,6 +98,8 @@ func _process(delta: float) -> void:
 	#self.velocity = SPEED * direction;
 	
 func _physics_process(delta: float) -> void:
+	if not multiplayer.is_server():
+		return
 	self.velocity = SPEED * direction;
 	move_and_slide()
 	
@@ -104,33 +108,18 @@ func _physics_process(delta: float) -> void:
 func take_damage(damage: int) -> void:
 	stats.health -= damage
 
-# Ver si murió
+var dead := false
+
 func _on_health_changed(health) -> void:
-	if health <= 0:
+	if multiplayer.is_server() and health <= 0:
 		die()
 
-@rpc("reliable","any_peer","call_local")
+# Solo el servidor decide la muerte; al liberar el nodo el MultiplayerSpawner lo elimina en los clientes.
 func die():
-	if not is_multiplayer_authority():
-		return  # Solo el servidor maneja la lógica de muerte
-	
+	if not multiplayer.is_server() or dead:
+		return
+	dead = true
 	Debug.log("Muerte capy")
 	var game_level = get_parent().get_parent()
 	game_level.kill_count_round += 1
-
-	# Sincroniza la eliminación para todos los peers
-	rpc("remove_enemy_globally", get_path())
-
-@rpc("reliable", "authority")
-func request_die(enemy_path: NodePath):
-	Debug.log("Request die" + str(get_multiplayer_authority()))
-	var enemy = get_node_or_null(enemy_path)
-	if enemy:
-		enemy.die()
-
-@rpc("reliable", "any_peer", "call_local")
-func remove_enemy_globally(enemy_path: NodePath):
-	Debug.log("Removing capy" + str(get_multiplayer_authority()))
-	var enemy = get_node_or_null(enemy_path)
-	if enemy:
-		enemy.queue_free()
+	queue_free()

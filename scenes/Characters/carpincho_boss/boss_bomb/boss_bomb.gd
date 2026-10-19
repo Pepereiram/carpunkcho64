@@ -21,6 +21,9 @@ func _ready() -> void:
 	t = 0
 
 func _physics_process(delta: float) -> void:
+	# La simulacion corre solo en el servidor; los clientes reciben posicion replicada.
+	if not multiplayer.is_server():
+		return
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -39,20 +42,14 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	
 func _process(delta: float) -> void:
+	if not multiplayer.is_server():
+		return
 	t += delta
 	if t > fuse_time:
-		boom.play()
-		boom_3d.play()
-		var explosionInstance = explosionScene.instantiate()
-		explosionInstance.global_position = global_position
-		
-		var game_level = get_parent()
-		game_level.add_child(explosionInstance)
-		
-		var players_in_range = []
 		for player in Game.players:
 			var distance = global_position.distance_to(player.local_scene.global_position)
 			if distance < explosion_damage_radius:
 				player.local_scene.take_damage(explosion_damage)
 
+		get_parent().get_parent().spawn_explosions.rpc(PackedVector3Array([global_position]))
 		queue_free()

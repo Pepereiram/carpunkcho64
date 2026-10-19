@@ -16,7 +16,10 @@ func _process(delta: float) -> void:
 	burger.rotate_y(deg_to_rad(rotation_speed*delta))
 
 func _on_body_entered(body: Node) -> void:
-	if body is Player:  # Verifica si el objeto que entra es un Player
+	# Solo el servidor cura; al liberar el nodo el MultiplayerSpawner lo elimina en los clientes.
+	if not multiplayer.is_server():
+		return
+	if body is Player and body.vivo:  # Verifica si el objeto que entra es un Player
 		eat.play()
 		body.heal_player(HEAL)  # Llama a la función de curación del jugador
 		queue_free()  # Elimina el hp_pack después de usarse

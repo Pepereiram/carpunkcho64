@@ -52,6 +52,9 @@ properties/4/replication_mode = 2
 properties/5/path = NodePath(".:Max_health")
 properties/5/spawn = false
 properties/5/replication_mode = 2
+properties/6/path = NodePath(".:Damage")
+properties/6/spawn = false
+properties/6/replication_mode = 2
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_yo1pd"]
 

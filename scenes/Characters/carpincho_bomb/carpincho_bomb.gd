@@ -64,45 +64,46 @@ func set_target_position(target_position: Vector3) -> void:
 func take_damage(damage: int) -> void:
 	stats.health -= damage
 
-# Ver si murió
+var dead := false
+
 func _on_health_changed(health) -> void:
-	if health <= 0:
+	if multiplayer.is_server() and health <= 0:
 		die()
-		
+
+# Solo el servidor decide la explosion y el dano; los clientes solo ven el efecto visual.
 func explode() -> void:
-	var explosion1 = explosionScene.instantiate()
-	explosion1.global_position = $explosion_locations/loc1.global_position
-	
-	#player_inst.global_position = playerMarkers.get_child(i).global_position
-	var explosion2 = explosionScene.instantiate()
-	explosion2.global_position = $explosion_locations/loc2.global_position
-	
+	if not multiplayer.is_server() or dead:
+		return
 	var game_level = get_parent().get_parent()
-	game_level.get_node("MultiplayerSpawner").add_child(explosion1, true)
-	game_level.get_node("MultiplayerSpawner").add_child(explosion2, true)
-	
-	
-	var players_in_range = []
+	game_level.spawn_explosions.rpc(PackedVector3Array([
+		$explosion_locations/loc1.global_position,
+		$explosion_locations/loc2.global_position,
+	]))
+
 	for player in Game.players:
 		var distance = global_position.distance_to(player.local_scene.global_position)
 		if distance < explosion_damage_radius:
 			player.local_scene.take_damage(explosion_damage)
-			
+
 	die()
-		
+
 func _process(delta: float) -> void:
+	if not multiplayer.is_server() or dead:
+		return
 	for player in Game.players:
 		var distance = global_position.distance_to(player.local_scene.global_position)
 		if distance < explosion_detection_radius:
 			Debug.log('explota')
 			explode()
+			return
 
 
-@rpc("reliable","any_peer","call_local")
+# Solo el servidor maneja la muerte; al liberar el nodo el MultiplayerSpawner lo elimina en los clientes.
 func die():
-	Debug.log("Muerte capy")
-	if is_multiplayer_authority():
-		var game_level = get_parent().get_parent()
-		game_level.kill_count_round +=1
-		Debug.log("KC: " + str(game_level.kill_count_round))
+	if not multiplayer.is_server() or dead:
+		return
+	dead = true
+	var game_level = get_parent().get_parent()
+	game_level.kill_count_round += 1
+	Debug.log("KC: " + str(game_level.kill_count_round))
 	queue_free()
